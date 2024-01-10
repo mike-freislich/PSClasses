@@ -63,4 +63,4 @@ private:
     uint32_t _duration; 
     bool _running = false;
 
-} timer1(1000);
+} timer1(100), timer2(200), timer3(300);

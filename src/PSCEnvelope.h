@@ -7,7 +7,7 @@ class PSCEnvelope : PSComponent
 {
 public:
     PSParameter *attack, *hold, *decay, *sustain, *release, *amount;
-    PSCEnvelope()
+    PSCEnvelope(string key) : PSComponent(key)
     {
         attack = this->addParameter(new PSParameter("atk"));
         hold = this->addParameter(new PSParameter("hld"));
@@ -31,6 +31,11 @@ public:
         this->sustain->setValue(sustain);
         this->release->setValue(release);
         this->amount->setValue(amount);
+    }
+
+    string toString()
+    {
+        return PSComponent::toString();
     }
 
 private:

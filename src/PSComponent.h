@@ -1,15 +1,17 @@
 #pragma once
-
 #include "PSParameter.h"
 #include <vector>
+
+using namespace std;
 
 class PSComponent
 {
 public:
     PSParameterVector values;
 
-    PSComponent()
+    PSComponent(string key)
     {
+        _key = key;
     }
 
     PSParameter *addParameter(PSParameter *p)
@@ -26,14 +28,24 @@ public:
         }
     }
 
-    // void setValue(uint8_t value)
-    // {
-    //     this->value = value;
-    // }
-    // uint8_t getValue()
-    // {
-    //     return this->value;
-    // }
+    string getKey()
+    {
+        return _key;
+    }
+
+    virtual string toString()
+    {
+        string result = "@" + _key + "{";
+        for (auto p : values)
+        {
+            result += p->toString();            
+        }
+        result += "}";
+        return result;
+    }
 
 protected:
+    string _key;
 };
+
+typedef vector<PSComponent *> PSComponentVector;

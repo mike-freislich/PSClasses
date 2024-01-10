@@ -15,10 +15,9 @@ public:
 
     PSController *addController(PSController *controller)
     {
-        for (auto c : controls)
-            if (c->getKey() == controller->getKey())
-                return nullptr;
-        
+        if (byKey(controller->getKey()) != nullptr)
+            return nullptr;
+
         controls.push_back(controller);
         return controller;
     }
@@ -30,13 +29,6 @@ public:
             if (c->getKey() == key)
                 return c;
         }
-        return nullptr;
-    }
-
-    PSController *byIndex(int index)
-    {
-        if (index < controls.size())
-            return controls[index];
         return nullptr;
     }
 

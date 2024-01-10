@@ -53,6 +53,11 @@ public:
         return changed;
     }
 
+    string toString()
+    {
+        return "{" + _key + "," + to_string(_value) + "}";
+    }
+
 protected:
     float _value, _max, _min;
     string _key;
