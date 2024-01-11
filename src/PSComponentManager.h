@@ -46,5 +46,13 @@ public:
         return (PSCEnvelope *)c;
     }
 
+    void update()
+    {
+        for (auto c : components)
+        {
+            c->update();
+        }
+    }
+
 private:
-} componentManager;
+} Components;

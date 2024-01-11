@@ -15,7 +15,7 @@ public:
     }
 
     PSParameter *addParameter(PSParameter *p)
-    {
+    {                   
         values.push_back(p);
         return p;
     }
@@ -46,6 +46,7 @@ public:
 
 protected:
     string _key;
+    float min, max;
 };
 
 typedef vector<PSComponent *> PSComponentVector;

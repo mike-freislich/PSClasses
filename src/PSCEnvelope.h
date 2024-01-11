@@ -3,7 +3,7 @@
 #include "PSComponent.h"
 #include "PSParameter.h"
 
-class PSCEnvelope : PSComponent
+class PSCEnvelope : public PSComponent
 {
 public:
     PSParameter *attack, *hold, *decay, *sustain, *release, *amount;
@@ -18,12 +18,12 @@ public:
     }
     ~PSCEnvelope() {}
 
-    void attachController(PSParameter *parameter, PSController *controller)
-    {
-        parameter->attachController(controller);
-    }
+    // void attachController(PSParameter *parameter, PSController *controller)
+    // {
+    //     parameter->attachController(controller);
+    // }
 
-    void setValues(float attack, float hold, float decay, float sustain, float release, float amount)
+    void setValues(float attack, float hold, float decay, float sustain, float release, float amount = 1.0f)
     {
         this->attack->setValue(attack);
         this->hold->setValue(hold);
@@ -31,11 +31,6 @@ public:
         this->sustain->setValue(sustain);
         this->release->setValue(release);
         this->amount->setValue(amount);
-    }
-
-    string toString()
-    {
-        return PSComponent::toString();
     }
 
 private:

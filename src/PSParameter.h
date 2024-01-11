@@ -16,7 +16,7 @@ public:
     void setValue(float val) { _value = val; }
 
     void attachController(PSController *controller)
-    {
+    {        
         _controllers.push_back(controller);
     }
 
@@ -24,7 +24,7 @@ public:
     {
         if (controller)
         {
-            for (int i = 0; i < _controllers.size(); i ++)
+            for (int i = 0; i < _controllers.size(); i++)
             {
                 PSController *c = _controllers[i];
                 if (c->getKey() == controller->getKey())
