@@ -48,10 +48,8 @@ public:
 
     void update()
     {
-        for (auto c : components)
-        {
-            c->update();
-        }
+        for (auto c : components)        
+            c->update();        
     }
 
 private:

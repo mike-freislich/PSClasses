@@ -21,11 +21,9 @@ public:
     }
 
     void update()
-    {
-        for (auto p : values)
-        {
-            p->update();
-        }
+    {        
+        for (auto p : values)        
+            p->update();        
     }
 
     string getKey()

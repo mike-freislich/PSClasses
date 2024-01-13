@@ -9,7 +9,7 @@ void loop();
 void beginLoop();
 
 int main()
-{
+{    
     printf("Starting Main\n");
     setup();
     beginLoop();    
@@ -18,12 +18,9 @@ int main()
 
 int loopCount = 0;
 void beginLoop()
-{
-    
+{   
     while (loopCount < 10)
-    {
         loop();        
-    }
 }
 
 long map(long x, long in_min, long in_max, long out_min, long out_max) {
@@ -37,3 +34,4 @@ long map(long x, long in_min, long in_max, long out_min, long out_max) {
     // Calculates and returns the mapped value
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
+

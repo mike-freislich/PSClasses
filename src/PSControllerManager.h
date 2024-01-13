@@ -12,7 +12,9 @@ class PSControllerManager
 {
 public:
     PSControllerVector controls;
-    PSControllerManager() {}
+    PSControllerManager() {
+        setup();
+    }
 
     /**
      * @brief
@@ -25,6 +27,7 @@ public:
         addController(new PSCTPotentiometer("pot2", 2));
         addController(new PSCTPotentiometer("pot3", 3));
         addController(new PSCTPotentiometer("pot4", 4));
+
         // Controllers.addController(new PSController("CC67"));
         // Controllers.addController(new PSController("CC68"));
     }
@@ -47,10 +50,8 @@ public:
     PSController *byKey(string key)
     {
         for (auto c : controls)
-        {
             if (c->getKey() == key)
                 return c;
-        }
         return nullptr;
     }
 
@@ -65,6 +66,11 @@ public:
     {
         for (auto c : controls)
             c->update();
+    }
+
+    void endUpdate() {
+        for (auto c : controls)
+            c->endUpdate();
     }
 
 private:
