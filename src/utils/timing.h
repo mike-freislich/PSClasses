@@ -58,6 +58,8 @@ public:
         return false;        
     }
 
+    bool isRunning() { return _running; }
+
 private:
     uint32_t _start;   
     uint32_t _duration; 

@@ -1,0 +1,33 @@
+{
+    "configurations": [
+        {
+            "name": "TestSynth",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src",
+                "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/components",
+                "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/controllers",
+                "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/view",
+                "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/model"                  
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/**",
+                    "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src",
+                    "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/components",
+                    "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/controllers",
+                    "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/view",
+                    "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/model"                   
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
+}

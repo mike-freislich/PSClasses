@@ -1,13 +1,9 @@
 #pragma once
-
 #include <iostream>
 #include <vector>
-#include "PSController.h"
-// #include "FastMath.h"
+#include "../controllers/PSController.h"
 
-using namespace std;
-
-class PSParameter
+class PSParameter: public PSObject
 {
 public:
     enum TAPER
@@ -16,7 +12,7 @@ public:
         LOGARITHMIC
     };
 
-    PSParameter(string key) : _key(key) {}
+    PSParameter(const PSKeys &key, const std::string &name) : PSObject(key, name) {}
 
     float getValue()
     {
@@ -25,7 +21,6 @@ public:
         return getValueLog();
     }
 
-    string getKey() { return _key; }
     void setValue(float val) { _value = val; }
 
     PSParameter * attachController(PSController *controller)
@@ -40,8 +35,8 @@ public:
         {
             for (int i = 0; i < _controllers.size(); i++)
             {
-                PSController *c = _controllers[i];
-                if (c->getKey() == controller->getKey())
+                PSController *c = _controllers[i];        
+                if (c->key == controller->key)
                 {
                     _controllers.erase(_controllers.begin() + i);
                     break;
@@ -65,10 +60,7 @@ public:
         return changed;
     }
 
-    string toString()
-    {
-        return "{" + _key + "," + to_string(_value) + "}";
-    }
+    string toString() { return "{" + name + "," + to_string(_value) + "}"; }
 
     PSParameter *setRange(float minV, float maxV)
     {
@@ -87,8 +79,7 @@ public:
 
 protected:
     float _value, _max, _min, _range;
-    TAPER _taper = LINEAR;
-    string _key;
+    TAPER _taper = LINEAR;    
     PSControllerVector _controllers;
 
     float convertToAudio(float linearValue, float linearMin, float linearMax, float audioMin = 0, float audioMax = 0, float exponent = 2.0f)

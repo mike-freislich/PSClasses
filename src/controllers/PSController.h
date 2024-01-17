@@ -1,16 +1,19 @@
 #pragma once
 #include <vector>
+#include "../model/PSKeys.h"
 
 using namespace std;
 
-class PSController
+class PSController : public PSObject
 {
 public:
-    PSController(string key, float minV = 0, float maxV = 127, bool allowRandom = false)
-        : _key(key), _allowRandom(allowRandom)
-    {
+    PSController(const PSKeys &key, const std::string &name, float minV = 0, float maxV = 127, bool allowRandom = false)
+        : _allowRandom(allowRandom), PSObject(key, name)
+    {        
         setValueRange(minV, maxV);
-    };
+        _allowRandom = true;
+        
+    }
 
     bool didChange() { return _changed; }
 
@@ -19,11 +22,12 @@ public:
     virtual void update() { readValue(); }
     void endUpdate() { _changed = false; }
 
-    virtual string getKey() { return _key; }
+    virtual PSKeys getKey() { return key; }
 
     PSController *setPin(uint8_t pin)
     {
         _pin = pin;
+        printf("hardware pin : %s to %d\n", name.c_str(), pin);
         // TODO hardware setup
         return this;
     }
@@ -69,8 +73,7 @@ protected:
     }
 
 private:
-    bool _allowRandom = false;
-    string _key;
+    bool _allowRandom = false;    
 };
 
 typedef vector<PSController *> PSControllerVector;

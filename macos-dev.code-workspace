@@ -61,8 +61,8 @@
 			"algorithm": "cpp",
 			"thread": "cpp"
 		},
-		"stm32-for-vscode.openOCDPath": false,
-		"stm32-for-vscode.armToolchainPath": false,
+		"stm32-for-vscode.openOCDPath": "false",
+		"stm32-for-vscode.armToolchainPath": "false",
 		"workbench.colorTheme": "Default Dark Modern"
 	}
 }
