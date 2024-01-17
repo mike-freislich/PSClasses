@@ -26,7 +26,7 @@ public:
     {
         _pin = pin;
         printf("hardware pin : %s to %d\n", name.c_str(), pin);
-        // TODO hardware setup
+        // TODO implement hardware setup
         return this;
     }
 
@@ -47,9 +47,9 @@ public:
     }
 
 protected:
-    bool _changed = false;
+    bool _changed;
     float _value, _min, _max, _range;    
-    uint8_t _pin = 0;
+    uint8_t _pin;
 
     virtual void readValue()
     {

@@ -3,12 +3,10 @@
 #include "../controllers/PSController.h"
 #include <vector>
 
-using namespace std;
-
 struct PSControllerMap {
     PSKeys key;
     PSController *controller;
     PSControllerMap(const PSKeys &k, PSController *c) : key(k), controller(c) {}
 };
 
-typedef vector<PSControllerMap> PSControllerMapVector;
+typedef std::vector<PSControllerMap> PSControllerMapVector;

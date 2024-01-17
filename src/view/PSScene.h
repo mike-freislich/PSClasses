@@ -7,7 +7,7 @@ using namespace std;
 class PSScene : public PSObject
 {
 public:
-    PSScene(const PSKeys &key, const std::string &name,  PSComponent *component) : PSObject(key, name)
+    PSScene(const PSKeys &key, const std::string &name,  PSModule *component) : PSObject(key, name)
     {
         addComponent(component);
     }
@@ -22,7 +22,7 @@ public:
     void activate() { _active = true; }
     void deactivate() { _active = false; }
     void addParameter(PSParameter *param) { _params.push_back(param); }
-    void addComponent(PSComponent *c)
+    void addComponent(PSModule *c)
     {
         if (c)
             _components.addItem(c);

@@ -2,15 +2,15 @@
 #include <string>
 #include "PSController.h"
 
-class PSCTPotentiometer : public PSController
+class PSCPotentiometer : public PSController
 {
 public:
-    PSCTPotentiometer(const PSKeys &key, const std::string &name) : PSController(key, name, 10, 1010)
+    PSCPotentiometer(const PSKeys &key, const std::string &name) : PSController(key, name, 10, 1010)
     {             
         setPin(key);
     }
 
-    ~PSCTPotentiometer() override {}
+    ~PSCPotentiometer() override {}
 
 private:
 };

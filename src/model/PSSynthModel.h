@@ -1,12 +1,12 @@
 #pragma once
-#include "../components/PSComponentManager.h"
+#include "../modules/PSModuleManager.h"
 #include "../controllers/PSControllerManager.h"
 #include "../view/PSSceneManager.h"
 
 class PSSynthModel
 {
 public:
-    PSComponentManager components;
+    PSModuleManager components;
     PSControllerManager controllers;
     PSSceneManager scenes;
 
@@ -35,27 +35,27 @@ public:
 private:
     void initComponents()
     {
-        components.addItem(new PSCEnvelope(COMP_PENVa, "PENV_a")); // Voice part A : pitch env
-        components.addItem(new PSCEnvelope(COMP_AENVa, "AENV_a")); // v1 part A : amp env
-        components.addItem(new PSCEnvelope(COMP_FENVa, "FENV_a")); // v1 part A : filter env
-        components.addItem(new PSCEnvelope(COMP_PENVb, "PENV_b")); // v1 part B : pitch env
-        components.addItem(new PSCEnvelope(COMP_AENVb, "AENV_b")); // v1 part B : amp env
-        components.addItem(new PSCEnvelope(COMP_FENVb, "FENV_b")); // v1 part B : filter env
+        components.addItem(new PSCEnvelope(MOD_PENVa, "PENV_a")); // Voice part A : pitch env
+        components.addItem(new PSCEnvelope(MOD_AENVa, "AENV_a")); // v1 part A : amp env
+        components.addItem(new PSCEnvelope(MOD_FENVa, "FENV_a")); // v1 part A : filter env
+        components.addItem(new PSCEnvelope(MOD_PENVb, "PENV_b")); // v1 part B : pitch env
+        components.addItem(new PSCEnvelope(MOD_AENVb, "AENV_b")); // v1 part B : amp env
+        components.addItem(new PSCEnvelope(MOD_FENVb, "FENV_b")); // v1 part B : filter env
     }
 
     void initControllers()
     {
-        controllers.addItem(new PSCTPotentiometer(CTRL_POT1, "pot1"));
-        controllers.addItem(new PSCTPotentiometer(CTRL_POT2, "pot2"));
-        controllers.addItem(new PSCTPotentiometer(CTRL_POT3, "pot3"));
-        controllers.addItem(new PSCTPotentiometer(CTRL_POT4, "pot4"));
-        controllers.addItem(new PSCTPotentiometer(CTRL_POT5, "pot5"));
-        controllers.addItem(new PSCTPotentiometer(CTRL_POT6, "pot6"));
+        controllers.addItem(new PSCPotentiometer(CTRL_POT1, "pot1"));
+        controllers.addItem(new PSCPotentiometer(CTRL_POT2, "pot2"));
+        controllers.addItem(new PSCPotentiometer(CTRL_POT3, "pot3"));
+        controllers.addItem(new PSCPotentiometer(CTRL_POT4, "pot4"));
+        controllers.addItem(new PSCPotentiometer(CTRL_POT5, "pot5"));
+        controllers.addItem(new PSCPotentiometer(CTRL_POT6, "pot6"));
     }
 
     void initControllerMappings()
     {        
-        components.getEnvelope(COMP_PENVa)
+        components.getEnvelope(MOD_PENVa)
             ->attachControllers(
                 {{PARM_ENV_ATTACK, controllers.controller(CTRL_POT1)},                 
                  {PARM_ENV_HOLD, controllers.controller(CTRL_POT2)},

@@ -3,22 +3,22 @@
 #include "../model/PSParameter.h"
 #include "../model/PSObjectCollection.h"
 
-class PSComponent : public PSObject
+class PSModule : public PSObject, public PSObjectCollection
 {
 public:
-    PSObjectCollection parameters;
-    PSComponent(const PSKeys &key, const std::string name) : PSObject(key, name) {}
-    ~PSComponent() override {}
+    //PSObjectCollection parameters;
+    PSModule(const PSKeys &key, const std::string name) : PSObject(key, name), PSObjectCollection() {}
+    ~PSModule() override {}
 
     PSParameter *addParameter(PSParameter *p)
     {        
-        parameters.addItem(p);
+        addItem(p);
         return p;
     }
 
     void update()
     {
-        for (auto i : parameters.items)
+        for (auto i : items)
             ((PSParameter *)i.second)->update();
     }
 
@@ -26,7 +26,7 @@ public:
     {
         std::string result = "@" + name + "{";
         
-        for (auto i : parameters.items)
+        for (auto i : items)
             result += ((PSParameter *)i.second)->toString();
 
         result += "}";

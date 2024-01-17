@@ -1,15 +1,15 @@
 #pragma once
-#include "PSCEnvelope.h"
+#include "PSMEnvelope.h"
 
-class PSComponentManager : public PSObjectCollection
+class PSModuleManager : public PSObjectCollection
 {
 public:
-    ~PSComponentManager() override {}
+    ~PSModuleManager() override {}
 
     void update()
     {
         for (auto &entry : items)
-            ((PSComponent *)entry.second)->update();
+            ((PSModule *)entry.second)->update();
     }
 
     PSController *controller(const PSKeys &key) { return getItem<PSController>(key); }

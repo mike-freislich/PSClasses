@@ -2,9 +2,9 @@
 #include "model/PSSynthModel.h"
 
 /**
- * PSComponent contains 1 or more PSParameter
+ * PSModule contains 1 or more PSParameter
  * PSParameter attaches 1 or more PSControllers
- * PSComponent.update() calls update on all parameters which checks if any controllers have changed
+ * PSModule.update() calls update on all parameters which checks if any controllers have changed
  * PSController.update() reads new values from the input device and flags if the value has changed
  */
 
@@ -20,7 +20,7 @@ void loop()
     {
 
         synth.update();
-        printf("%s\n", synth.components.getItem<PSCEnvelope>(COMP_PENVa)->toString().c_str());
+        printf("%s\n", synth.components.getItem<PSCEnvelope>(MOD_PENVa)->toString().c_str());
         loopCount++;
     }
     delay(10);

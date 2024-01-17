@@ -1,22 +1,28 @@
 #pragma once
 
+/**
+ * @brief PSKeys is an enum containing all key-identifier for modules, parameters, controllers and scenes
+ * 
+ */
 enum PSKeys
 {
-#pragma region COMPONENTS
-    // ---------------------- COMPONENTS ----------------------
+#pragma region MODULES
+    // ---------------------- MODULES ----------------------
     // Part A
-    COMP_LFO1a,
-    COMP_LFO2a,
-    COMP_PENVa,
-    COMP_AENVa,
-    COMP_FENVa,
+    MOD_LFO1a,
+    MOD_LFO2a,
+    MOD_PENVa,
+    MOD_AENVa,
+    MOD_FENVa,
+    MOD_VCFa,
 
     // Part B
-    COMP_LFO1b,
-    COMP_LFO2b,
-    COMP_PENVb,
-    COMP_AENVb,
-    COMP_FENVb,
+    MOD_LFO1b,
+    MOD_LFO2b,
+    MOD_PENVb,
+    MOD_AENVb,
+    MOD_FENVb, 
+    MOD_VCFb,       
 
 #pragma endregion
 
@@ -34,6 +40,11 @@ enum PSKeys
     PARM_LFO_SHAPE,
     PARM_LFO_FREQ,
     PARM_LFO_LEVEL,
+
+    // Ring Modulation
+    PARM_RING_LEVEL,
+    PARM_RING_FREQ,
+    PARM_RING_WAVE,
 #pragma endregion
 
 #pragma region CONTROLLERS
