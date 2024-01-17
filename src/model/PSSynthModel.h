@@ -6,7 +6,7 @@
 class PSSynthModel
 {
 public:
-    PSModuleManager components;
+    PSModuleManager modules;
     PSControllerManager controllers;
     PSSceneManager scenes;
 
@@ -14,7 +14,7 @@ public:
 
     void initialise()
     {
-        initComponents();
+        initModules();
         initControllers();
         initControllerMappings();
         initScenes();
@@ -22,25 +22,25 @@ public:
     }
 
     /**
-     * @brief updates controllers, components and scenes
+     * @brief updates controllers, modules and scenes
      */
     void update()
     {
         controllers.update();
-        components.update();
+        modules.update();
         controllers.endUpdate();
         scenes.render();
     }
 
 private:
-    void initComponents()
+    void initModules()
     {
-        components.addItem(new PSCEnvelope(MOD_PENVa, "PENV_a")); // Voice part A : pitch env
-        components.addItem(new PSCEnvelope(MOD_AENVa, "AENV_a")); // v1 part A : amp env
-        components.addItem(new PSCEnvelope(MOD_FENVa, "FENV_a")); // v1 part A : filter env
-        components.addItem(new PSCEnvelope(MOD_PENVb, "PENV_b")); // v1 part B : pitch env
-        components.addItem(new PSCEnvelope(MOD_AENVb, "AENV_b")); // v1 part B : amp env
-        components.addItem(new PSCEnvelope(MOD_FENVb, "FENV_b")); // v1 part B : filter env
+        modules.addItem(new PSCEnvelope(MOD_PENVa, "PENV_a")); // Voice part A : pitch env
+        modules.addItem(new PSCEnvelope(MOD_AENVa, "AENV_a")); // v1 part A : amp env
+        modules.addItem(new PSCEnvelope(MOD_FENVa, "FENV_a")); // v1 part A : filter env
+        modules.addItem(new PSCEnvelope(MOD_PENVb, "PENV_b")); // v1 part B : pitch env
+        modules.addItem(new PSCEnvelope(MOD_AENVb, "AENV_b")); // v1 part B : amp env
+        modules.addItem(new PSCEnvelope(MOD_FENVb, "FENV_b")); // v1 part B : filter env
     }
 
     void initControllers()
@@ -55,7 +55,7 @@ private:
 
     void initControllerMappings()
     {        
-        components.getEnvelope(MOD_PENVa)
+        modules.getEnvelope(MOD_PENVa)
             ->attachControllers(
                 {{PARM_ENV_ATTACK, controllers.controller(CTRL_POT1)},                 
                  {PARM_ENV_HOLD, controllers.controller(CTRL_POT2)},

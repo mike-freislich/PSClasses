@@ -25,7 +25,7 @@ public:
 
     /**
      * @brief Resets all the controllers changed values to "not changed"
-     * Called after components have checked to see if their parameters have changed.
+     * Called after modules have checked to see if their parameters have changed.
      */
     void endUpdate() {
         for (auto c : items)

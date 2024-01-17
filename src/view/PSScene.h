@@ -7,9 +7,9 @@ using namespace std;
 class PSScene : public PSObject
 {
 public:
-    PSScene(const PSKeys &key, const std::string &name,  PSModule *component) : PSObject(key, name)
+    PSScene(const PSKeys &key, const std::string &name,  PSModule *module) : PSObject(key, name)
     {
-        addComponent(component);
+        addModule(module);
     }
 
     ~PSScene() override {}
@@ -22,10 +22,10 @@ public:
     void activate() { _active = true; }
     void deactivate() { _active = false; }
     void addParameter(PSParameter *param) { _params.push_back(param); }
-    void addComponent(PSModule *c)
+    void addModule(PSModule *c)
     {
         if (c)
-            _components.addItem(c);
+            _modules.addItem(c);
     }
 
     virtual void render()
@@ -42,6 +42,6 @@ public:
 
 protected:
     PSParameterVector _params;
-    PSObjectCollection _components;
+    PSObjectCollection _modules;
     bool _active;
 };

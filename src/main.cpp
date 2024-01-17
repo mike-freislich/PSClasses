@@ -20,7 +20,7 @@ void loop()
     {
 
         synth.update();
-        printf("%s\n", synth.components.getItem<PSCEnvelope>(MOD_PENVa)->toString().c_str());
+        printf("%s\n", synth.modules.getItem<PSCEnvelope>(MOD_PENVa)->toString().c_str());
         loopCount++;
     }
     delay(10);

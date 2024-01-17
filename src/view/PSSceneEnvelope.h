@@ -12,7 +12,7 @@ public:
 
     PSSceneEnvelope *setEnvelope(PSCEnvelope *e) 
     {         
-        addComponent(e);            
+        addModule(e);            
         return this;
     }
 
