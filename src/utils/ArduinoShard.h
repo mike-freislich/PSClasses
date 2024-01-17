@@ -2,8 +2,6 @@
 #include <cstdio>
 #include "timing.h"
 
-
-using namespace std;
 void setup();
 void loop();
 void beginLoop();

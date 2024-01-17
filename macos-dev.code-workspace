@@ -63,6 +63,6 @@
 		},
 		"stm32-for-vscode.openOCDPath": "false",
 		"stm32-for-vscode.armToolchainPath": "false",
-		"workbench.colorTheme": "Default Dark Modern"
+		"workbench.colorTheme": "Default Light Modern"
 	}
 }

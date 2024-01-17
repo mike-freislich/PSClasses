@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "../controllers/PSController.h"
 
 class PSParameter: public PSObject
@@ -60,14 +61,14 @@ public:
         return changed;
     }
 
-    string toString() { return "{" + name + "," + to_string(_value) + "}"; }
+    std::string toString() { return "{" + name + "," + std::to_string(_value) + "}"; }
 
     PSParameter *setRange(float minV, float maxV)
     {
         _min = minV;
         _max = maxV;
-        _range = _max - _min;
-        _value = clamp(_value, _min, _max);
+        _range = _max - _min;        
+        _value = std::clamp(_value, _min, _max);
         return this;
     }
 
@@ -90,7 +91,7 @@ protected:
             audioMin = linearMin;
         }
         // Ensure linearValue is within the specified range
-        linearValue = max(min(linearValue, linearMax), linearMin);
+        linearValue = std::max(std::min(linearValue, linearMax), linearMin);
 
         // Perform the conversion using the formula
         float audioValue = audioMin + (audioMax - audioMin) * std::pow((linearValue - linearMin) / (linearMax - linearMin), exponent);
@@ -101,4 +102,4 @@ protected:
     float getValueLog() { return convertToAudio(_value, _min, _max); }
 };
 
-typedef vector<PSParameter *> PSParameterVector;
+typedef std::vector<PSParameter *> PSParameterVector;

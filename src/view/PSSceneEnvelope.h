@@ -17,5 +17,5 @@ public:
     }
 
 private:
-    PSCEnvelope *envelope;
+    //PSCEnvelope *envelope;
 };

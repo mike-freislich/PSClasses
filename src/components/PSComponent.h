@@ -7,7 +7,7 @@ class PSComponent : public PSObject
 {
 public:
     PSObjectCollection parameters;
-    PSComponent(const PSKeys &key, const string name) : PSObject(key, name) {}
+    PSComponent(const PSKeys &key, const std::string name) : PSObject(key, name) {}
     ~PSComponent() override {}
 
     PSParameter *addParameter(PSParameter *p)
@@ -22,9 +22,9 @@ public:
             ((PSParameter *)i.second)->update();
     }
 
-    virtual string toString()
+    virtual std::string toString()
     {
-        string result = "@" + name + "{";
+        std::string result = "@" + name + "{";
         
         for (auto i : parameters.items)
             result += ((PSParameter *)i.second)->toString();

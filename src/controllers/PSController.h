@@ -2,8 +2,6 @@
 #include <vector>
 #include "../model/PSKeys.h"
 
-using namespace std;
-
 class PSController : public PSObject
 {
 public:
@@ -73,7 +71,7 @@ protected:
     }
 
 private:
-    bool _allowRandom = false;    
+    bool _allowRandom;    
 };
 
-typedef vector<PSController *> PSControllerVector;
+typedef std::vector<PSController *> PSControllerVector;
