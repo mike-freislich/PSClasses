@@ -29,17 +29,8 @@ public:
     }
 
     virtual ~PSObjectCollection()
-    {
-        printf("Freeing memory : ");
-
+    {        
         for (auto entry : items)
             delete entry.second;
-
-        printf("\n");
-    }
-
-    void test()
-    {
-                
     }
 };
