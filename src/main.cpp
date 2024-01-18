@@ -1,4 +1,5 @@
 #include "utils/ArduinoShard.h"
+#include "utils/timing.h"
 #include "model/PSSynthModel.h"
 
 #define DEBUG
@@ -13,6 +14,7 @@
 void setup()
 {
     synth.initialise();
+    timer1.duration(5);
     timer1.start();
 }
 
@@ -20,12 +22,11 @@ void loop()
 {
     if (timer1.update())
     {
-
         synth.update();
 #ifdef DEBUG
-        printf("%s\n", synth.modules.getItem<PSMEnvelope>(MOD_PENVa)->toString().c_str());
+        //printf("%s\n", synth.modules.getItem<PSMEnvelope>(MOD_PENVa)->toString().c_str());
 #endif
         loopCount++;
     }
-    delay(10);
+    delay(1);
 }

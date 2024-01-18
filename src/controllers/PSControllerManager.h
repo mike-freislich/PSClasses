@@ -1,12 +1,12 @@
 #pragma once
-#include "PSCTPotentiometer.h"
+#include "PSCPotentiometer.h"
 #include "PSController.h"
 
 class PSControllerManager : public PSObjectCollection
 {
 public:
     PSControllerManager() : PSObjectCollection() {}
-    ~PSControllerManager() override {}
+    ~PSControllerManager() override  {}
 
     PSController *controller(const PSKeys &key) { return getItem<PSController>(key); }
 

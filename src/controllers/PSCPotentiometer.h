@@ -10,7 +10,9 @@ public:
         setPin(key);
     }
 
-    ~PSCPotentiometer() override {}
+    ~PSCPotentiometer() override { 
+        //PSController::~PSController(); 
+        }
 
 private:
 };

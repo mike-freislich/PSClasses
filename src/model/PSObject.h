@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 #include "PSKeys.h"
+#include "../controllers/PSAllControllers.h"
+
+uint16_t PSObjectCount = 0;
 
 class PSObject
 {
@@ -8,11 +11,18 @@ public:
     std::string name;
     PSKeys key;
 
-    PSObject(const PSKeys &key, const std::string &name) : key(key), name(name) {}
+    PSObject(const PSKeys &key, const std::string &name) : key(key), name(name) {
+        PSObjectCount ++;      
+        printf("PSObject [%s] added : %d PSObjects in memory\n", name.c_str(), PSObjectCount);
+    }
 
     virtual ~PSObject() {
-        printf("%s, ", name.c_str());
+        PSObjectCount --;
+        printf("PSObject [%s] freed : %d PSObjects in memory\n", name.c_str(), PSObjectCount);        
     }
+    //PSController *asController() { return static_cast<PSController *>(this); }
+
+
 };
 
 /*

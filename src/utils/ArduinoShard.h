@@ -19,7 +19,7 @@ int main()
 int loopCount = 0;
 void beginLoop()
 {   
-    while (loopCount < 10)
+    while (loopCount < 100)
         loop();      
 
     // printf("DONE : pause for review\n");

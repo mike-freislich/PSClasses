@@ -7,13 +7,10 @@
 class PSParameter: public PSObject
 {
 public:
-    enum TAPER
-    {
-        LINEAR,
-        LOGARITHMIC
-    };
+    enum TAPER { LINEAR, LOGARITHMIC };
 
     PSParameter(const PSKeys &key, const std::string &name) : PSObject(key, name) {}
+    virtual ~PSParameter() override {}        
 
     float getValue()
     {

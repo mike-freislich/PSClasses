@@ -2,6 +2,8 @@
 #include <vector>
 #include "../model/PSKeys.h"
 
+
+
 class PSController : public PSObject
 {
 public:
@@ -9,8 +11,11 @@ public:
         : _allowRandom(allowRandom), PSObject(key, name)
     {        
         setValueRange(minV, maxV);
-        _allowRandom = true;
-        
+        _allowRandom = true;         
+    }
+
+    virtual ~PSController() override {        
+        //PSObject::~PSObject();
     }
 
     bool didChange() { return _changed; }

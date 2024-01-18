@@ -1,13 +1,14 @@
 #pragma once
 #include "../model/PSParameter.h"
 #include "../model/PSKeys.h"
+#include "../utils/timing.h"
 
 using namespace std;
 
 class PSScene : public PSObject
 {
 public:
-    PSScene(const PSKeys &key, const std::string &name,  PSModule *module) : PSObject(key, name)
+    PSScene(const PSKeys &key, const std::string &name, PSModule *module) : PSObject(key, name)
     {
         addModule(module);
     }
@@ -19,29 +20,66 @@ public:
         // TODO - implement display
     }
 
-    void activate() { _active = true; }
-    void deactivate() { _active = false; }
-    void addParameter(PSParameter *param) { _params.push_back(param); }
-    void addModule(PSModule *c)
+    void activate()
+    {
+        _active = true;
+        refreshTimer.start();
+    }
+    void deactivate()
+    {
+        _active = false;
+        refreshTimer.stop();
+    }
+    void addParameter(PSParameter *param) { _params.addItem(param); }
+    PSScene * addModule(PSModule *c)
     {
         if (c)
+        {
             _modules.addItem(c);
+            initParameters(c);
+        }
+
+        return this;
+    }
+
+    void initParameters(PSModule *m)
+    {
+        if (m)
+        {
+            printf("scene - adding parameters\n");
+            for (auto &item : m->items)
+            {                
+                PSParameter *p = dynamic_cast<PSParameter *>(item.second);
+                if (p)
+                    _params.addItem(p);                
+            }
+        }        
     }
 
     virtual void render()
     {
         if (_active)
         {
-            for (auto p : _params)
+            if (refreshTimer.update())
             {
-                printf("%s : %0.2f\n", p->name.c_str(), p->getValue());
-            }
+                //system("clear");
+                printf("******** SCENE: %s **********\n", name.c_str());
+                for (auto item : _params.items)
+                {
+                    PSParameter *p = dynamic_cast<PSParameter *>(item.second);
+                    if (p)
+                    {
+                        printf("%s : %0.2f\t", p->name.c_str(), p->getValue());
+                    }
+                }                
+                printf("\n----------------------------------------\n");
+            }            
         }
-        printf("----------------------------------------\n");
     }
 
 protected:
-    PSParameterVector _params;
+    SimpleTimer refreshTimer = SimpleTimer(50);
+    PSObjectCollection _params;
     PSObjectCollection _modules;
     bool _active;
 };

@@ -12,7 +12,15 @@ public:
     PSSceneManager() : PSObjectCollection() {}
     ~PSSceneManager() override {}
 
-    void setActive(const PSKeys &key) { _activeScene = _scenes.getItem<PSScene>(key); }
+    void setActive(const PSKeys &key)
+    {
+
+        _activeScene = getItem<PSScene>(key);
+        if (_activeScene)
+            _activeScene->activate();
+        else
+            printf("no active scene to render\n");
+    }
     void nextScene() {}
     void prevScene() {}
 
@@ -22,7 +30,8 @@ public:
             _activeScene->render();
     }
 
+    PSScene *active() { return _activeScene; }
+
 private:
-    PSObjectCollection _scenes;
     PSScene *_activeScene;
 };

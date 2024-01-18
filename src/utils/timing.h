@@ -1,3 +1,4 @@
+#pragma once
 #include <thread>
 #include <chrono>
 
@@ -34,7 +35,7 @@ public:
     }
 
     void start()
-    {
+    {        
         _start = millis();
         _running = true;
     }

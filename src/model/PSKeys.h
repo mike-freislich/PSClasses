@@ -4,6 +4,7 @@
  * @brief PSKeys is an enum containing all key-identifier for modules, parameters, controllers and scenes
  *
  */
+
 enum PSKeys
 {
 #pragma region MODULES
@@ -15,6 +16,11 @@ enum PSKeys
     MOD_AENVa,
     MOD_FENVa,
     MOD_VCFa,
+    MOD_VCOa,
+    MOD_VCAa,
+    MOD_NOISEa,
+    MOD_RINGMODa,
+    MOD_FOLDa,
 
     // Part B
     MOD_LFO1b,
@@ -23,6 +29,11 @@ enum PSKeys
     MOD_AENVb,
     MOD_FENVb,
     MOD_VCFb,
+    MOD_VCOb,
+    MOD_VCAb,
+    MOD_NOISEb,
+    MOD_RINGMODb,
+    MOD_FOLDb,    
 
 #pragma endregion
 
@@ -62,6 +73,6 @@ enum PSKeys
 #pragma region SCENES
     // ---------------------- SCENES ----------------------
     SCN_ENVELOPE
-    
+
 #pragma endregion
 };

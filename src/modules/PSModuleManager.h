@@ -13,9 +13,7 @@ public:
     }
 
     PSController *controller(const PSKeys &key) { return getItem<PSController>(key); }
-
-    PSMEnvelope *getEnvelope(const PSKeys &key) { return getItem<PSMEnvelope>(key); }
-    //PSMEnvelope *getLFO(const PSKeys &key) { return getItem<PSMEnvelope>(key); }
+    PSMEnvelope *getEnvelope(const PSKeys &key) { return getItem<PSMEnvelope>(key); }    
 
 private:
 };

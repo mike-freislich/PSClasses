@@ -62,17 +62,13 @@ private:
                  {PARM_ENV_DECAY, controllers.controller(CTRL_POT3)},
                  {PARM_ENV_SUSTAIN, controllers.controller(CTRL_POT4)},
                  {PARM_ENV_RELEASE, controllers.controller(CTRL_POT5)},
-                 {PARM_ENV_AMOUNT, controllers.controller(CTRL_POT6)}});        
+                 {PARM_ENV_AMOUNT, controllers.controller(CTRL_POT6)}});
     }
 
     void initScenes()
-    {
-        scenes.addItem(new PSSceneEnvelope("Part1 : Pitch Envelope", modules.getEnvelope(MOD_AENVa)));
-        scenes.getItem<PSSceneEnvelope>(SCN_ENVELOPE)->setEnvelope(modules.getEnvelope(MOD_AENVa));
-
-        // for (auto scene : scenes.items) {
-        //     ((PSScene *)scene.second)->
-        // }
+    {                    
+        scenes.addItem((new PSSceneEnvelope("Scene Envelope"))->addModule(modules.getItem<PSModule>(MOD_PENVa)));
+        scenes.setActive(SCN_ENVELOPE);
     }
 
     void loadConfig()
