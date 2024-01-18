@@ -67,7 +67,9 @@ private:
 
     void initScenes()
     {                    
-        scenes.addItem((new PSSceneEnvelope("Scene Envelope"))->addModule(modules.getItem<PSModule>(MOD_PENVa)));
+        scenes.addItem((new PSSceneEnvelope("Scene Envelope")));
+        scenes.getItem<PSScene>(SCN_ENVELOPE)->addModule(modules.getItem<PSModule>(MOD_PENVa));
+        //scenes.addItem((new PSSceneEnvelope("Scene Envelope"))->addModule(modules.getItem<PSModule>(MOD_PENVa)));
         scenes.setActive(SCN_ENVELOPE);
     }
 

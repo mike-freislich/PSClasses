@@ -1,6 +1,9 @@
+#define TEENSYDUINO 210
+
 #include "utils/ArduinoShard.h"
 #include "utils/timing.h"
 #include "model/PSSynthModel.h"
+
 
 #define DEBUG
 

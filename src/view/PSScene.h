@@ -13,7 +13,10 @@ public:
         addModule(module);
     }
 
-    ~PSScene() override {}
+    ~PSScene() override {
+        _modules.items.clear();
+        _params.items.clear();
+    }
 
     void setDisplay()
     {
@@ -30,7 +33,9 @@ public:
         _active = false;
         refreshTimer.stop();
     }
+   
     void addParameter(PSParameter *param) { _params.addItem(param); }
+    
     PSScene * addModule(PSModule *c)
     {
         if (c)
@@ -62,7 +67,7 @@ public:
         {
             if (refreshTimer.update())
             {
-                //system("clear");
+                system("clear");
                 printf("******** SCENE: %s **********\n", name.c_str());
                 for (auto item : _params.items)
                 {
