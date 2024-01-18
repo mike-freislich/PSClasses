@@ -8,9 +8,8 @@ using namespace std;
 class PSScene : public PSObject
 {
 public:
-    PSScene(const PSKeys &key, const std::string &name, PSModule *module) : PSObject(key, name)
-    {
-        addModule(module);
+    PSScene(const PSKeys &key, const std::string &name) : PSObject(key, name)
+    {        
     }
 
     ~PSScene() override {
