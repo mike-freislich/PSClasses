@@ -1,6 +1,8 @@
 #include "utils/ArduinoShard.h"
 #include "model/PSSynthModel.h"
 
+#define DEBUG
+
 /**
  * PSModule contains 1 or more PSParameter
  * PSParameter attaches 1 or more PSControllers
@@ -20,7 +22,9 @@ void loop()
     {
 
         synth.update();
-        printf("%s\n", synth.modules.getItem<PSCEnvelope>(MOD_PENVa)->toString().c_str());
+#ifdef DEBUG
+        printf("%s\n", synth.modules.getItem<PSMEnvelope>(MOD_PENVa)->toString().c_str());
+#endif
         loopCount++;
     }
     delay(10);

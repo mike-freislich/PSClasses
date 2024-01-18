@@ -5,7 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src",
-                "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/components",
+                "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/modules",
                 "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/controllers",
                 "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/view",
                 "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/model"                  
@@ -19,7 +19,7 @@
                 "path": [
                     "${workspaceFolder}/**",
                     "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src",
-                    "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/components",
+                    "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/modules",
                     "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/controllers",
                     "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/view",
                     "/Users/mikef/Documents/PlatformIO/Projects/macos-dev/src/model"                   

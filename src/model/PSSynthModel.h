@@ -35,12 +35,12 @@ public:
 private:
     void initModules()
     {
-        modules.addItem(new PSCEnvelope(MOD_PENVa, "PENV_a")); // Voice part A : pitch env
-        modules.addItem(new PSCEnvelope(MOD_AENVa, "AENV_a")); // v1 part A : amp env
-        modules.addItem(new PSCEnvelope(MOD_FENVa, "FENV_a")); // v1 part A : filter env
-        modules.addItem(new PSCEnvelope(MOD_PENVb, "PENV_b")); // v1 part B : pitch env
-        modules.addItem(new PSCEnvelope(MOD_AENVb, "AENV_b")); // v1 part B : amp env
-        modules.addItem(new PSCEnvelope(MOD_FENVb, "FENV_b")); // v1 part B : filter env
+        modules.addItem(new PSMEnvelope(MOD_PENVa, "PENV_a")); // Voice part A : pitch env
+        modules.addItem(new PSMEnvelope(MOD_AENVa, "AENV_a")); // v1 part A : amp env
+        modules.addItem(new PSMEnvelope(MOD_FENVa, "FENV_a")); // v1 part A : filter env
+        modules.addItem(new PSMEnvelope(MOD_PENVb, "PENV_b")); // v1 part B : pitch env
+        modules.addItem(new PSMEnvelope(MOD_AENVb, "AENV_b")); // v1 part B : amp env
+        modules.addItem(new PSMEnvelope(MOD_FENVb, "FENV_b")); // v1 part B : filter env
     }
 
     void initControllers()
@@ -54,19 +54,25 @@ private:
     }
 
     void initControllerMappings()
-    {        
+    {
         modules.getEnvelope(MOD_PENVa)
             ->attachControllers(
-                {{PARM_ENV_ATTACK, controllers.controller(CTRL_POT1)},                 
+                {{PARM_ENV_ATTACK, controllers.controller(CTRL_POT1)},
                  {PARM_ENV_HOLD, controllers.controller(CTRL_POT2)},
                  {PARM_ENV_DECAY, controllers.controller(CTRL_POT3)},
                  {PARM_ENV_SUSTAIN, controllers.controller(CTRL_POT4)},
                  {PARM_ENV_RELEASE, controllers.controller(CTRL_POT5)},
-                 {PARM_ENV_AMOUNT, controllers.controller(CTRL_POT6)}});
+                 {PARM_ENV_AMOUNT, controllers.controller(CTRL_POT6)}});        
     }
 
     void initScenes()
     {
+        scenes.addItem(new PSSceneEnvelope("Part1 : Pitch Envelope", modules.getEnvelope(MOD_AENVa)));
+        scenes.getItem<PSSceneEnvelope>(SCN_ENVELOPE)->setEnvelope(modules.getEnvelope(MOD_AENVa));
+
+        // for (auto scene : scenes.items) {
+        //     ((PSScene *)scene.second)->
+        // }
     }
 
     void loadConfig()

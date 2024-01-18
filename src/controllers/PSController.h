@@ -25,7 +25,7 @@ public:
     PSController *setPin(uint8_t pin)
     {
         _pin = pin;
-        printf("hardware pin : %s to %d\n", name.c_str(), pin);
+        //printf("hardware pin : %s to %d\n", name.c_str(), pin);
         // TODO implement hardware setup
         return this;
     }

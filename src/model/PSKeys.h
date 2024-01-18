@@ -2,7 +2,7 @@
 
 /**
  * @brief PSKeys is an enum containing all key-identifier for modules, parameters, controllers and scenes
- * 
+ *
  */
 enum PSKeys
 {
@@ -21,8 +21,8 @@ enum PSKeys
     MOD_LFO2b,
     MOD_PENVb,
     MOD_AENVb,
-    MOD_FENVb, 
-    MOD_VCFb,       
+    MOD_FENVb,
+    MOD_VCFb,
 
 #pragma endregion
 
@@ -33,8 +33,8 @@ enum PSKeys
     PARM_ENV_HOLD,
     PARM_ENV_DECAY,
     PARM_ENV_SUSTAIN,
-    PARM_ENV_RELEASE, 
-    PARM_ENV_AMOUNT,   
+    PARM_ENV_RELEASE,
+    PARM_ENV_AMOUNT,
 
     // LFO
     PARM_LFO_SHAPE,
@@ -55,7 +55,13 @@ enum PSKeys
     CTRL_POT3 = 32,
     CTRL_POT4 = 4,
     CTRL_POT5 = 5,
-    CTRL_POT6 = 6
+    CTRL_POT6 = 6,
 
+#pragma endregion
+
+#pragma region SCENES
+    // ---------------------- SCENES ----------------------
+    SCN_ENVELOPE
+    
 #pragma endregion
 };

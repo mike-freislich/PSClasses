@@ -5,17 +5,17 @@
 class PSSceneEnvelope : public PSScene
 {
 public:
-    PSSceneEnvelope(const std::string &name, PSCEnvelope *e = nullptr) : PSScene(MOD_AENVa, name, e)
+    PSSceneEnvelope(const std::string &name, PSMEnvelope *e = nullptr) : PSScene(SCN_ENVELOPE, name, e)
     {        
         _active = false;             
     }
 
-    PSSceneEnvelope *setEnvelope(PSCEnvelope *e) 
+    PSSceneEnvelope *setEnvelope(PSMEnvelope *e) 
     {         
         addModule(e);            
         return this;
     }
 
 private:
-    //PSCEnvelope *envelope;
+    //PSMEnvelope *envelope;
 };

@@ -6,7 +6,6 @@
 class PSModule : public PSObject, public PSObjectCollection
 {
 public:
-    //PSObjectCollection parameters;
     PSModule(const PSKeys &key, const std::string name) : PSObject(key, name), PSObjectCollection() {}
     ~PSModule() override {}
 

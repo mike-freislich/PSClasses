@@ -4,10 +4,10 @@
 #include "../model/PSParameter.h"
 #include "../model/PSControllerMap.h"
 
-class PSCEnvelope : public PSModule
+class PSMEnvelope : public PSModule
 {
 public:
-    PSCEnvelope(const PSKeys &key, const std::string name) : PSModule(key, name)
+    PSMEnvelope(const PSKeys &key, const std::string name) : PSModule(key, name)
     {
         addParameter((new PSParameter(PARM_ENV_ATTACK, "atk"))->setRange(0, 10000))->setTaper(PSParameter::TAPER::LOGARITHMIC);                                                                        // PARM_ENV_ATTACK
         addParameter((new PSParameter(PARM_ENV_HOLD, "hld"))->setRange(0, 5000))->setTaper(PSParameter::TAPER::LOGARITHMIC);    // PARM_ENV_HOLD
@@ -16,7 +16,7 @@ public:
         addParameter((new PSParameter(PARM_ENV_RELEASE, "rel"))->setRange(0, 5000))->setTaper(PSParameter::TAPER::LOGARITHMIC); // PARM_ENV_RELEASE
         addParameter((new PSParameter(PARM_ENV_AMOUNT, "amt"))->setRange(0, 1));                                                // PARM_ENV_AMOUNT
     }
-    ~PSCEnvelope() {}
+    ~PSMEnvelope() {}
 
     void attachController(const PSKeys &key, PSController *controller)
     {
@@ -32,7 +32,7 @@ public:
         }
     }
 
-    PSCEnvelope *attachControllers(const PSControllerMapVector &mappings)
+    PSMEnvelope *attachControllers(const PSControllerMapVector &mappings)
     {
         printf("attaching %zu controllers\n", mappings.size());
 
@@ -42,7 +42,7 @@ public:
         return this;
     }
 
-    PSCEnvelope *setValues(float attack, float hold, float decay, float sustain, float release, float amount = 1.0f)
+    PSMEnvelope *setValues(float attack, float hold, float decay, float sustain, float release, float amount = 1.0f)
     {
         setValue(PARM_ENV_ATTACK, attack);
         setValue(PARM_ENV_HOLD, hold);
@@ -54,7 +54,7 @@ public:
         return this;
     }
 
-    PSCEnvelope *setValue(const PSKeys &key, float value)
+    PSMEnvelope *setValue(const PSKeys &key, float value)
     {
         getItem<PSParameter>(key)->setValue(value);
         return this;
