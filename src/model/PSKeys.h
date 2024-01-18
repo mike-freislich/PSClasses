@@ -61,6 +61,14 @@ enum PSKeys
 #pragma region CONTROLLERS
     // ---------------------- CONTROLLERS ----------------------
     // USAGE : name = pinNumber
+    CTRL_POT_DataA = 7,
+    CTRL_POT_DataB = 8,
+    CTRL_POT_DataC = 9,
+    CTRL_POT_DataD = 10,
+    CTRL_ROTARY_DataG_pA = 11,
+    CTRL_ROTARY_DataG_pB = 12,
+    CTRL_BTN_DataG = 13, 
+    CTRL_BTN_Shift = 14,    
     CTRL_POT1 = 71,
     CTRL_POT2 = 2,
     CTRL_POT3 = 32,

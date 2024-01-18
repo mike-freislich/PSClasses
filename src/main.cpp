@@ -1,9 +1,8 @@
 #define TEENSYDUINO 210
 
-#include "utils/ArduinoShard.h"
-#include "utils/timing.h"
-#include "model/PSSynthModel.h"
-
+#include "ArduinoShard.h"
+#include "timing.h"
+#include "PSSynthModel.h"
 
 #define DEBUG
 
@@ -16,20 +15,13 @@
 
 void setup()
 {
-    synth.initialise();
-    timer1.duration(5);
-    timer1.start();
+    synth.initialise();    
 }
 
 void loop()
 {
     if (timer1.update())
-    {
         synth.update();
-#ifdef DEBUG
-        //printf("%s\n", synth.modules.getItem<PSMEnvelope>(MOD_PENVa)->toString().c_str());
-#endif
-        loopCount++;
-    }
+
     delay(1);
 }

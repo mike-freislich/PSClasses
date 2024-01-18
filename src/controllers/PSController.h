@@ -1,21 +1,23 @@
 #pragma once
 #include <vector>
 #include "PSKeys.h"
-
-
+#include "PSObject.h"
+#include "timing.h"
 
 class PSController : public PSObject
 {
 public:
     PSController(const PSKeys &key, const std::string &name, float minV = 0, float maxV = 127, bool allowRandom = false)
         : _allowRandom(allowRandom), PSObject(key, name)
-    {        
+    {
         setValueRange(minV, maxV);
-        _allowRandom = true;         
+        _allowRandom = true;
+        bounceTimer.start(0);
     }
 
-    virtual ~PSController() override {        
-        //PSObject::~PSObject();
+    virtual ~PSController() override
+    {
+        // PSObject::~PSObject();
     }
 
     bool didChange() { return _changed; }
@@ -27,11 +29,11 @@ public:
 
     virtual PSKeys getKey() { return key; }
 
-    PSController *setPin(uint8_t pin)
+    virtual PSController *setPin(uint8_t pin)
     {
-        _pin = pin;
-        //printf("hardware pin : %s to %d\n", name.c_str(), pin);
         // TODO implement hardware setup
+
+        _pin = pin;
         return this;
     }
 
@@ -51,10 +53,16 @@ public:
         return this;
     }
 
+    void debounceMS(uint32_t delay)
+    {             
+        bounceTimer.start(delay);
+    }
+
 protected:
-    bool _changed;
-    float _value, _min, _max, _range;    
+    bool _changed, _allowRandom;
+    float _value, _min, _max, _range;
     uint8_t _pin;
+    SimpleTimer bounceTimer = SimpleTimer(0);
 
     virtual void readValue()
     {
@@ -70,13 +78,13 @@ protected:
         float sval = val / _range;
         if (sval != _value)
         {
-            _value = sval;
-            _changed = true;
+            if (bounceTimer.update())
+            {
+                _value = sval;
+                _changed = true;
+            }
         }
     }
-
-private:
-    bool _allowRandom;    
 };
 
 typedef std::vector<PSController *> PSControllerVector;

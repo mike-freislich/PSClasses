@@ -31,6 +31,9 @@ public:
     virtual ~PSObjectCollection()
     {        
         for (auto entry : items)
-            delete entry.second;
+        {
+            if (entry.second)
+                delete entry.second;
+        }
     }
 };

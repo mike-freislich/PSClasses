@@ -51,6 +51,8 @@ private:
         controllers.addItem(new PSCPotentiometer(CTRL_POT4, "pot4"));
         controllers.addItem(new PSCPotentiometer(CTRL_POT5, "pot5"));
         controllers.addItem(new PSCPotentiometer(CTRL_POT6, "pot6"));
+        
+        controllers.addItem(new PSCButton(CTRL_BTN_Shift, "shift"));
     }
 
     void initControllerMappings()

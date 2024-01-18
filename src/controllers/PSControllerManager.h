@@ -1,6 +1,5 @@
 #pragma once
-#include "PSCPotentiometer.h"
-#include "PSController.h"
+#include "PSAllControllers.h"
 
 class PSControllerManager : public PSObjectCollection
 {

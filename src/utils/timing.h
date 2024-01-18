@@ -32,12 +32,18 @@ public:
     void duration(uint32_t d)
     {
         _duration = d;
-    }
+    }    
 
     void start()
     {        
         _start = millis();
         _running = true;
+    }
+
+    void start(uint32_t duration)
+    {
+        this->duration(duration);
+        this->start();
     }
 
     void stop()

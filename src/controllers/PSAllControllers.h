@@ -1,7 +1,4 @@
 #pragma once
+#include "PSCPotentiometer.h"
+#include "PSCButton.h"
 
-//#include "PSObject.h"
-
-// class PSController : public PSObject;
-// class PSControllerManager;
-// class PSCPotentiometer;

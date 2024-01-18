@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build C++",
             "type": "shell",
             "command": "g++",
             "args": [
@@ -17,14 +17,22 @@
                 "${workspaceRoot}/src/main.cpp",
                 "-o",
                 "${workspaceRoot}/testSynth"
-
-            ]
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "type": "shell",
             "command": "${workspaceRoot}/testSynth",
             "problemMatcher": [],
-            "label": "run"
+            "label": "run C++",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOn": "build C++"
         }
     ]
 }
