@@ -1,7 +1,7 @@
 #pragma once
-#include "../modules/PSModuleManager.h"
-#include "../controllers/PSControllerManager.h"
-#include "../view/PSSceneManager.h"
+#include "PSModuleManager.h"
+#include "PSControllerManager.h"
+#include "PSSceneManager.h"
 
 class PSSynthModel
 {

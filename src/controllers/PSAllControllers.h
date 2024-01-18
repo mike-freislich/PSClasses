@@ -1,6 +1,6 @@
 #pragma once
 
-//#include "../model/PSObject.h"
+//#include "PSObject.h"
 
 // class PSController : public PSObject;
 // class PSControllerManager;

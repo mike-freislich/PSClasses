@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "../controllers/PSController.h"
+#include "PSController.h"
 
 class PSParameter: public PSObject
 {

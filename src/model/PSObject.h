@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "PSKeys.h"
-#include "../controllers/PSAllControllers.h"
+#include "PSAllControllers.h"
 
 uint16_t PSObjectCount = 0;
 

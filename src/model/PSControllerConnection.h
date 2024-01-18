@@ -1,6 +1,6 @@
 #pragma once
 #include "PSParameter.h"
-#include "../controllers/PSController.h"
+#include "PSController.h"
 #include <vector>
 
 struct PSControllerConnection {

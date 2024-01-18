@@ -3,7 +3,7 @@
 #include <string>
 #include "PSKeys.h"
 #include "PSObject.h"
-#include "../modules/PSMEnvelope.h"
+#include "PSMEnvelope.h"
 
 class PSObjectCollection
 {
