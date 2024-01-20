@@ -17,8 +17,7 @@ public:
         *btnFilterBand,
         *btnFilterMode,
         *btnDataGlobal;
-
-    PSParameter *shiftMode;    
+     
     PSSceneManager scenes;
 
     PSSynthModel() {}
@@ -27,12 +26,13 @@ public:
     void initialise()
     {
         initControllers();
+        btnShift = Controllers.button(CTRL_BTN_Shift);
+
         initModules();
         initControllerMappings();
         initScenes();
         loadConfig();
-
-        btnShift = Controllers.button(CTRL_BTN_Shift);
+        
     }
 
     /**
@@ -42,8 +42,7 @@ public:
     {
         Controllers.update();
         Modules.update();
-        Controllers.endUpdate();
-        //printf("SHIFT : %d\n", (int)btnShift->getValue());
+        Controllers.endUpdate();        
         scenes.render();
     }
 
@@ -63,13 +62,13 @@ private:
     }
 
     void initScenes()
-    {
+    {        
+
         scenes.addItem((new PSSceneEnvelope("Scene Envelope"))->addModule(Modules.getItem<PSModule>(MOD_PENVa)));
         scenes.setActive(SCN_ENVELOPE);
     }
 
     void loadConfig()
-    {
-        
+    {        
     }
 } synth;

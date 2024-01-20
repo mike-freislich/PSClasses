@@ -5,16 +5,16 @@
 void initEnvelopes();
 void initLFOs();
 
-
 // declarations
 void initModules()
 {
     initEnvelopes();
+    initLFOs();
 }
 
 void initEnvelopes()
 {
-    // Envelopes
+    // Envelopes    
     Modules.addItem(new PSMEnvelope(MOD_PENVa, "PENV_a",
                                     PSMEnvelopeParameters(
                                         PARM_PENVa_ATTACK, PARM_PENVa_HOLD, PARM_PENVa_DECAY, PARM_PENVa_SUSTAIN, PARM_PENVa_RELEASE, PARM_PENVa_AMOUNT)));

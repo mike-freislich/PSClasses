@@ -22,7 +22,7 @@ public:
         attachParameters(ep);
     }
 
-    ~PSMEnvelope() override {}
+    ~PSMEnvelope() override { items.clear(); }
 
     PSMEnvelope *attachParameters(const PSMEnvelopeParameters &ep)
     {
