@@ -39,4 +39,7 @@ public:
                 delete entry.second;
         }
     }
+
+   virtual bool exists(const PSK &key) { return getItem<PSObject>(key); }
+   //virtual PSObject *byKey(const PSK &key) { return getItem<PSObject>(key); }
 };

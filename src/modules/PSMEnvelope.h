@@ -26,12 +26,13 @@ public:
 
     PSMEnvelope *attachParameters(const PSMEnvelopeParameters &ep)
     {
-        Parameters.add(ep.attack, "attack")->setRange(0, 10000)->setTaper(PSParameter::TAPER::LOGARITHMIC);
-        Parameters.add(ep.hold, "hold")->setRange(0, 5000)->setTaper(PSParameter::TAPER::LOGARITHMIC);
-        Parameters.add(ep.decay, "decay")->setRange(0, 10000)->setTaper(PSParameter::TAPER::LOGARITHMIC);
-        Parameters.add(ep.sustain, "sustain")->setRange(0, 1);
-        Parameters.add(ep.release, "release")->setRange(0, 5000)->setTaper(PSParameter::TAPER::LOGARITHMIC);
-        Parameters.add(ep.amount, "release")->setRange(0, 1);
+        addParameter(Parameters.add(ep.attack, "atk")->setRange(0, 10000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
+        addParameter(Parameters.add(ep.hold, "hld")->setRange(0, 5000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
+        addParameter(Parameters.add(ep.decay, "dec")->setRange(0, 10000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
+        addParameter(Parameters.add(ep.sustain, "sus")->setRange(0, 1));
+        addParameter(Parameters.add(ep.release, "rel")->setRange(0, 5000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
+        addParameter(Parameters.add(ep.amount, "lvl")->setRange(0, 1));
+        addParameter(Parameters.byKey(CTRL_BTN_Shift));
         return this;
     }
 

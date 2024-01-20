@@ -37,7 +37,7 @@ public:
         return 0;
     }
 
-    bool exists(const PSK &key) { return byKey(key); }
+    //bool exists(const PSK &key) { return byKey(key); }
 
     const char *c_str(const PSK &key)
     {
@@ -58,8 +58,6 @@ public:
 
     PSParameter *byKey(const PSK &key) { return getItem<PSParameter>(key); }
 
-private:
-    
 } Parameters;
 
 // void testParmManager()

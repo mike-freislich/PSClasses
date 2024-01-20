@@ -2,13 +2,26 @@
 #include "PSCPotentiometer.h"
 #include "PSCButton.h"
 
-class PSControllerManager : public PSObjectCollection
+class PSControllerManager : PSObjectCollection
 {
 public:
     PSControllerManager() : PSObjectCollection() {}
     ~PSControllerManager() override {}
 
     PSController *controller(const PSK &key) { return getItem<PSController>(key); }
+
+    template <typename T>
+    T *add(const PSK &key, const std::string &name)
+    {        
+        if (exists(key))
+        {
+            printf("Error adding controller %s : already exists!\n", name.c_str());
+            return nullptr;
+        }
+        T *c = new T(key, name);
+        this->addItem(c);
+        return c;
+    }
 
     /**
      * @brief
@@ -32,6 +45,8 @@ public:
         for (auto c : items)
             ((PSController *)c.second)->endUpdate();
     }
-
-private:
+    
+    PSCButton *button(const PSK &key) { return this->getItem<PSCButton>(key); }
+    PSCPotentiometer *potentiometer(const PSK &key) { return this->getItem<PSCPotentiometer>(key); }    
+    
 } Controllers;
