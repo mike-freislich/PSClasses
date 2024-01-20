@@ -1,50 +1,73 @@
 #pragma once
-#include <string>
 #include "PSModule.h"
-#include "../model/PSParameter.h"
+#include "PSParameterManager.h"
+
+struct PSMEnvelopeParameters
+{    
+    PSK attack, hold, decay, sustain, release, amount;
+    PSMEnvelopeParameters(PSK attack, PSK hold, PSK decay, PSK sustain, PSK release, PSK amount) 
+        : attack(attack), hold(hold), decay(decay), sustain(sustain), release(release), amount(amount) {}
+};
+
+struct PSMEnvelopeValues
+{
+    float attack, hold, decay, sustain, release, amount;
+};
 
 class PSMEnvelope : public PSModule
 {
 public:
-    PSMEnvelope(const PSKeys &key, const std::string name) : PSModule(key, name)
+    PSMEnvelope(const PSK &key, const std::string name, const PSMEnvelopeParameters &ep) : PSModule(key, name) 
     {
-        addParameter((new PSParameter(PARM_ENV_ATTACK, "atk"))->setRange(0, 10000))->setTaper(PSParameter::TAPER::LOGARITHMIC); // PARM_ENV_ATTACK
-        addParameter((new PSParameter(PARM_ENV_HOLD, "hld"))->setRange(0, 5000))->setTaper(PSParameter::TAPER::LOGARITHMIC);    // PARM_ENV_HOLD
-        addParameter((new PSParameter(PARM_ENV_DECAY, "dec"))->setRange(0, 10000))->setTaper(PSParameter::TAPER::LOGARITHMIC);  // PARM_ENV_DECAY
-        addParameter((new PSParameter(PARM_ENV_SUSTAIN, "sus"))->setRange(0, 1));                                               // PARM_ENV_SUSTAIN
-        addParameter((new PSParameter(PARM_ENV_RELEASE, "rel"))->setRange(0, 5000))->setTaper(PSParameter::TAPER::LOGARITHMIC); // PARM_ENV_RELEASE
-        addParameter((new PSParameter(PARM_ENV_AMOUNT, "amt"))->setRange(0, 1));                                                // PARM_ENV_AMOUNT
+        attachParameters(ep);
     }
+
     ~PSMEnvelope() override {}
 
-
-
-
-    PSMEnvelope *setValues(float attack, float hold, float decay, float sustain, float release, float amount = 1.0f)
+    PSMEnvelope *attachParameters(const PSMEnvelopeParameters &ep)
     {
-        setValue(PARM_ENV_ATTACK, attack);
-        setValue(PARM_ENV_HOLD, hold);
-        setValue(PARM_ENV_DECAY, decay);
-        setValue(PARM_ENV_SUSTAIN, sustain);
-        setValue(PARM_ENV_RELEASE, release);
-        setValue(PARM_ENV_AMOUNT, amount);
-
+        Parameters.add(ep.attack, "attack")->setRange(0, 10000)->setTaper(PSParameter::TAPER::LOGARITHMIC);
+        Parameters.add(ep.hold, "hold")->setRange(0, 5000)->setTaper(PSParameter::TAPER::LOGARITHMIC);
+        Parameters.add(ep.decay, "decay")->setRange(0, 10000)->setTaper(PSParameter::TAPER::LOGARITHMIC);
+        Parameters.add(ep.sustain, "sustain")->setRange(0, 1);
+        Parameters.add(ep.release, "release")->setRange(0, 5000)->setTaper(PSParameter::TAPER::LOGARITHMIC);
+        Parameters.add(ep.amount, "release")->setRange(0, 1);
         return this;
     }
 
-    PSMEnvelope *setValue(const PSKeys &key, float value)
+    PSMEnvelope *setValues(PSMEnvelopeValues &values)
+    {
+        attack(values.attack);
+        hold(values.hold);
+        decay(values.decay);
+        sustain(values.sustain);
+        release(values.release);
+        amount(values.amount);
+        return this;
+    }
+
+    PSMEnvelope *setValue(const PSK &key, float value)
     {
         getItem<PSParameter>(key)->setValue(value);
         return this;
     }
 
-    float getValue(const PSKeys &key) { return getItem<PSParameter>(key)->getValue();}
+    void attack(float value) { _attack->setValue(value); }
+    void hold(float value) { _hold->setValue(value); }
+    void decay(float value) { _decay->setValue(value); }
+    void sustain(float value) { _sustain->setValue(value); }
+    void release(float value) { _release->setValue(value); }
+    void amount(float value) { _amount->setValue(value); }
 
-    void attack(float value) { getItem<PSParameter>(PARM_ENV_ATTACK)->setValue(value); }
-    float getAttack() { return getItem<PSParameter>(PARM_ENV_ATTACK)->getValue(); }
+    float getValue(const PSK &key) { return getItem<PSParameter>(key)->getValue(); }
 
-    void hold(float value) { getItem<PSParameter>(PARM_ENV_HOLD)->setValue(value); }
-    float getHold() { return getItem<PSParameter>(PARM_ENV_HOLD)->getValue(); }
+    float getAttack() { return _attack->getValue(); }
+    float getHold() { return _hold->getValue(); }
+    float getDecay() { return _decay->getValue(); }
+    float getSustain() { return _sustain->getValue(); }
+    float getRelease() { return _release->getValue(); }
+    float getAmount() { return _amount->getValue(); }
 
 private:
+    PSParameter *_attack, *_hold, *_decay, *_sustain, *_release, *_amount;
 };

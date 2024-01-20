@@ -19,7 +19,7 @@ protected:
     bool _active;
 
 public:
-    PSScene(const PSKeys &key, const std::string &name) : PSObject(key, name) { refreshRateKHz(20); }
+    PSScene(const PSK &key, const std::string &name) : PSObject(key, name) { refreshRateKHz(20); }
 
     ~PSScene() override
     {
@@ -58,16 +58,16 @@ public:
 
     void initParameters(PSModule *m)
     {
-        // if (m)
-        // {
-        //     printf("scene - adding parameters\n");
-        //     for (auto &item : m->items)
-        //     {
-        //         PSParameter *p = dynamic_cast<PSParameter *>(item.second);
-        //         if (p)
-        //             _params.addItem(p);
-        //     }
-        // }
+        if (m)
+        {
+            printf("scene - adding parameters\n");
+            for (auto &item : m->items)
+            {
+                PSParameter *p = dynamic_cast<PSParameter *>(item.second);
+                if (p)
+                    _params.addItem(p);
+            }
+        }
     }
 
     void render()
@@ -80,11 +80,12 @@ public:
     {
         clearDisplay();
         drawTitle();
-        drawParameters();
+        //drawParameters();
+        drawModules();
         drawBorder();
     }
 
-    virtual void drawParameters()
+    virtual void drawModules()
     {
         for (auto &module : _modules.items)
         {
@@ -100,6 +101,19 @@ public:
                         printf("%s : %0.2f\t", p->name.c_str(), p->getValue());
                     }
                 }
+            }
+        }
+        printf("\n");
+    }
+
+    void drawParameters()
+    {
+        for (auto &item : _params.items)
+        {
+            PSParameter *p = dynamic_cast<PSParameter *>(item.second);
+            if (p)
+            {
+                printf("%s : %0.2f\t", p->name.c_str(), p->getValue());
             }
         }
         printf("\n");

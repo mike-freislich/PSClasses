@@ -4,7 +4,7 @@
 class PSCPotentiometer : public PSController
 {
 public:
-    PSCPotentiometer(const PSKeys &key, const std::string &name) : PSController(key, name, 10, 1010)
+    PSCPotentiometer(const PSK &key, const std::string &name) : PSController(key, name, 10, 1010)
     {
         setPin(key);
         debounceMS(5);

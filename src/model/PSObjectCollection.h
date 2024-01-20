@@ -3,24 +3,27 @@
 #include <string>
 #include "PSKeys.h"
 #include "PSObject.h"
-#include "PSMEnvelope.h"
+//#include "PSMEnvelope.h"
 
 class PSObjectCollection
 {
 protected:
 public:
-    std::unordered_map<PSKeys, PSObject *> items;
-    void addItem(PSObject *obj)
+    std::unordered_map<PSK, PSObject *> items;
+    
+    template <typename T>
+    T *addItem(T *obj)
     {
         if (obj)
         {
-            const PSKeys &key = obj->key;
+            const PSK &key = obj->key;
             items[key] = obj;
         }
+        return obj;
     }
 
     template <typename T>
-    T *getItem(const PSKeys &key)
+    T *getItem(const PSK &key)
     {
         auto item = items.find(key);
         if (item != items.end())
@@ -29,7 +32,7 @@ public:
     }
 
     virtual ~PSObjectCollection()
-    {        
+    {
         for (auto entry : items)
         {
             if (entry.second)

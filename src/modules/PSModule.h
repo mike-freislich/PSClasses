@@ -1,13 +1,13 @@
 #pragma once
-#include "../model/PSObject.h"
-#include "../model/PSParameter.h"
-#include "../model/PSObjectCollection.h"
-#include "../model/PSControllerConnection.h"
+#include "PSObject.h"
+#include "PSObjectCollection.h"
+#include "PSParameterManager.h"
+#include "PSControllerConnection.h"
 
 class PSModule : public PSObject, public PSObjectCollection
 {
 public:
-    PSModule(const PSKeys &key, const std::string name) : PSObject(key, name), PSObjectCollection() {}
+    PSModule(const PSK &key, const std::string name) : PSObject(key, name), PSObjectCollection() {}
     ~PSModule() override { }
 
     PSParameter *addParameter(PSParameter *p)
@@ -33,10 +33,9 @@ public:
         return result;
     }
 
-    void attachController(const PSKeys &key, PSController *controller)
-    {
-        PSParameter *p = getItem<PSParameter>(key);
-        if (p)
+    void attachController(const PSK &key, PSController *controller)
+    {   
+        if (PSParameter *p = Parameters.byKey(key))
         {
             printf("attaching controller %s to parameter %s\n", controller->name.c_str(), p->name.c_str());
             p->attachController(controller);

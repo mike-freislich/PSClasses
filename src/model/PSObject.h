@@ -8,9 +8,9 @@ class PSObject
 {
 public:
     std::string name;
-    PSKeys key;
+    PSK key;
 
-    PSObject(const PSKeys &key, const std::string &name) : key(key), name(name) {
+    PSObject(const PSK &key, const std::string &name) : key(key), name(name) {
         PSObjectCount ++;      
         printf("PSObject [%s] added : %d PSObjects in memory\n", name.c_str(), PSObjectCount);
     }

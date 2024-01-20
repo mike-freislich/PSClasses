@@ -12,7 +12,7 @@ public:
     PSSceneManager() : PSObjectCollection() {}
     ~PSSceneManager() override {}
 
-    void setActive(const PSKeys &key)
+    void setActive(const PSK &key)
     {
 
         _activeScene = getItem<PSScene>(key);

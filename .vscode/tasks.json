@@ -14,6 +14,7 @@
                 "-I${workspaceRoot}/src/modules",
                 "-I${workspaceRoot}/src/utils",
                 "-I${workspaceRoot}/src/view", 
+                "-I${workspaceRoot}/src/parameters", 
                 "${workspaceRoot}/src/main.cpp",
                 "-o",
                 "${workspaceRoot}/testSynth"

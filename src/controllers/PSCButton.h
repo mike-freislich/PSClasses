@@ -4,11 +4,11 @@
 class PSCButton : public PSController
 {
 public:
-    PSCButton(const PSKeys &key, const std::string &name) : PSController(key, name, 10, 1010)
+    PSCButton(const PSK &key, const std::string &name) : PSController(key, name, 10, 1010)
     {
         setPin(key);
         setValueRange(0, 1);
-        debounceMS(30);
+        debounceMS(100);
     }
     ~PSCButton() override {}
 

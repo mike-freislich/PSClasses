@@ -5,7 +5,7 @@
 class PSSceneEnvelope : public PSScene
 {
 public:
-    PSSceneEnvelope(const std::string &name) : PSScene(SCN_ENVELOPE, name) {}
+    PSSceneEnvelope(const std::string &name) : PSScene(PSK::SCN_ENVELOPE, name) {}
     ~PSSceneEnvelope() override {}
 
     void onRenderScene() override
@@ -14,7 +14,7 @@ public:
         {
             clearDisplay();
             drawTitle();
-            drawParameters();            
+            drawModules();            
         }
         else
         {

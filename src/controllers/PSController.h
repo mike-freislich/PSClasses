@@ -7,7 +7,7 @@
 class PSController : public PSObject
 {
 public:
-    PSController(const PSKeys &key, const std::string &name, float minV = 0, float maxV = 127, bool allowRandom = false)
+    PSController(const PSK &key, const std::string &name, float minV = 0, float maxV = 127, bool allowRandom = false)
         : _allowRandom(allowRandom), PSObject(key, name)
     {
         setValueRange(minV, maxV);
@@ -27,7 +27,7 @@ public:
     virtual void update() { readValue(); }
     void endUpdate() { _changed = false; }
 
-    virtual PSKeys getKey() { return key; }
+    virtual PSK getKey() { return key; }
 
     virtual PSController *setPin(uint8_t pin)
     {
