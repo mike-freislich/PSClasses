@@ -19,7 +19,7 @@ protected:
     bool _active;
 
 public:
-    PSScene(const PSK &key, const std::string &name) : PSObject(key, name) { refreshRateKHz(20); }
+    PSScene(const PSK &key, const std::string &name) : PSObject(key, name) { refreshRateHz(20); }
 
     ~PSScene() override
     {
@@ -121,5 +121,5 @@ public:
     virtual void clearDisplay() { system("clear"); }
     virtual void drawTitle() { printf("******** SCENE: %s **********\n\n", name.c_str()); }
     virtual void drawBorder() { printf("\n----------------------------------------\n"); }    
-    void refreshRateKHz(uint8_t freq) { refreshTimer.duration(1.0f / freq * 1000); }
+    void refreshRateHz(uint8_t freq) { refreshTimer.duration(1.0f / freq * 1000); }
 };

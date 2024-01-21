@@ -1,7 +1,8 @@
-#define TEENSYDUINO 210
-
+//#define TEENSYDUINO 210
 #include "ArduinoShard.h"
 #include "timing.h"
+
+#define REFRESH_RATE 30
 #include "PSSynthModel.h"
 
 #define DEBUG
@@ -22,6 +23,5 @@ void loop()
 {
     if (timer1.update())
         synth.update();
-
     delay(0);
 }

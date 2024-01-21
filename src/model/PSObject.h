@@ -10,19 +10,24 @@ public:
     std::string name;
     PSK key;
 
-    PSObject(const PSK &key, const std::string &name) : key(key), name(name) {
-        PSObjectCount ++;      
-        printf("+%s(%d), ", name.c_str(), PSObjectCount);
+    PSObject(const PSK &key, const std::string &name) : key(key), name(name)
+    {
+        PSObjectCount++;
+        printf("+%s(%d)\t", name.c_str(), PSObjectCount);
+        if (!(PSObjectCount % 8))
+            printf("\n");
     }
 
-    virtual ~PSObject() {
-        PSObjectCount --;
-        printf("-%s(%d), ", name.c_str(), PSObjectCount);        
-    }    
+    virtual ~PSObject()
+    {
+        PSObjectCount--;
+        printf("-%s(%d)\t", name.c_str(), PSObjectCount);
+
+        if (!(PSObjectCount % 8))
+            printf("\n");
+    }
 
     virtual bool update() { return false; }
-
-
 };
 
 /*

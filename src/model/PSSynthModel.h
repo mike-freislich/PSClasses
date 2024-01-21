@@ -95,7 +95,7 @@ private:
 
     void initScenes()
     {
-        scenes.addItem(new PSSceneEnvelope("Scene Envelope"))->refreshRateKHz(120);
+        scenes.addItem(new PSSceneEnvelope("Scene Envelope"))->refreshRateHz(REFRESH_RATE);
         if (PSScene *scene = scenes.getItem<PSScene>(SCN_ENVELOPE))
         {
             scene->addModule(Modules.getItem<PSModule>(MOD_PENVa));
