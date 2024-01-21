@@ -89,18 +89,17 @@ public:
     {
         for (auto &module : _modules.items)
         {
-            PSModule *m = dynamic_cast<PSModule *>(module.second);
-            if (m)
+            if (PSModule *m = dynamic_cast<PSModule *>(module.second))
             {
                 printf("MODULE [%s] : ", m->name.c_str());
                 for (auto &parameter : m->items)
                 {
-                    PSParameter *p = dynamic_cast<PSParameter *>(parameter.second);
-                    if (p)
+                    if (PSParameter *p = dynamic_cast<PSParameter *>(parameter.second))
                     {
                         printf("%s : %0.2f\t", p->name.c_str(), p->getValue());
                     }
                 }
+                printf("\n");
             }
         }
         printf("\n");
@@ -121,10 +120,6 @@ public:
 
     virtual void clearDisplay() { system("clear"); }
     virtual void drawTitle() { printf("******** SCENE: %s **********\n\n", name.c_str()); }
-    virtual void drawBorder() { printf("\n----------------------------------------\n"); }
-    void drawButtonValues()
-    {
-    }
-
+    virtual void drawBorder() { printf("\n----------------------------------------\n"); }    
     void refreshRateKHz(uint8_t freq) { refreshTimer.duration(1.0f / freq * 1000); }
 };

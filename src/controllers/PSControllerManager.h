@@ -17,10 +17,8 @@ public:
         {
             printf("Error adding controller %s : already exists!\n", name.c_str());
             return nullptr;
-        }
-        T *c = new T(key, name);
-        this->addItem(c);
-        return c;
+        }        
+        return addItem(new T(key, name));        
     }
 
     /**
@@ -30,11 +28,7 @@ public:
      *   PSParamater.update() polls each of its attached PSController.didChange()
      *   to determine new input value to update the parameter with.
      */
-    void update()
-    {
-        for (auto c : items)
-            ((PSController *)c.second)->update();
-    }
+    bool update() override { return PSObjectCollection::update(); }
 
     /**
      * @brief Resets all the controllers changed values to "not changed"
@@ -42,8 +36,9 @@ public:
      */
     void endUpdate()
     {
-        for (auto c : items)
-            ((PSController *)c.second)->endUpdate();
+        for (auto item : items)
+            if (PSController *c = dynamic_cast<PSController *>(item.second))
+                c->endUpdate();            
     }
     
     PSCButton *button(const PSK &key) { return this->getItem<PSCButton>(key); }

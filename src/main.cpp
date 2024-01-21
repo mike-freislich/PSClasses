@@ -23,5 +23,5 @@ void loop()
     if (timer1.update())
         synth.update();
 
-    delay(1);
+    delay(0);
 }

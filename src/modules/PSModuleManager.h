@@ -14,11 +14,11 @@ class PSModuleManager : public PSObjectCollection
 public:
     ~PSModuleManager() override {}
 
-    void update()
-    {
-        for (auto &entry : items)
-            ((PSModule *)entry.second)->update();
-    }
+    // bool update() override
+    // {
+    //     for (auto &entry : items)
+    //         ((PSModule *)entry.second)->update();
+    // }
 
     PSController *controller(const PSK &key) { return getItem<PSController>(key); }
     PSMEnvelope *envelope(const PSK &key) { return getItem<PSMEnvelope>(key); }    

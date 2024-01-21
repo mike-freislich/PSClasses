@@ -12,14 +12,15 @@ public:
 
     PSObject(const PSK &key, const std::string &name) : key(key), name(name) {
         PSObjectCount ++;      
-        printf("PSObject [%s] added : %d PSObjects in memory\n", name.c_str(), PSObjectCount);
+        printf("+%s(%d), ", name.c_str(), PSObjectCount);
     }
 
     virtual ~PSObject() {
         PSObjectCount --;
-        printf("PSObject [%s] freed : %d PSObjects in memory\n", name.c_str(), PSObjectCount);        
-    }
-    //PSController *asController() { return static_cast<PSController *>(this); }
+        printf("-%s(%d), ", name.c_str(), PSObjectCount);        
+    }    
+
+    virtual bool update() { return false; }
 
 
 };

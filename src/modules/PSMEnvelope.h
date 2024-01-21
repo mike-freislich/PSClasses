@@ -26,13 +26,13 @@ public:
 
     PSMEnvelope *attachParameters(const PSMEnvelopeParameters &ep)
     {
-        addParameter(Parameters.add(ep.attack, "atk")->setRange(0, 10000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
-        addParameter(Parameters.add(ep.hold, "hld")->setRange(0, 5000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
-        addParameter(Parameters.add(ep.decay, "dec")->setRange(0, 10000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
-        addParameter(Parameters.add(ep.sustain, "sus")->setRange(0, 1));
-        addParameter(Parameters.add(ep.release, "rel")->setRange(0, 5000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
-        addParameter(Parameters.add(ep.amount, "lvl")->setRange(0, 1));
-        addParameter(Parameters.byKey(CTRL_BTN_Shift));
+        _attack = addParameter(Parameters.add(ep.attack, "atk")->setRange(0, 10000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
+        _hold = addParameter(Parameters.add(ep.hold, "hld")->setRange(0, 5000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
+        _decay = addParameter(Parameters.add(ep.decay, "dec")->setRange(0, 10000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
+        _sustain = addParameter(Parameters.add(ep.sustain, "sus")->setRange(0, 1));
+        _release = addParameter(Parameters.add(ep.release, "rel")->setRange(0, 5000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
+        _amount = addParameter(Parameters.add(ep.amount, "lvl")->setRange(0, 1));
+        //addParameter(Parameters.byKey(CTRL_BTN_Shift));
         return this;
     }
 

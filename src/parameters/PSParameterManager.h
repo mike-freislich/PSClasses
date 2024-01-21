@@ -9,7 +9,7 @@ public:
     ~PSParameterManager() override {}
 
     PSParameter *add(const PSK &key, const std::string &name)
-    {        
+    {
         if (exists(key))
         {
             printf("Error adding parameter %s : already exists!\n", name.c_str());
@@ -37,7 +37,7 @@ public:
         return 0;
     }
 
-    //bool exists(const PSK &key) { return byKey(key); }
+    // bool exists(const PSK &key) { return byKey(key); }
 
     const char *c_str(const PSK &key)
     {
@@ -46,25 +46,35 @@ public:
         return nullptr;
     }
 
-    //TODO deal with const string return of null
-    // const std::string &name(const PSK &key) 
-    // {
-    //     if (PSParameter *p = byKey(key))
-    //         return p->name;
-    //     return std::string("");
-    // }
+    // TODO deal with const string return of null
+    //  const std::string &name(const PSK &key)
+    //  {
+    //      if (PSParameter *p = byKey(key))
+    //          return p->name;
+    //      return std::string("");
+    //  }
 
     auto collectionItems() { return PSObjectCollection::items; }
 
     PSParameter *byKey(const PSK &key) { return getItem<PSParameter>(key); }
 
+    bool update() override { return PSObjectCollection::update(); }
+
+    // bool update() override
+    // {
+    //     for (auto item : items) {
+    //         if (PSParameter *p = dynamic_cast<PSParameter *>(item.second))
+    //             p->update();
+    //     }
+    // }
+
 } Parameters;
 
 // void testParmManager()
-// {    
+// {
 //     Parameters.add(PSK::PARM_AENVa_AMOUNT, "level");
 //     Parameters.setValue(PARM_AENVa_AMOUNT, 1.0f);
-//     float f = Parameters.getValue(PARM_AENVa_AMOUNT);    
-//     if (PSParameter *p = Parameters.byKey(PARM_AENVa_AMOUNT))    
+//     float f = Parameters.getValue(PARM_AENVa_AMOUNT);
+//     if (PSParameter *p = Parameters.byKey(PARM_AENVa_AMOUNT))
 //         p->attachController(nullptr)->setRange(0, 1);
 // }

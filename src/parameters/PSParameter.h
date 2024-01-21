@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include <vector>
 #include <algorithm>
 #include "PSController.h"
@@ -43,7 +42,7 @@ public:
         }
     }
 
-    bool update()
+    bool update() override
     {
         bool changed = false;
         for (auto c : _controllers)

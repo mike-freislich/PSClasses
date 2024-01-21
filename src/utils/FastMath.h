@@ -57,3 +57,11 @@ float convertToAudio(float linearValue, float linearMin, float linearMax, float 
 
     return audioValue;
 }
+
+
+float sineWavePoint(float amplitude, float frequency, float phaseOffset, uint32_t numMilliseconds) {
+    const float twoPi = 2.0f * 3.14159f;
+    float timeInSeconds = static_cast<float>(numMilliseconds) / 1000.0f;
+    float phase = twoPi * frequency * timeInSeconds + twoPi * phaseOffset;
+    return amplitude * std::sin(phase);
+}

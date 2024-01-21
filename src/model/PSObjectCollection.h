@@ -3,14 +3,13 @@
 #include <string>
 #include "PSKeys.h"
 #include "PSObject.h"
-//#include "PSMEnvelope.h"
 
 class PSObjectCollection
 {
 protected:
 public:
     std::unordered_map<PSK, PSObject *> items;
-    
+
     template <typename T>
     T *addItem(T *obj)
     {
@@ -40,6 +39,15 @@ public:
         }
     }
 
-   virtual bool exists(const PSK &key) { return getItem<PSObject>(key); }
-   //virtual PSObject *byKey(const PSK &key) { return getItem<PSObject>(key); }
+    virtual bool exists(const PSK &key) { return getItem<PSObject>(key); }
+    // virtual PSObject *byKey(const PSK &key) { return getItem<PSObject>(key); }
+
+    virtual bool update()
+    {
+        bool result = false;
+        for (auto item : items)
+            result &= item.second->update();
+
+        return result;
+    }
 };

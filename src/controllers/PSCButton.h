@@ -13,12 +13,13 @@ public:
     ~PSCButton() override {}
 
 protected:
-    virtual void readValue() override
+    virtual bool readValue() override
     {
         if (_allowRandom)
         {                      
             float v = (float)(rand() % (int)(_range * 10000)) / 10000.0f;                   
-            setValue(roundf(v));
+            return setValue(roundf(v));
         }
+        return false;
     }
 };

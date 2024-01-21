@@ -18,7 +18,7 @@ int main()
 
     pauseForReview("Setup Complete");    
 
-    timer1.start(5);
+    timer1.start(10);
     beginLoop();
 
     return 0;

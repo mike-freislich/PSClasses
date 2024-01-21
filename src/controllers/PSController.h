@@ -3,6 +3,7 @@
 #include "PSKeys.h"
 #include "PSObject.h"
 #include "timing.h"
+#include "FastMath.h"
 
 class PSController : public PSObject
 {
@@ -24,7 +25,7 @@ public:
 
     float getValue() { return _value; }
 
-    virtual void update() { readValue(); }
+    virtual bool update() override { return readValue(); }
     void endUpdate() { _changed = false; }
 
     virtual PSK getKey() { return key; }
@@ -54,7 +55,7 @@ public:
     }
 
     void debounceMS(uint32_t delay)
-    {             
+    {
         bounceTimer.start(delay);
     }
 
@@ -63,17 +64,21 @@ protected:
     float _value, _min, _max, _range;
     uint8_t _pin;
     SimpleTimer bounceTimer = SimpleTimer(0);
+    float _randPhase = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
 
-    virtual void readValue()
+    virtual bool readValue()
     {
         if (_allowRandom)
-        {
-            float v = (float)(rand() % (int)(_range * 10000)) / 10000.0f;
-            setValue(v);
+        {            
+            //float v = (float)(rand() % (int)(_range * 10000)) / 10000.0f;            
+            
+            float v = (sineWavePoint(0.5f, 1.5f, _randPhase, millis()) + 0.5f) * _range;
+            return setValue(v);
         }
+        return false;
     }
 
-    virtual void setValue(float val)
+    virtual bool setValue(float val)
     {
         float sval = val / _range;
         if (sval != _value)
@@ -84,6 +89,7 @@ protected:
                 _changed = true;
             }
         }
+        return _changed;
     }
 };
 

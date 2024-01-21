@@ -14,12 +14,6 @@ public:
         return p;
     }
 
-    void update()
-    {
-        for (auto i : items)
-            ((PSParameter *)i.second)->update();
-    }
-
     virtual std::string toString()
     {
         std::string result = "@" + name + "{";
@@ -35,7 +29,7 @@ public:
     {   
         if (PSParameter *p = Parameters.byKey(key))
         {
-            printf("attaching controller %s to parameter %s\n", controller->name.c_str(), p->name.c_str());
+            printf("%s->%s_%s, ", controller->name.c_str(), name.c_str(), p->name.c_str());
             p->attachController(controller);
         }
         else
@@ -46,11 +40,10 @@ public:
 
     PSModule *attachControllers(const PSControllerConnectionVector &connections)
     {
-        printf("attaching %zu controllers\n", connections.size());
-
+        printf("[%s]: ", name.c_str());
         for (auto connection : connections)
-            attachController(connection.key, connection.controller);
-
+            attachController(connection.key, connection.controller);            
+        printf("\n");
         return this;
     }
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "PSScene.h"
 #include "PSSceneEnvelope.h"
-#include "../modules/PSModuleManager.h"
+#include "PSModuleManager.h"
 
 #define SCENE_SPLASH 0
 #define SCENE_ENVELOPE 1
