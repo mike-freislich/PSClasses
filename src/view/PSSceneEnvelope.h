@@ -27,9 +27,12 @@ public:
                        e->getAttack(), e->getHold(), e->getDecay(), e->getSustain(), e->getRelease());
             }
         }
-        
-        printf("\nButtons : (shift %d)  (enter %0.0f)\n",
-              Controllers.isShiftPressed(),
-              Parameters.byKey(CTRL_BTN_DataG)->getValue());
+
+        printf("\nButtons : ");
+        for (auto &button : Controllers.buttons)
+        {            
+            if (PSParameter *p = Parameters.byKey(button->key))
+                printf("(%s %d)\t", p->name.c_str(), button->isPressed());
+        }        
     }
 };

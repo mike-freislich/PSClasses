@@ -2,7 +2,7 @@
     "config name": "PS Synth v1.0",
     "date": "04.01.27",
     
-    "CONTROLLERS": [
+    "CONTROLLERS": [    
         {"name": "PSCPotentiometer", "key": "CTRL_POT1", "pin": "10", "debounce": "5", "PARMS": [{"mode": "normal", "assigned": []}, {"mode": "shift", "assigned": [{"pkey": "PARM_AENVa_SUSTAIN"},{"pkey": "PARM_FENVb_SUSTAIN"},{"pkey": "PARM_FENVa_HOLD"}]}]}, 
         {"name": "PSCPotentiometer", "key": "CTRL_POT2", "pin": "4", "debounce": "5", "PARMS": [{"mode": "normal", "assigned": [{"pkey": "PARM_PENVa_SUSTAIN"},{"pkey": "PARM_PENVb_DECAY"},{"pkey": "PARM_AENVb_DECAY"},{"pkey": "PARM_FENVa_AMOUNT"}]}, {"mode": "shift", "assigned": []}]}, 
         {"name": "PSCPotentiometer", "key": "CTRL_POT3", "pin": "2", "debounce": "5", "PARMS": [{"mode": "normal", "assigned": [{"pkey": "PARM_AENVb_AMOUNT"}]}, {"mode": "shift", "assigned": [{"pkey": "PARM_PENVa_HOLD"},{"pkey": "PARM_PENVb_RELEASE"},{"pkey": "PARM_AENVa_AMOUNT"},{"pkey": "PARM_AENVb_ATTACK"}]}]}, 
@@ -14,12 +14,14 @@
         {"name": "PSCPotentiometer", "key": "CTRL_POT_DataC", "pin": "9", "debounce": "5", "PARMS": [{"mode": "normal", "assigned": [{"pkey": "PARM_AENVa_DECAY"}]}, {"mode": "shift", "assigned": [{"pkey": "PARM_FENVa_ATTACK"},{"pkey": "PARM_FENVb_HOLD"}]}]},         
         {"name": "PSCPotentiometer", "key": "CTRL_POT_DataD", "pin": "8", "debounce": "5", "PARMS": [{"mode": "normal", "assigned": [{"pkey": "PARM_AENVa_HOLD"},{"pkey": "PARM_FENVb_ATTACK"}]}, {"mode": "shift", "assigned": [{"pkey": "PARM_FENVa_DECAY"}]}]}, 
         {"name": "PSCButton",        "key": "CTRL_BTN_DataG", "pin": "14", "debounce": "500", "PARMS": [{"mode": "normal", "assigned": [{"pkey": "CTRL_BTN_DataG"}]}, {"mode": "shift", "assigned": []}]}, 
-        {"name": "PSCButton",        "key": "CTRL_BTN_Shift", "pin": "13", "debounce": "1000", "PARMS": [{"mode": "normal", "assigned": [{"pkey": "CTRL_BTN_Shift"}]}, {"mode": "shift", "assigned": []}]}
+        {"name": "PSCButton",        "key": "CTRL_BTN_Shift", "pin": "13", "debounce": "1000", "PARMS": [{"mode": "normal", "assigned": [{"pkey": "CTRL_BTN_Shift"}]}, {"mode": "shift", "assigned": []}]},
+        {"name": "PSCButton",        "key": "CTRL_BTN_VoiceSelect", "pin": "22", "debounce": "100", "PARMS": [{"mode": "normal", "assigned": [{"pkey": "CTRL_BTN_VoiceSelect"}]}, {"mode": "shift", "assigned": []}]}
         
     ],
     "PARAMETERS": [
         {"name": "enter", "key": "CTRL_BTN_DataG", "value": "0.000000", "min": "0.000000", "max": "1.000000", "taper": "0"}, 
-        {"name": "shift", "key": "CTRL_BTN_Shift", "value": "0.000000", "min": "0.000000", "max": "1.000000", "taper": "0"}, 
+        {"name": "shift", "key": "CTRL_BTN_Shift", "value": "0.000000", "min": "0.000000", "max": "1.000000", "taper": "0"},
+        {"name": "v-sel", "key": "CTRL_BTN_VoiceSelect", "value": "0.000000", "min": "0.000000", "max": "1.000000", "taper": "0"}, 
 
         {"name": "v1-p-atk", "key": "PARM_PENVa_ATTACK", "value": "6435.954102", "min": "0.000000", "max": "10000.000000", "taper": "1"}, 
         {"name": "v1-p-hld", "key": "PARM_PENVa_HOLD", "value": "2501.230957", "min": "0.000000", "max": "5000.000000", "taper": "1"},

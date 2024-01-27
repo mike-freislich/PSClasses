@@ -23,6 +23,8 @@ public:
 
     void buttonType(const PSCButtonType &bt) { _buttonType = bt; } 
 
+    bool isPressed() { return _value == 1; }
+
 protected:
     PSCButtonType _buttonType = Momentary;
     virtual bool readValue() override

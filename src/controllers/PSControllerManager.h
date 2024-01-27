@@ -5,20 +5,29 @@
 class PSControllerManager : PSObjectCollection
 {
 public:
+    std::vector<PSCButton *> buttons;
+
     PSControllerManager() : PSObjectCollection() {}
-    ~PSControllerManager() override {}
+    ~PSControllerManager() override { buttons.clear(); }
 
     PSController *controller(const PSK &key) { return getItem<PSController>(key); }
 
     template <typename T>
     T *add(const PSK &key, const std::string &name)
     {
+        T *controller;
         if (exists(key))
         {
             printf("Error adding controller %s : already exists!\n", name.c_str());
-            return getItem<T>(key);
+            controller = getItem<T>(key);
         }
-        return addItem(new T(key, name));
+        else
+            controller = addItem(new T(key, name));    
+
+        if (PSCButton *button = dynamic_cast<PSCButton *>(controller))
+            buttons.push_back(button);        
+
+        return controller;
     }
 
     auto collectionItems() { return PSObjectCollection::items; }
