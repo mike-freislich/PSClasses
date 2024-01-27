@@ -22,9 +22,9 @@ public:
         {
             if (PSMEnvelope *e = dynamic_cast<PSMEnvelope *>(module.second))
             {
-                printf("Envelope [%s] : (atk %7.2f)  (hld %7.2f)  (dec %7.2f)  (sus %2.2f)  (rel %7.2f)\n",
+                printf("Envelope [%s] : (atk %7.2f)  (hld %7.2f)  (dec %7.2f)  (sus %2.2f)  (rel %7.2f)  (amt %2.2f)\n",
                        e->name.c_str(),
-                       e->getAttack(), e->getHold(), e->getDecay(), e->getSustain(), e->getRelease());
+                       e->getAttack(), e->getHold(), e->getDecay(), e->getSustain(), e->getRelease(), e->getAmount());
             }
         }
 
