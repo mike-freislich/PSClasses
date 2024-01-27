@@ -32,7 +32,13 @@ public:
         for (auto &button : Controllers.buttons)
         {            
             if (PSParameter *p = Parameters.byKey(button->key))
-                printf("(%s %d)\t", p->name.c_str(), button->isPressed());
+            {
+                const char *k = p->name.c_str();
+                if (button->isPressed())
+                    printf("<<%s>>\t", k);
+                else
+                    printf("..%s..\t", k);
+            }
         }        
     }
 };

@@ -67,17 +67,12 @@ void PSSynth::initialise()
     PSConfig config("./src/config/config.json");
     config.applyConfig();
 
-    // Controllers.controller(PSK::CTRL_POT1)->setReadMode(PSCRandom);
-    // Controllers.controller(PSK::CTRL_POT2)->setReadMode(PSCRandom);
+    Controllers.controller(PSK::CTRL_POT1)->setReadMode(PSCRandom);
+    Controllers.controller(PSK::CTRL_POT2)->setReadMode(PSCRandom);
 
     initModules();
     initScenes();
     printConfig();
-
-    if (!dynamic_cast<PSCButton *>(Controllers.controller(PSK::CTRL_BTN_DataG)))
-        printf("PROBLEM WITH CTRL_BTN_DATAG");
-    if (!dynamic_cast<PSCButton *>(Controllers.controller(PSK::CTRL_BTN_Shift)))
-        printf("PROBLEM WITH CTRL_BTN_SHIFT");
 }
 
 void PSSynth::printConfig()
