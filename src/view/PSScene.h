@@ -19,7 +19,7 @@ protected:
     bool _active;
 
 public:
-    PSScene(const PSK &key, const std::string &name) : PSObject(key, name) { refreshRateHz(20); }
+    PSScene(const PSK &key, const std::string &name) : PSObject(key, name) { refreshRateHz(60); }
 
     ~PSScene() override
     {
@@ -51,27 +51,27 @@ public:
         if (c)
         {
             _modules.addItem(c);
-            initParameters(c);
+            //initParameters(c);
         }
         return this;
     }
 
-    void initParameters(PSModule *m)
-    {
-        if (m)
-        {
-            printf("scene - adding parameters\n");
-            for (auto &item : m->items)
-            {
-                PSParameter *p = dynamic_cast<PSParameter *>(item.second);
-                if (p)
-                    _params.addItem(p);
-            }
-        }
-    }
+    // void initParameters(PSModule *m)
+    // {
+    //     if (m)
+    //     {
+    //         printf("scene - adding parameters\n");
+    //         for (auto &item : m->items)
+    //         {
+    //             PSParameter *p = dynamic_cast<PSParameter *>(item.second);
+    //             if (p)
+    //                 _params.addItem(p);
+    //         }
+    //     }
+    // }
 
     void render()
-    {
+    {        
         if (shouldRender())
             onRenderScene();
     }

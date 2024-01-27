@@ -12,14 +12,18 @@ public:
 
     template <typename T>
     T *add(const PSK &key, const std::string &name)
-    {        
+    {
         if (exists(key))
         {
             printf("Error adding controller %s : already exists!\n", name.c_str());
-            return nullptr;
-        }        
-        return addItem(new T(key, name));        
+            return getItem<T>(key);
+        }
+        return addItem(new T(key, name));
     }
+
+    auto collectionItems() { return PSObjectCollection::items; }
+
+    bool isShiftPressed() { return button(CTRL_BTN_Shift)->getValue(); }
 
     /**
      * @brief
@@ -30,18 +34,25 @@ public:
      */
     bool update() override { return PSObjectCollection::update(); }
 
-    /**
-     * @brief Resets all the controllers changed values to "not changed"
-     * Called after modules have checked to see if their parameters have changed.
-     */
-    void endUpdate()
+    PSCButton *button(const PSK &key) { return getItem<PSCButton>(key); }
+    PSCPotentiometer *potentiometer(const PSK &key) { return getItem<PSCPotentiometer>(key); }
+
+    const std::string serialize()
     {
-        for (auto item : items)
-            if (PSController *c = dynamic_cast<PSController *>(item.second))
-                c->endUpdate();            
+        StringBuilder sb;
+        sb.startArray("CONTROLLERS")->add("\n");
+        int count = 0;
+        for (auto i : items)
+        {
+            if (PSController *c = dynamic_cast<PSController *>(i.second))
+            {
+                sb.add(c->serialize());
+                count++;
+                if (count < items.size())
+                    sb.add(", \n");
+            }
+        }
+        sb.add("\n")->endArray();
+        return sb.toString();
     }
-    
-    PSCButton *button(const PSK &key) { return this->getItem<PSCButton>(key); }
-    PSCPotentiometer *potentiometer(const PSK &key) { return this->getItem<PSCPotentiometer>(key); }    
-    
 } Controllers;

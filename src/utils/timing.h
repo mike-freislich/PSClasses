@@ -32,7 +32,9 @@ public:
     void duration(uint32_t d)
     {
         _duration = d;
-    }    
+    }
+
+    uint32_t  getDuration() { return _duration; }    
 
     void start()
     {        
@@ -72,4 +74,4 @@ private:
     uint32_t _duration; 
     bool _running = false;
 
-} timer1(10), timer2(200), timer3(300);
+} timer1(10), timer2(10), timer3(10);

@@ -59,10 +59,14 @@
 			"variant": "cpp",
 			"vector": "cpp",
 			"algorithm": "cpp",
-			"thread": "cpp"
+			"thread": "cpp",
+			"__tree": "cpp",
+			"deque": "cpp",
+			"map": "cpp",
+			"regex": "cpp"
 		},
 		"stm32-for-vscode.openOCDPath": "false",
 		"stm32-for-vscode.armToolchainPath": "false",
-		"workbench.colorTheme": "Tomorrow Night Blue"
+		"workbench.colorTheme": "Default Light Modern"
 	}
 }

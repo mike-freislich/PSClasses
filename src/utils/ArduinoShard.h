@@ -4,10 +4,12 @@
 
 #define REVIEWTIME 2000
 #define LOOPDURATION 8000
+#define TICKTIME 0
 
 void setup();
 void loop();
 void beginLoop();
+void exiting();
 void pauseForReview(const std::string &reason, uint32_t delayMS = REVIEWTIME);
 
 int main()
@@ -18,9 +20,9 @@ int main()
 
     pauseForReview("Setup Complete");    
 
-    timer1.start(10);
+    timer1.start(TICKTIME);
     beginLoop();
-
+    exiting();
     return 0;
 }
 

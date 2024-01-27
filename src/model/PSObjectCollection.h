@@ -39,15 +39,13 @@ public:
         }
     }
 
-    virtual bool exists(const PSK &key) { return getItem<PSObject>(key); }
-    // virtual PSObject *byKey(const PSK &key) { return getItem<PSObject>(key); }
+    virtual bool exists(const PSK &key) { return getItem<PSObject>(key); }    
 
     virtual bool update()
     {
         bool result = false;
-        for (auto item : items)
-            result &= item.second->update();
-
+        for (auto item : items)            
+            result &= item.second->update();    
         return result;
     }
 };

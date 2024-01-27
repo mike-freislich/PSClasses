@@ -26,30 +26,29 @@ public:
 
     PSMEnvelope *attachParameters(const PSMEnvelopeParameters &ep)
     {
-        _attack = addParameter(Parameters.add(ep.attack, "atk")->setRange(0, 10000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
-        _hold = addParameter(Parameters.add(ep.hold, "hld")->setRange(0, 5000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
-        _decay = addParameter(Parameters.add(ep.decay, "dec")->setRange(0, 10000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
-        _sustain = addParameter(Parameters.add(ep.sustain, "sus")->setRange(0, 1));
-        _release = addParameter(Parameters.add(ep.release, "rel")->setRange(0, 5000)->setTaper(PSParameter::TAPER::LOGARITHMIC));
-        _amount = addParameter(Parameters.add(ep.amount, "lvl")->setRange(0, 1));
-        //addParameter(Parameters.byKey(CTRL_BTN_Shift));
+        _attack = addParameter(Parameters.byKey(ep.attack));
+        _hold = addParameter(Parameters.byKey(ep.hold));
+        _decay = addParameter(Parameters.byKey(ep.decay));
+        _sustain = addParameter(Parameters.byKey(ep.sustain));
+        _release = addParameter(Parameters.byKey(ep.release));
+        _amount = addParameter(Parameters.byKey(ep.amount));        
         return this;
     }
 
-    PSMEnvelope *setValues(PSMEnvelopeValues &values)
-    {
-        attack(values.attack);
-        hold(values.hold);
-        decay(values.decay);
-        sustain(values.sustain);
-        release(values.release);
-        amount(values.amount);
-        return this;
-    }
+    // PSMEnvelope *setValues(PSMEnvelopeValues &values)
+    // {
+    //     attack(values.attack);
+    //     hold(values.hold);
+    //     decay(values.decay);
+    //     sustain(values.sustain);
+    //     release(values.release);
+    //     amount(values.amount);
+    //     return this;
+    // }
 
     PSMEnvelope *setValue(const PSK &key, float value)
     {
-        getItem<PSParameter>(key)->setValue(value);
+        this->getItem<PSParameter>(key)->setValue(value);        
         return this;
     }
 

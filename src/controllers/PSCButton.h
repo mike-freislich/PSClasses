@@ -7,19 +7,21 @@ enum PSCButtonType
     Latching
 };
 
-//TODO implement momentary / latching button type
+// TODO implement momentary / latching button type
 class PSCButton : public PSController
 {
 public:
-    PSCButton(const PSK &key, const std::string &name) : PSController(key, name, 10, 1010)
+    PSCButton(const PSK &key, const std::string &name) : PSController(key, name)
     {
         setPin(key);
         setValueRange(0, 1);
-        debounceMS(100);
+        debounceMS(30);
     }
     ~PSCButton() override {}
 
-    void buttonType(const PSCButtonType &bt) { _buttonType = bt; }
+    const char *typeName() override { return "PSCButton"; }
+
+    void buttonType(const PSCButtonType &bt) { _buttonType = bt; } 
 
 protected:
     PSCButtonType _buttonType = Momentary;
@@ -28,7 +30,8 @@ protected:
         if (_allowRandom)
         {
             float v = (float)(rand() % (int)(_range * 10000)) / 10000.0f;
-            return setValue(roundf(v));
+            v = (v <= 0.5f) ? 0 : 1;      
+            return setValue(v);
         }
         return false;
     }

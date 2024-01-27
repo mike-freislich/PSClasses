@@ -1,27 +1,39 @@
-//#define TEENSYDUINO 210
+// #define TEENSYDUINO 210
 #include "ArduinoShard.h"
 #include "timing.h"
+#include "PSSynth.h"
 
-#define REFRESH_RATE 30
-#include "PSSynthModel.h"
 
-#define DEBUG
+//#define TESTMODE
+#ifdef TESTMODE
+#include "tests.h"
+#endif
 
-/**
- * PSModule contains 1 or more PSParameter
- * PSParameter attaches 1 or more PSControllers
- * PSModule.update() calls update on all parameters which checks if any controllers have changed
- * PSController.update() reads new values from the input device and flags if the value has changed
- */
 
 void setup()
 {
-    synth.initialise();    
+#ifdef TESTMODE
+    // testCollection();
+    // testLoadConfig();
+#else
+    synth.initialise();
+#endif
 }
 
 void loop()
 {
+#ifndef TESTMODE
+
     if (timer1.update())
+    {
         synth.update();
-    delay(0);
+    }
+    delay(1);
+
+#endif
+}
+
+void exiting()
+{
+    synth.printConfig();
 }

@@ -13,7 +13,7 @@ public:
         if (exists(key))
         {
             printf("Error adding parameter %s : already exists!\n", name.c_str());
-            return nullptr; // already exists!
+            return byKey(key); // already exists!
         }
         PSParameter *p = new PSParameter(key, name);
         this->addItem(p);
@@ -46,14 +46,6 @@ public:
         return nullptr;
     }
 
-    // TODO deal with const string return of null
-    //  const std::string &name(const PSK &key)
-    //  {
-    //      if (PSParameter *p = byKey(key))
-    //          return p->name;
-    //      return std::string("");
-    //  }
-
     auto collectionItems() { return PSObjectCollection::items; }
 
     PSParameter *byKey(const PSK &key) { return getItem<PSParameter>(key); }
@@ -66,8 +58,27 @@ public:
     //         if (PSParameter *p = dynamic_cast<PSParameter *>(item.second))
     //             p->update();
     //     }
+    //     return true;
     // }
 
+    const std::string serialize()
+    {
+        StringBuilder sb;
+        sb.startArray("PARAMETERS")->add("\n");
+        int count = 0;
+        for (auto i : items)
+        {
+            if (PSParameter *c = dynamic_cast<PSParameter *>(i.second))
+            {
+                sb.add(c->serialize());
+                count++;
+                if (count < items.size())
+                    sb.add(", \n");
+            }
+        }
+        sb.add("\n")->endArray();
+        return sb.toString();
+    }
 } Parameters;
 
 // void testParmManager()

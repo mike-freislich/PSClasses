@@ -6,11 +6,24 @@
 #define SCENE_SPLASH 0
 #define SCENE_ENVELOPE 1
 
-class PSSceneManager : public PSObjectCollection
+class PSSceneManager : PSObjectCollection
 {
 public:
     PSSceneManager() : PSObjectCollection() {}
     ~PSSceneManager() override {}
+
+    template <typename T>
+    T *add(const PSK &key, const std::string &name)
+    {
+        if (!exists(key))
+        {            
+            T *scene = addItem(new T(key, name));
+            return scene;
+        } 
+        return nullptr;
+    }
+
+    PSScene *scene(const PSK &key) { return getItem<PSScene>(key); }
 
     void setActive(const PSK &key)
     {
@@ -34,4 +47,4 @@ public:
 
 private:
     PSScene *_activeScene;
-};
+} Scenes;
