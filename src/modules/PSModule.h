@@ -2,19 +2,37 @@
 #include "PSParameterManager.h"
 #include "PSControllerConnection.h"
 
-class PSModule : public PSObject, public PSObjectCollection
+class PSModule : public CollectionItemBase
 {
 public:
-    PSModule(const PSK &key, const std::string name) : PSObject(key, name), PSObjectCollection() {}
+    PSParameterManager parms;
+    
+    PSModule() : CollectionItemBase() { typeName = "PSModule"; }
     ~PSModule() override {}
+
+    template <typename T>
+    static T *create(const char *key, const char *displayName)
+    {
+        static_assert(std::is_base_of<PSModule, T>::value, "T must be a derived class of PSModule");
+        T *newMod = new T();
+        newMod->key = key;
+        newMod->displayName = displayName;
+        return newMod;
+    }
 
     PSParameter *addParameter(PSParameter *p)
     {
-        addItem(p);
+        parms.add(p->key, p);
         return p;
     }
 
-    PSParameter *getParameter(const PSK &key) { return getItem<PSParameter>(key); }
+    PSParameter *getParameter(const std::string &key)
+    {
+        if (parms.contains(key))
+            return parms[key];
+        else
+            return nullptr;
+    }
 
     // virtual std::string toString()
     // {
@@ -25,18 +43,22 @@ public:
     //     return result;
     // }
 
-    void attachController(const PSK &key, PSController *controller)
+    void attachController(const std::string &key, PSController *controller)
     {
-        if (PSParameter *p = Parameters.byKey(key))
+        if (Parameters.contains(key))
         {
-            if (controller)
+            if (PSParameter *p = Parameters[key])
             {
-                printf("%s->%s_%s, ", controller->name.c_str(), name.c_str(), p->name.c_str());
-                PSParameterMode mode = (random() % 2 == 0) ? SHIFT_PARM : STANDARD_PARM;
-                controller->assignParameter(p, mode);
-            }            
-            else {
-                printf("unable to assign parameter to null controller\n");
+                if (controller)
+                {
+                    std::cout << controller->displayName << "->" << displayName << "_" << p->displayName << ", ";                    
+                    PSParameterMode mode = (random() % 2 == 0) ? SHIFT_PARM : STANDARD_PARM;
+                    controller->assignParameter(p, mode);
+                }
+                else
+                {
+                    printf("unable to assign parameter to null controller\n");
+                }
             }
         }
         else
@@ -47,7 +69,7 @@ public:
 
     PSModule *attachControllers(const PSControllerConnectionVector &connections)
     {
-        printf("[%s]: ", name.c_str());
+        std::cout << "[" << displayName << "]: ";         
         for (auto connection : connections)
             attachController(connection.key, connection.controller);
         printf("\n");
@@ -55,5 +77,4 @@ public:
     }
 
 protected:
-    
 };

@@ -2,10 +2,18 @@
 #include "PSModule.h"
 #include "PSParameterManager.h"
 
+// Envelope instance parameter mappings
+#define EPARMS_PENVa PARM_PENVa_ATTACK, PARM_PENVa_HOLD, PARM_PENVa_DECAY, PARM_PENVa_SUSTAIN, PARM_PENVa_RELEASE, PARM_PENVa_AMOUNT
+#define EPARMS_AENVa PARM_AENVa_ATTACK, PARM_AENVa_HOLD, PARM_AENVa_DECAY, PARM_AENVa_SUSTAIN, PARM_AENVa_RELEASE, PARM_AENVa_AMOUNT
+#define EPARMS_FENVa PARM_FENVa_ATTACK, PARM_FENVa_HOLD, PARM_FENVa_DECAY, PARM_FENVa_SUSTAIN, PARM_FENVa_RELEASE, PARM_FENVa_AMOUNT
+#define EPARMS_PENVb PARM_PENVb_ATTACK, PARM_PENVb_HOLD, PARM_PENVb_DECAY, PARM_PENVb_SUSTAIN, PARM_PENVb_RELEASE, PARM_PENVb_AMOUNT
+#define EPARMS_AENVb PARM_AENVb_ATTACK, PARM_AENVb_HOLD, PARM_AENVb_DECAY, PARM_AENVb_SUSTAIN, PARM_AENVb_RELEASE, PARM_AENVb_AMOUNT
+#define EPARMS_FENVb PARM_FENVb_ATTACK, PARM_FENVb_HOLD, PARM_FENVb_DECAY, PARM_FENVb_SUSTAIN, PARM_FENVb_RELEASE, PARM_FENVb_AMOUNT
+
 struct PSMEnvelopeParameters
-{    
-    PSK attack, hold, decay, sustain, release, amount;
-    PSMEnvelopeParameters(PSK attack, PSK hold, PSK decay, PSK sustain, PSK release, PSK amount) 
+{
+    std::string attack, hold, decay, sustain, release, amount;
+    PSMEnvelopeParameters(std::string attack, std::string hold, std::string decay, std::string sustain, std::string release, std::string amount)
         : attack(attack), hold(hold), decay(decay), sustain(sustain), release(release), amount(amount) {}
 };
 
@@ -17,21 +25,27 @@ struct PSMEnvelopeValues
 class PSMEnvelope : public PSModule
 {
 public:
-    PSMEnvelope(const PSK &key, const std::string name, const PSMEnvelopeParameters &ep) : PSModule(key, name) 
+    PSMEnvelope() : PSModule()
     {
-        attachParameters(ep);
+        
     }
+    ~PSMEnvelope() override { parms.clear(); }
 
-    ~PSMEnvelope() override { items.clear(); }
+    static PSMEnvelope *create(const char * key, const char *displayName, const PSMEnvelopeParameters &ep)
+    {
+        PSMEnvelope *newMod = PSModule::create<PSMEnvelope>(key, displayName);        
+        newMod->attachParameters(ep);
+        return newMod;
+    }
 
     PSMEnvelope *attachParameters(const PSMEnvelopeParameters &ep)
     {
-        _attack = addParameter(Parameters.byKey(ep.attack));
-        _hold = addParameter(Parameters.byKey(ep.hold));
-        _decay = addParameter(Parameters.byKey(ep.decay));
-        _sustain = addParameter(Parameters.byKey(ep.sustain));
-        _release = addParameter(Parameters.byKey(ep.release));
-        _amount = addParameter(Parameters.byKey(ep.amount));        
+        _attack = addParameter(Parameters[ep.attack]);
+        _hold = addParameter(Parameters[ep.hold]);
+        _decay = addParameter(Parameters[ep.decay]);
+        _sustain = addParameter(Parameters[ep.sustain]);
+        _release = addParameter(Parameters[ep.release]);
+        _amount = addParameter(Parameters[ep.amount]);
         return this;
     }
 
@@ -46,9 +60,9 @@ public:
     //     return this;
     // }
 
-    PSMEnvelope *setValue(const PSK &key, float value)
+    PSMEnvelope *setValue(const std::string &key, float value)
     {
-        this->getItem<PSParameter>(key)->setValue(value);        
+        parms[key]->setValue(value);    
         return this;
     }
 
@@ -59,7 +73,7 @@ public:
     void release(float value) { _release->setValue(value); }
     void amount(float value) { _amount->setValue(value); }
 
-    float getValue(const PSK &key) { return getItem<PSParameter>(key)->getValue(); }
+    float getValue(const std::string &key) { return parms[key]->getValue(); }
 
     float getAttack() { return _attack->getValue(); }
     float getHold() { return _hold->getValue(); }

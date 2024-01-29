@@ -1,38 +1,50 @@
 #pragma once
 #include "PSController.h"
 
+// TODO implement momentary / latching button type
 enum PSCButtonType
 {
     Momentary,
     Latching
 };
 
-// TODO implement momentary / latching button type
 class PSCButton : public PSController
 {
 public:
-    PSCButton(const PSK &key, const std::string &name) : PSController(key, name)
+    PSCButton() : PSController()
     {
-        setPin(key);
-        setValueRange(0, 1);
-        debounceMS(30);
+        typeName = "PSCButton";
+        _readMode = PSControllerReadMode::PSCRandom;
+        // setValueRange(0, 1);
     }
     ~PSCButton() override {}
 
-    const char *typeName() override { return "PSCButton"; }
+    static PSCButton *create(const char *key, int pin, const char *displayName)
+    {
+        PSCButton *newButton = PSController::create<PSCButton>(key, pin, displayName);
+        newButton->debounceMS(30);
+        return newButton;
+    }
 
-    void buttonType(const PSCButtonType &bt) { _buttonType = bt; } 
+    void serializeCustomProperties(StringBuilder *sb) override
+    {
+        sb->addPair("state", isPressed())
+            ->delimiter();
+    }
 
-    bool isPressed() { return _value == 1; }
+    void buttonType(const PSCButtonType &bt) { _buttonType = bt; }
+
+    bool isPressed() { return (_value); }
 
 protected:
     PSCButtonType _buttonType = Momentary;
+
     virtual bool readValue() override
     {
-        if (_allowRandom)
+        if (_readMode == PSControllerReadMode::PSCRandom)
         {
-            float v = (float)(rand() % (int)(_range * 10000)) / 10000.0f;
-            v = (v <= 0.5f) ? 0 : 1;      
+            float v = (float)((rand() % (int)(_range * 10000))) / 10000.0f;            
+            v = (v <= 0.5f) ? 0 : 1;
             return setValue(v);
         }
         return false;

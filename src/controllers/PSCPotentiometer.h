@@ -5,11 +5,18 @@
 class PSCPotentiometer : public PSController
 {
 public:
-    PSCPotentiometer(const PSK &key, const std::string &name) : PSController(key, name, 10, 1010)
+    PSCPotentiometer() : PSController()
     {
-        //setPin(key);
+        typeName = "PSCPotentiometer";
     }
     ~PSCPotentiometer() override {}
 
-    const char *typeName() override { return "PSCPotentiometer"; }
+    static PSCPotentiometer *create(const char *key, int pin, const char *displayName)
+    {
+        PSCPotentiometer *newPot = PSController::create<PSCPotentiometer>(key, pin, displayName);
+        newPot->debounceMS(5);
+        newPot->setValueRange(10,1010);
+        newPot->setReadMode(PSControllerReadMode::PSCSine);        
+        return newPot;
+    }
 };

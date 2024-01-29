@@ -94,7 +94,7 @@ private:
             getNextChar(); // Skip ':'
 
             JSONValue value = parseValue();
-            result.objectValue[key] = value;
+            result.objectValue[key] = value;            
 
             skipWhitespace();
             if (getCurrentChar() == ',')

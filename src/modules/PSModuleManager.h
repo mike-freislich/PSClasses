@@ -9,17 +9,11 @@
 #include "PSMNoiseGen.h"
 #include "PSMStereoAmp.h"
 
-class PSModuleManager : public PSObjectCollection
+class PSModuleManager : public CollectionBase<std::string, PSModule *>
 {
 public:
     ~PSModuleManager() override {}
 
-    // bool update() override
-    // {
-    //     for (auto &entry : items)
-    //         ((PSModule *)entry.second)->update();
-    // }
-
-    PSController *controller(const PSK &key) { return getItem<PSController>(key); }
-    PSMEnvelope *envelope(const PSK &key) { return getItem<PSMEnvelope>(key); }    
+    //PSController *controller(const PSK &key) { return  getItem<PSController>(key); }
+    //PSMEnvelope *envelope(const PSK &key) { return getItem<PSMEnvelope>(key); }    
 } Modules;

@@ -5,40 +5,41 @@
 class PSSceneEnvelope : public PSScene
 {
 public:
-    PSSceneEnvelope(const PSK &key, const std::string &name) : PSScene(key, name)
+    PSSceneEnvelope() : PSScene()
     {
-        addModule(Modules.getItem<PSModule>(MOD_PENVa));
-        addModule(Modules.getItem<PSModule>(MOD_PENVb));
-        addModule(Modules.getItem<PSModule>(MOD_AENVa));
-        addModule(Modules.getItem<PSModule>(MOD_AENVb));
-        addModule(Modules.getItem<PSModule>(MOD_FENVa));
-        addModule(Modules.getItem<PSModule>(MOD_FENVb));
+        typeName = "PSSceneEnvelope";
+        addModule(Modules[MOD_PENVa]);
+        addModule(Modules[MOD_PENVb]);
+        addModule(Modules[MOD_AENVa]);
+        addModule(Modules[MOD_AENVb]);
+        addModule(Modules[MOD_FENVa]);
+        addModule(Modules[MOD_FENVb]);
     }
     ~PSSceneEnvelope() override {}
 
     void drawModules() override
     {
-        for (auto &module : _modules.items)
+        for (auto &module : _modules.getData())
         {
             if (PSMEnvelope *e = dynamic_cast<PSMEnvelope *>(module.second))
             {
                 printf("Envelope [%s] : (atk %7.2f)  (hld %7.2f)  (dec %7.2f)  (sus %2.2f)  (rel %7.2f)  (amt %2.2f)\n",
-                       e->name.c_str(),
+                       e->displayName.c_str(),
                        e->getAttack(), e->getHold(), e->getDecay(), e->getSustain(), e->getRelease(), e->getAmount());
             }
         }
 
         printf("\nButtons : ");
         for (auto &button : Controllers.buttons)
-        {            
-            if (PSParameter *p = Parameters.byKey(button->key))
+        {
+            if (PSParameter *p = Parameters[button->key])
             {
-                const char *k = p->name.c_str();
+                
                 if (button->isPressed())
-                    printf("<<%s>>\t", k);
+                    printf("<<%s>>\t", p->displayName.c_str());
                 else
-                    printf("..%s..\t", k);
+                    printf("..%s..\t", p->displayName.c_str());
             }
-        }        
+        }
     }
 };

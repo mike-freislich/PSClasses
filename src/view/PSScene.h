@@ -1,11 +1,14 @@
 #pragma once
-#include "PSParameter.h"
+// #include "Parameter.h"
+#include "PSModuleManager.h"
+#include "PSParameterManager.h"
+#include "PSControllerManager.h"
 #include "PSKeys.h"
 #include "timing.h"
 
 using namespace std;
 
-class PSScene : public PSObject
+class PSScene : public CollectionItemBase
 {
 
 private:
@@ -13,19 +16,27 @@ private:
     bool shouldRender() { return _active && refreshTimer.update(); }
 
 protected:
-    PSObjectCollection _params;
-    PSObjectCollection _modules;
-    PSObjectCollection _controllers;
+    PSParameterManager _params;
+    PSModuleManager _modules;
+    PSControllerManager _controllers;
     bool _active;
 
 public:
-    PSScene(const PSK &key, const std::string &name) : PSObject(key, name) { refreshRateHz(60); }
-
     ~PSScene() override
     {
-        _modules.items.clear();
-        _params.items.clear();
-        _controllers.items.clear();
+        _modules.clear();
+        _params.clear();
+        _controllers.clear();
+    }
+
+    template <typename T>
+    static T *create(const char * key, const char *displayName)
+    {
+        static_assert(std::is_base_of<PSScene, T>::value, "T must be a derived class of PSScene");
+        PSScene *scene = new T();
+        scene->key = key;
+        scene->refreshRateHz(120);
+        return dynamic_cast<T *>(scene);
     }
 
     void setDisplay()
@@ -44,14 +55,13 @@ public:
         refreshTimer.stop();
     }
 
-    void addParameter(PSParameter *param) { _params.addItem(param); }
+    void addParameter(PSParameter *param) { _params.add(param->key, param); }
 
     PSScene *addModule(PSModule *c)
     {
         if (c)
         {
-            _modules.addItem(c);
-            //initParameters(c);
+            _modules.add(c->key, c);            
         }
         return this;
     }
@@ -71,7 +81,7 @@ public:
     // }
 
     void render()
-    {        
+    {
         if (shouldRender())
             onRenderScene();
     }
@@ -80,23 +90,23 @@ public:
     {
         clearDisplay();
         drawTitle();
-        //drawParameters();
+        // drawParameters();
         drawModules();
         drawBorder();
     }
 
     virtual void drawModules()
     {
-        for (auto &module : _modules.items)
+        for (auto &module : _modules.getData())
         {
             if (PSModule *m = dynamic_cast<PSModule *>(module.second))
-            {
-                printf("MODULE [%s] : ", m->name.c_str());
-                for (auto &parameter : m->items)
+            {                
+                printf("MODULE [%s] : ", m->displayName.c_str());
+                for (auto &parameter : m->parms.getData())
                 {
                     if (PSParameter *p = dynamic_cast<PSParameter *>(parameter.second))
                     {
-                        printf("%s : %0.2f\t", p->name.c_str(), p->getValue());
+                        printf("%s : %0.2f\t", p->displayName.c_str(), p->getValue());
                     }
                 }
                 printf("\n");
@@ -107,19 +117,19 @@ public:
 
     void drawParameters()
     {
-        for (auto &item : _params.items)
+        for (auto &item : _params.getData())
         {
             PSParameter *p = dynamic_cast<PSParameter *>(item.second);
             if (p)
             {
-                printf("%s : %0.2f\t", p->name.c_str(), p->getValue());
+                printf("%s : %0.2f\t", p->displayName.c_str(), p->getValue());
             }
         }
         printf("\n");
     }
 
     virtual void clearDisplay() { system("clear"); }
-    virtual void drawTitle() { printf("******** SCENE: %s **********\n\n", name.c_str()); }
-    virtual void drawBorder() { printf("\n----------------------------------------\n"); }    
+    virtual void drawTitle() { printf("******** SCENE: %s **********\n\n", displayName.c_str()); }
+    virtual void drawBorder() { printf("\n----------------------------------------\n"); }
     void refreshRateHz(uint8_t freq) { refreshTimer.duration(1.0f / freq * 1000); }
 };

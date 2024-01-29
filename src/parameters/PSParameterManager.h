@@ -1,28 +1,17 @@
 #pragma once
 #include "PSParameter.h"
-#include "PSObjectCollection.h"
+#include "Collection.h"
 
-class PSParameterManager : PSObjectCollection
+
+class PSParameterManager : public CollectionBase<std::string, PSParameter *>
 {
 public:
     PSParameterManager() {}
     ~PSParameterManager() override {}
 
-    PSParameter *add(const PSK &key, const std::string &name)
+    bool setValue(const std::string &key, float value)
     {
-        if (exists(key))
-        {
-            printf("Error adding parameter %s : already exists!\n", name.c_str());
-            return byKey(key); // already exists!
-        }
-        PSParameter *p = new PSParameter(key, name);
-        this->addItem(p);
-        return p;
-    }
-
-    bool setValue(const PSK &key, float value)
-    {
-        if (PSParameter *p = byKey(key))
+        if (PSParameter *p = collectionData[key])
         {
             p->setValue(value);
             return true;
@@ -30,49 +19,34 @@ public:
         return false;
     }
 
-    float getValue(const PSK &key)
+    float getValue(const std::string &key)
     {
-        if (PSParameter *p = byKey(key))
+        if (PSParameter *p = collectionData[key])
             return p->getValue();
         return 0;
     }
 
-    // bool exists(const PSK &key) { return byKey(key); }
-
-    const char *c_str(const PSK &key)
-    {
-        if (PSParameter *p = byKey(key))
-            return p->name.c_str();
-        return nullptr;
-    }
-
-    auto collectionItems() { return PSObjectCollection::items; }
-
-    PSParameter *byKey(const PSK &key) { return getItem<PSParameter>(key); }
-
-    bool update() override { return PSObjectCollection::update(); }
-
-    // bool update() override
+    // const char *c_str(const std::string &key)
     // {
-    //     for (auto item : items) {
-    //         if (PSParameter *p = dynamic_cast<PSParameter *>(item.second))
-    //             p->update();
-    //     }
-    //     return true;
-    // }
+    //     if (PSParameter *p = collectionData[key])
+    //         return p->displayName.c_str();
+    //     return nullptr;
+    // }    
+    
+    bool update() override { return CollectionBase::update(); }
 
-    const std::string serialize()
+    std::string serialize() override
     {
         StringBuilder sb;
         sb.startArray("PARAMETERS")->add("\n");
         int count = 0;
-        for (auto i : items)
+        for (auto i : collectionData)
         {
             if (PSParameter *c = dynamic_cast<PSParameter *>(i.second))
             {
-                sb.add(c->serialize());
+                c->serialize(&sb);
                 count++;
-                if (count < items.size())
+                if (count < collectionData.size())
                     sb.add(", \n");
             }
         }

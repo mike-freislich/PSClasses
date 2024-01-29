@@ -1,67 +1,50 @@
 #pragma once
+// #include "PSObjectCollection.h"
+#include "Collection.h"
+#include "PSController.h"
 #include "PSCPotentiometer.h"
 #include "PSCButton.h"
 
-class PSControllerManager : PSObjectCollection
+class PSControllerManager : public CollectionBase<std::string, PSController *>
 {
 public:
     std::vector<PSCButton *> buttons;
 
-    PSControllerManager() : PSObjectCollection() {}
     ~PSControllerManager() override { buttons.clear(); }
 
-    PSController *controller(const PSK &key) { return getItem<PSController>(key); }
-
-    template <typename T>
-    T *add(const PSK &key, const std::string &name)
+    PSController *add(const std::string &key, PSController *value) override
     {
-        T *controller;
-        if (exists(key))
-        {
-            printf("Error adding controller %s : already exists!\n", name.c_str());
-            controller = getItem<T>(key);
-        }
-        else
-            controller = addItem(new T(key, name));    
-
-        if (PSCButton *button = dynamic_cast<PSCButton *>(controller))
-            buttons.push_back(button);        
-
-        return controller;
+        PSController *c = CollectionBase::add(key, value);
+        if (PSCButton *b = dynamic_cast<PSCButton *>(c))
+            buttons.push_back(b);
+        return c;
     }
 
-    auto collectionItems() { return PSObjectCollection::items; }
+    bool isShiftPressed() { return button("CTRL_BTN_Shift")->getValue(); }
 
-    bool isShiftPressed() { return button(CTRL_BTN_Shift)->getValue(); }
+    PSCButton *button(const std::string &key) { return dynamic_cast<PSCButton *>(collectionData[key]); }
+    PSCPotentiometer *potentiometer(const std::string &key) { return dynamic_cast<PSCPotentiometer *>(collectionData[key]); }
 
-    /**
-     * @brief
-     * Reads and updates the values from physical controllers e.g. knobs etc.
-     * NOTE:
-     *   PSParamater.update() polls each of its attached PSController.didChange()
-     *   to determine new input value to update the parameter with.
-     */
-    bool update() override { return PSObjectCollection::update(); }
-
-    PSCButton *button(const PSK &key) { return getItem<PSCButton>(key); }
-    PSCPotentiometer *potentiometer(const PSK &key) { return getItem<PSCPotentiometer>(key); }
-
-    const std::string serialize()
+    std::string serialize() override
     {
         StringBuilder sb;
         sb.startArray("CONTROLLERS")->add("\n");
         int count = 0;
-        for (auto i : items)
+        for (auto &pair : collectionData)
         {
-            if (PSController *c = dynamic_cast<PSController *>(i.second))
+            sb.startElement();
+            if (PSController *c = pair.second)
             {
-                sb.add(c->serialize());
-                count++;
-                if (count < items.size())
-                    sb.add(", \n");
+                c->serialize(&sb);
+                count++;                
             }
+            sb.endElement();
+            if (count < collectionData.size())
+                sb.delimiter()->add("\n");
         }
-        sb.add("\n")->endArray();
+        sb.add("\n")
+            ->endArray();
         return sb.toString();
     }
+
 } Controllers;

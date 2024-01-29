@@ -5,6 +5,35 @@
 #include <fstream>
 #include <sstream>
 #include "JSONParser.h"
+#include "PSControllerManager.h"
+#include "PSParameterManager.h"
+
+struct ParameterStruct
+{
+    const char *key;
+    const char *displayName;
+    float value;
+    float min;
+    float max;
+    int taper;
+};
+
+struct ParmConnectionSruct
+{
+    const char *mode;
+    const char *pKey;
+};
+
+struct ControllerStruct
+{
+    std::string key;
+    std::string displayName;
+    std::string typeName;
+    int pin;
+    int debounce;
+    float min;
+    float max;
+};
 
 class PSConfig
 {
@@ -17,7 +46,7 @@ private:
         if (!jsonFile.is_open())
         {
             std::cerr << "Error opening the file." << std::endl;
-            throw std::runtime_error("Error opening config file '" + string(filename) + "'");
+            throw std::runtime_error("Error opening config file '" + std::string(filename) + "'");
         }
         std::stringstream buffer;
         buffer << jsonFile.rdbuf();
@@ -46,54 +75,102 @@ public:
 
     void loadControllers(JSONValue &result)
     {
-        printf("\n\nADDING CONTROLLERS and MAPPINGS :\n\n");
-        for (const auto &c : result.objectValue.at("CONTROLLERS").arrayValue)
+        int count;
+        printf("\n\nLOADING CONTROLLERS and PARAMETER MAPPINGS :\n\n");
+
+        for (const auto &jsonController : result.objectValue.at("CONTROLLERS").arrayValue)
         {
-            std::map<std::string, JSONValue> v = c.objectValue;
-            PSK key = str_topsk(v.at("key").stringValue);
-            std::string name = v.at("name").stringValue;
-            int pin = std::stoi(v.at("pin").stringValue);
-            int debounce = std::stoi(v.at("debounce").stringValue);
-
-            PSController *controller;
-            if (name == "PSCButton")
+            auto o = jsonController.objectValue;
+            ControllerStruct cv;
+            try
             {
-                PSCButton *button = Controllers.add<PSCButton>(key, name);
-                button->setPin(pin);
-                button->debounceMS(debounce);
-                controller = button;
+                cv.key = o.at("key").stringValue;
+                cv.typeName = o.at("type").stringValue;
+                cv.displayName = o.at("name").stringValue;
+                cv.pin = o.at("pin").numberValue;
+                cv.debounce = o.at("debounce").numberValue;
+                cv.min = o.at("min").numberValue;
+                cv.max = o.at("max").numberValue;
             }
-            else if (name == "PSCPotentiometer")
+            catch (const std::exception &e)
             {
-                PSCPotentiometer *pot = Controllers.add<PSCPotentiometer>(key, name);
-                pot->setPin(pin);
-                pot->debounceMS(debounce);
-                controller = pot;
+                std::cerr << e.what() << "|| Error parsing config at CONTROLLERS " << count << "\n";
             }
 
-            if (controller)
+            // printf("\ncreating new controller : %s, %s, %s ||| ",
+            //     cv.key.c_str(),
+            //     cv.typeName.c_str(),
+            //     cv.displayName.c_str());
+
+            if (cv.typeName == "PSCButton")
             {
-                printf("\n");      
-                loadControllerParameters(controller, c);        
+                if (!Controllers.contains(cv.key))
+                    Controllers.add(cv.key, PSCButton::create(cv.key.c_str(), cv.pin, cv.displayName.c_str()));
+                // if (PSCButton *button = dynamic_cast<PSCButton *>(Controllers[cv.key]))
+                // {
+                // }
+            }
+            else if (cv.typeName == "PSCPotentiometer")
+            {
+                if (!Controllers.contains(cv.key))
+                    Controllers.add(cv.key, PSCPotentiometer::create(cv.key.c_str(), cv.pin, cv.displayName.c_str()));
+                // if (PSCPotentiometer *pot = dynamic_cast<PSCPotentiometer *>(Controllers[cv.key]))
+                // {
+                // }
+            }
+
+            if (PSController *controller = Controllers[cv.key])
+            {
+                controller->debounceMS(cv.debounce);
+                controller->setValueRange(cv.min, cv.max);
+                loadControllerParameters(controller, jsonController);
             }
         }
     }
 
     void loadParameters(JSONValue &result)
     {
-        printf("\n\nADDING PARAMETERS :\n\n");
+        printf("\n\nLOADING PARAMETERS :\n\n");
 
-        for (const auto &p : result.objectValue.at("PARAMETERS").arrayValue)
+        try
         {
-            std::map<std::string, JSONValue> v = p.objectValue;
-            std::string name = v.at("name").stringValue;
-            PSK key = str_topsk(v.at("key").stringValue);
-            float value = std::stof(v.at("value").stringValue);
-            float min = std::stof(v.at("min").stringValue);
-            float max = std::stof(v.at("max").stringValue);
-            PSParameter::TAPER taper = (PSParameter::TAPER)std::stoi(v.at("taper").stringValue);
-            if (PSParameter *parameter = Parameters.add(key, name)->setRange(min, max)->setTaper(taper))
-                parameter->setValue(value);
+            auto obj = result.objectValue;
+            auto parmsSection = obj.at("PARAMETERS");
+            auto parmArray = parmsSection.arrayValue;
+
+            int count;
+            for (const auto &p : parmArray)
+            {
+                count++;
+                try
+                {
+                    const char *key = p.objectValue.at("key").stringValue.c_str();
+                    const char *displayName = p.objectValue.at("name").stringValue.c_str();
+                    float value = p.objectValue.at("value").numberValue;
+                    float min = p.objectValue.at("min").numberValue;
+                    float max = p.objectValue.at("max").numberValue;
+                    PSParameter::TAPER taper = (PSParameter::TAPER)p.objectValue.at("taper").numberValue;
+
+                    if (!Parameters.contains(key))
+                    {
+                        printf("loading parameter: %s<>%s\n", key, displayName);
+                        Parameters.add(key, PSParameter::create(key, displayName));
+                    }
+
+                    Parameters[key]
+                        ->setRange((float)min, (float)max)
+                        ->setTaper(taper)
+                        ->setValue((float)value);
+                }
+                catch (const std::exception &e)
+                {
+                    std::cerr << e.what() << " | ERROR : JSON File error at PARAMETERS item " << count << '\n';
+                }
+            }
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
         }
     }
 
@@ -103,15 +180,16 @@ public:
         {
             for (const auto &parm : c.objectValue.at("PARMS").arrayValue)
             {
-                std::map<std::string, JSONValue> pv = parm.objectValue;
+                auto pv = parm.objectValue;
                 PSParameterMode mode = (pv.at("mode").stringValue == "normal") ? PSParameterMode::STANDARD_PARM : PSParameterMode::SHIFT_PARM;
-                for (const auto &pk : parm.objectValue.at("assigned").arrayValue)
+                for (const auto &pk : pv.at("assigned").arrayValue)
                 {
-                    PSK paramkey = str_topsk(pk.objectValue.at("pkey").stringValue);
-                    if (PSParameter *pAssign = Parameters.byKey(paramkey))                       
-                        controller->assignParameter(pAssign, mode);                                            
-                }                
-            }  
+                    auto o = pk.objectValue;
+                    const char *paramkey = o.at("pkey").stringValue.c_str();
+                    if (PSParameter *pAssign = Parameters[paramkey])
+                        controller->assignParameter(pAssign, mode);
+                }
+            }
         }
     }
 };

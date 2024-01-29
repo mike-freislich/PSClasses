@@ -1,17 +1,12 @@
 #pragma once
 #include <vector>
 #include "PSKeys.h"
-#include "PSObject.h"
 #include "timing.h"
 #include "FastMath.h"
-#include "PSParameter.h"
+#include "PSParameterManager.h"
+#include "Collection.h"
+#include "CollectionItem.h"
 #include "StringBuilder.h"
-
-enum PSParameterMode
-{
-    STANDARD_PARM,
-    SHIFT_PARM
-};
 
 enum PSControllerReadMode
 {
@@ -20,25 +15,30 @@ enum PSControllerReadMode
     PSCSine
 };
 
-class PSController : public PSObject
+class PSController : public CollectionItemBase
 {
 public:
-    PSObjectCollection params;
-    PSObjectCollection paramsShift;
+    int pin;
+    PSParameterManager params;
+    PSParameterManager paramsShift;
 
-    PSController(const PSK &key, const std::string &name, float minV = 0, float maxV = 127, bool allowRandom = false)
-        : _allowRandom(allowRandom), PSObject(key, name)
+    PSController() : CollectionItemBase()
     {
-        setValueRange(minV, maxV);
-        _allowRandom = true;
+        typeName = "PSController";
         bounceTimer.start(0);
     }
 
-    virtual ~PSController() override
+    template <typename T>
+    static T *create(const char *key, int pin, const char *displayName)
     {
-        params.items.clear();
-        paramsShift.items.clear();
+        static_assert(std::is_base_of<PSController, T>::value, "T must be a derived class of Controller");
+        T *c = CollectionItemBase::create<T>(key, displayName);
+        c->pin = pin;
+        c->displayName = displayName;
+        return c;
     }
+
+    virtual ~PSController() override {}
 
     bool didChange() { return _changed; }
 
@@ -48,7 +48,7 @@ public:
     {
         if (readValue())
         {
-            for (auto item : activeParameters()->items)
+            for (auto item : activeParameters()->getData())
             {
                 if (PSParameter *p = dynamic_cast<PSParameter *>(item.second))
                 {
@@ -62,19 +62,19 @@ public:
         return false;
     }
 
-    PSObjectCollection *activeParameters() { return useShiftMode() ? &paramsShift : &params; }
+    PSParameterManager *activeParameters() { return useShiftMode() ? &paramsShift : &params; }
 
     void clearParameters()
     {
-        paramsShift.items.clear();
-        params.items.clear();
+        paramsShift.clear();
+        params.clear();
     }
 
-    bool useShiftMode() { return (isShiftPressed() && paramsShift.items.size() > 0); }
+    bool useShiftMode() { return (isShiftPressed() && paramsShift.size() > 0); }
 
-    bool isShiftPressed() { return (Parameters.byKey(CTRL_BTN_Shift)->getValue()); }
+    bool isShiftPressed() { return (Parameters[CTRL_BTN_Shift]->getValue()); }
 
-    virtual PSK getKey() { return key; }
+    // virtual PSK getKey() { return key; }
 
     virtual PSController *setPin(uint8_t pin)
     {
@@ -104,14 +104,14 @@ public:
         if (!pAssign)
             return this;
 
-        PSObjectCollection *parameters = (parameterMode == SHIFT_PARM) ? &paramsShift : &params;
-        if (!(parameters->exists(pAssign->key)))
+        PSParameterManager *parameters = (parameterMode == SHIFT_PARM) ? &paramsShift : &params;
+        if (!(parameters->contains(pAssign->key)))
         {
             printf("%s\t: %s -> %s\n",
                    (parameterMode == SHIFT_PARM) ? "shift" : "normal",
-                   psk_tostr(this->key).c_str(),
-                   psk_tostr(pAssign->key).c_str());
-            parameters->addItem(pAssign);
+                   this->key.c_str(),
+                   pAssign->key.c_str());
+            parameters->add(pAssign->key, pAssign);
         }
         return this;
     }
@@ -124,23 +124,23 @@ public:
     {
         StringBuilder sb;
         std::string mode = (bank == STANDARD_PARM) ? "normal" : "shift";
-        PSObjectCollection *collection = (bank == STANDARD_PARM) ? &params : &paramsShift;
+        PSParameterManager *collection = (bank == STANDARD_PARM) ? &params : &paramsShift;
 
         sb.startElement()
             ->addPair("mode", mode)
-            ->add(", ")
+            ->delimiter()
             ->startArray("assigned");
 
         int count = 0;
-        for (auto &item : collection->items)
+        for (auto &item : collection->getData())
         {
             if (PSParameter *p = dynamic_cast<PSParameter *>(item.second))
             {
                 sb.startElement()
-                    ->addPair("pkey", psk_tostr(p->key))
+                    ->addPair("pkey", p->key)
                     ->endElement();
                 count++;
-                if (count < collection->items.size())
+                if (count < collection->size())
                     sb.add(",");
             }
         }
@@ -151,29 +151,35 @@ public:
         return sb.toString();
     }
 
-    virtual std::string serialize() override
+    virtual void serialize(StringBuilder *sb) override
     {
-        StringBuilder sb;
 
-        sb.startElement()
-            ->addPair("name", typeName())
-            ->add(", ")
-            ->addPair("key", psk_tostr(key))
-            ->add(", ")
-            ->addPair("pin", std::to_string(_pin))
-            ->add(", ")
-            ->addPair("debounce", std::to_string(getDebounceMS()))
-            ->add(", ");
-        sb.startArray("PARMS");
-        sb.add(serializeParamaterBank(PSParameterMode::STANDARD_PARM))->add(", ");
-        sb.add(serializeParamaterBank(PSParameterMode::SHIFT_PARM));
-        sb.endArray()
-            ->endElement();
+        sb->begin()
+            ->addPair("key", key)
+            ->delimiter()
+            ->addPair("type", typeName)
+            ->delimiter()
+            ->addPair("name", displayName)
+            ->delimiter()
+            ->addPair("pin", _pin)
+            ->delimiter()
+            ->addPair("debounce", (int)getDebounceMS())
+            ->delimiter()
+            ->addPair("min", _min)
+            ->delimiter()
+            ->addPair("max", _max)
+            ->delimiter();
+        
+        serializeCustomProperties(sb);
 
-        return sb.toString();
+        sb->startArray("PARMS")
+            ->add(serializeParamaterBank(PSParameterMode::STANDARD_PARM))
+            ->delimiter()
+            ->add(serializeParamaterBank(PSParameterMode::SHIFT_PARM))
+            ->endArray();
     }
 
-    virtual const char *typeName() override { return "PSController"; }
+    virtual void serializeCustomProperties(StringBuilder *sb) {}
 
     void setReadMode(const PSControllerReadMode &readMode) { _readMode = readMode; }
 

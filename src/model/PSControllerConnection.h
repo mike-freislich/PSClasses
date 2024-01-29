@@ -4,9 +4,9 @@
 #include <vector>
 
 struct PSControllerConnection {
-    PSK key;
+    std::string key;
     PSController *controller;
-    PSControllerConnection(const PSK &k, PSController *c) : key(k), controller(c) {}
+    PSControllerConnection(const std::string &k, PSController *c) : key(k), controller(c) {}
 };
 
 typedef std::vector<PSControllerConnection> PSControllerConnectionVector;

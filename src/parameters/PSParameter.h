@@ -2,8 +2,15 @@
 #include <vector>
 #include <algorithm>
 #include "StringBuilder.h"
+#include "CollectionItem.h"
 
-class PSParameter : public PSObject
+enum PSParameterMode
+{
+    STANDARD_PARM,
+    SHIFT_PARM
+};
+
+class PSParameter : public CollectionItemBase
 {
 public:
     enum TAPER
@@ -12,8 +19,17 @@ public:
         LOGARITHMIC
     };
 
-    PSParameter(const PSK &key, const std::string &name) : PSObject(key, name) {}
+    PSParameter() : CollectionItemBase() {}
+
     virtual ~PSParameter() override {}
+
+    static PSParameter *create(const char *key, const char *displayName)
+    {
+        PSParameter *p = new PSParameter();
+        p->key = key;
+        p->displayName = displayName;
+        return p;
+    }
 
     float getValue()
     {
@@ -25,46 +41,6 @@ public:
     void setValue(float val) { _value = val; }
 
     void setValueFromController(float controllerValue) { setValue(controllerValue * _range + _min); }
-
-    // PSParameter * attachController(PSController *controller)
-    // {
-    //     _controllers.push_back(controller);
-    //     return this;
-    // }
-    // void detachController(PSController *controller)
-    // {
-    //     if (controller)
-    //     {
-    //         for (int i = 0; i < _controllers.size(); i++)
-    //         {
-    //             PSController *c = _controllers[i];
-    //             if (c->key == controller->key)
-    //             {
-    //                 _controllers.erase(_controllers.begin() + i);
-    //                 break;
-    //             }
-    //         }
-    //     }
-    // }
-    // TODO move parameter updates into controllers
-    // bool update() override
-    // {
-    //     bool changed = false;
-    //     for (auto c : _controllers)
-    //     {
-    //         if (c->didChange())
-    //         {
-    //             _value = (c->getValue() * _range) + _min;
-    //             changed = true;
-    //             break;
-    //         }
-    //     }
-    //     return changed;
-    // }
-
-    std::string toString() { return "{" + name + "," + std::to_string(_value) + "}"; }
-
-    std::string getConfig() { return serialize(); }
 
     PSParameter *setRange(float minV, float maxV)
     {
@@ -81,19 +57,21 @@ public:
         return this;
     }
 
-    std::string serialize() override
+    void serialize(StringBuilder *sb) override
     {
-        StringBuilder sb;
-        sb.startElement()
-            ->addPair("name", name)->add(", ")
-            ->addPair("key", psk_tostr(key))->add(", ")
-            ->addPair("value", std::to_string(_value))->add(", ")
-            ->addPair("min", std::to_string(_min))->add(", ")
-            ->addPair("max", std::to_string(_max))->add(", ")
-            ->addPair("taper", std::to_string(_taper))
+        sb->startElement()
+            ->addPair("key", key)
+            ->delimiter()
+            ->addPair("name", displayName)
+            ->delimiter()
+            ->addPair("value", _value)
+            ->delimiter()
+            ->addPair("min", _min)
+            ->delimiter()
+            ->addPair("max", _max)
+            ->delimiter()
+            ->addPair("taper", (int)_taper)
             ->endElement();
-
-        return sb.toString();
     }
 
     static PSParameter *deserialize(const std::string &jsonData)

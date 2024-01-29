@@ -1,4 +1,5 @@
 #pragma once
+#include "Collection.h"
 #include "PSScene.h"
 #include "PSSceneEnvelope.h"
 #include "PSModuleManager.h"
@@ -6,29 +7,22 @@
 #define SCENE_SPLASH 0
 #define SCENE_ENVELOPE 1
 
-class PSSceneManager : PSObjectCollection
+class PSSceneManager : public CollectionBase<std::string, PSScene *>
 {
 public:
-    PSSceneManager() : PSObjectCollection() {}
+    //PSSceneManager() : CollectionBase() {}
     ~PSSceneManager() override {}
 
-    template <typename T>
-    T *add(const PSK &key, const std::string &name)
+    PSScene *scene(const std::string &key) { return collectionData[key]; }
+
+    void setActive(const std::string &key)
     {
-        if (!exists(key))
-        {            
-            T *scene = addItem(new T(key, name));
-            return scene;
-        } 
-        return nullptr;
+        setActive(collectionData[key]);        
     }
 
-    PSScene *scene(const PSK &key) { return getItem<PSScene>(key); }
-
-    void setActive(const PSK &key)
+    void setActive(PSScene *scene)
     {
-
-        _activeScene = getItem<PSScene>(key);
+        _activeScene = scene;
         if (_activeScene)
             _activeScene->activate();
         else
