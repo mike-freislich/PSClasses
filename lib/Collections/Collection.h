@@ -9,46 +9,51 @@ protected:
     std::unordered_map<Key, T> collectionData;
 
 public:
+    virtual ~CollectionBase()
+    {
+        // for (auto &item : collectionData)
+        // {
+                        
+        //     if (CollectionItemBase *forDelete = dynamic_cast<CollectionItemBase *>(item.second))
+        //     {
+        //         printf("about to delete %s", forDelete->key.c_str());
+        //         if (forDelete != nullptr)
+        //             delete forDelete;                
+        //     }
+        // }
 
-    virtual ~CollectionBase() {}
+    }
 
     // Overload [] operator for reading elements
     T operator[](const Key &key) const
-    { 
+    {
         // Fail if key doesn't exist
         auto it = collectionData.find(key);
         if (it == collectionData.end())
-        {            
+        {
             printf("ERROR - Key [%s] not found!", key.c_str());
-            throw std::out_of_range("Key not found!");        
+            throw std::out_of_range("Key not found!");
         }
         return it->second;
     }
 
     // // Overload [] operator for writing and creating elements
     // T &operator[](const Key &key)
-    // { 
+    // {
     //     if (contains(key))
-    //         return collectionData[key]; // return existing item        
+    //         return collectionData[key]; // return existing item
     //     return collectionData[key]; // add a new item
     // }
 
     // Function to create a new item
     virtual T add(const Key &key, T value)
-    {        
-        std::string tempKey = "not found";
-        if (CollectionItemBase * ci = dynamic_cast<CollectionItemBase *>(value))
-        {
+    {
+        std::string tempKey = "unknown";
+        if (CollectionItemBase *ci = dynamic_cast<CollectionItemBase *>(value))
             tempKey = ci->key;
-        }
-
-        std::cout << "\nworking with key: "<< tempKey << "\n";
 
         if (contains(key))
-        {
-            printf("ERROR - Trying to add duplicate key [%s]\n",  tempKey.c_str());
-            throw std::out_of_range("Key already exists!");
-        }
+            throw std::out_of_range("Key [" + tempKey + "] already exists!");
 
         collectionData[key] = value;
         return collectionData[key];

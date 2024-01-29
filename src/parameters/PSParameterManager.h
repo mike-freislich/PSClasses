@@ -7,7 +7,7 @@ class PSParameterManager : public CollectionBase<std::string, PSParameter *>
 {
 public:
     PSParameterManager() {}
-    ~PSParameterManager() override {}
+    ~PSParameterManager() {}
 
     bool setValue(const std::string &key, float value)
     {

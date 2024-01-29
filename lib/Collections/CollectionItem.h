@@ -2,20 +2,23 @@
 #include <iostream>
 #include "StringBuilder.h"
 
+static int collectionItemCount = 0;
+
 class CollectionItemBase
 {
 public:
     std::string key;
     std::string typeName = "CollectionItemBase";
     std::string displayName;
-    virtual ~CollectionItemBase() { printf("deleting %s\n", typeName.c_str()); }
+    CollectionItemBase() { collectionItemCount++; }
+    virtual ~CollectionItemBase() { printf("deleting %s : %d remaining\n", typeName.c_str(), --collectionItemCount); }
     virtual bool update() { return false; }
     virtual void serialize(StringBuilder *sb) {}
 
     template <typename T>
     static T *create(const std::string &key, const char *displayName)
     {
-        static_assert(std::is_base_of<CollectionItemBase, T>::value, "T must be a derived class of CollectionItemBase");        
+        static_assert(std::is_base_of<CollectionItemBase, T>::value, "T must be a derived class of CollectionItemBase");
         T *t = new (T);
         if (CollectionItemBase *cb = dynamic_cast<CollectionItemBase *>(t))
         {

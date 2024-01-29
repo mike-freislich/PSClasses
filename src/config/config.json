@@ -34,8 +34,6 @@
         {"key":"CTRL_BTN_Shift", "type":"PSCButton", "name":"shift", "pin":0, "debounce":1000, "min":0.000000, "max":1.000000, "state":false, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"CTRL_BTN_Shift"}]}, {"mode":"shift", "assigned": []}]}         
     ],
 
-    
-
     "PARAMETERS": [                
         {"key": "CTRL_BTN_DataG", "name": "enter", "value": 0.000000, "min": 0.000000, "max": 1.000000, "taper": 0}, 
         {"key": "CTRL_BTN_Shift", "name": "shift", "value": 0.000000, "min": 0.000000, "max": 1.000000, "taper": 0},
