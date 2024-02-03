@@ -16,13 +16,13 @@ public:
     virtual void serialize(StringBuilder *sb) {}
 
     template <typename T>
-    static T *create(const std::string &key, const char *displayName)
+    static T *create(const std::string &key, const std::string &displayName)
     {
         static_assert(std::is_base_of<CollectionItemBase, T>::value, "T must be a derived class of CollectionItemBase");
         T *t = new (T);
         if (CollectionItemBase *cb = dynamic_cast<CollectionItemBase *>(t))
         {
-            cb->key = key;
+            cb->key = key;            
             cb->displayName = displayName;
         }
         return t;

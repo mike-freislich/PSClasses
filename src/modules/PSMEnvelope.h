@@ -1,4 +1,5 @@
 #pragma once
+#include "AUMapping.h"
 #include "PSModule.h"
 #include "PSParameterManager.h"
 
@@ -17,26 +18,48 @@ struct PSMEnvelopeParameters
         : attack(attack), hold(hold), decay(decay), sustain(sustain), release(release), amount(amount) {}
 };
 
-struct PSMEnvelopeValues
-{
-    float attack, hold, decay, sustain, release, amount;
-};
+// struct PSMEnvelopeValues
+// {
+//     float attack, hold, decay, sustain, release, amount;
+// };
 
 class PSMEnvelope : public PSModule
 {
 public:
-    PSMEnvelope() : PSModule()
-    {
-        
-    }
+    PSMEnvelope() : PSModule() {}
     ~PSMEnvelope() override { parms.clear(); }
 
-    static PSMEnvelope *create(const char * key, const char *displayName, const PSMEnvelopeParameters &ep)
+    static PSMEnvelope *create(const char *key, const char *displayName, const PSMEnvelopeParameters &ep)
     {
-        PSMEnvelope *newMod = PSModule::create<PSMEnvelope>(key, displayName);        
+        PSMEnvelope *newMod = PSModule::create<PSMEnvelope>(key, displayName);
         newMod->attachParameters(ep);
         return newMod;
     }
+
+    // template <typename T>
+    // T *getAudioUnit()
+    // {
+    //     for (auto au : audioUnits)
+    //     {
+    //         // TODO is there a different way to up-cast the from AudioStream to AudioUnit since AudioStream is not polymorphic
+    //         if (T *audioUnit = dynamic_cast<T *>(au))
+    //             return audioUnit;
+    //     }
+    //     std::cout << "Module has no audio unit attached" << std::endl;
+    //     return nullptr; // throw std::out_of_range("Module has no audio unit attached\n");
+    // }
+
+    // AudioEffectEnvelope *envelope()
+    // {
+    //     _envelope = (_envelope) ? _envelope : getAudioUnit<AudioEffectEnvelope>();
+    //     return _envelope;
+    // }
+
+    // AudioAmplifier *amplifier()
+    // {
+    //     _amp = (_amp) ? _amp : getAudioUnit<AudioAmplifier>();
+    //     return _amp;
+    // }
 
     PSMEnvelope *attachParameters(const PSMEnvelopeParameters &ep)
     {
@@ -62,16 +85,44 @@ public:
 
     PSMEnvelope *setValue(const std::string &key, float value)
     {
-        parms[key]->setValue(value);    
+        parms[key]->setValue(value);
         return this;
     }
 
-    void attack(float value) { _attack->setValue(value); }
-    void hold(float value) { _hold->setValue(value); }
-    void decay(float value) { _decay->setValue(value); }
-    void sustain(float value) { _sustain->setValue(value); }
-    void release(float value) { _release->setValue(value); }
-    void amount(float value) { _amount->setValue(value); }
+    void attack(float value)
+    {
+        _attack->setValue(value);
+        //envelope()->attack(value);
+    }
+    void hold(float value)
+    {
+        _hold->setValue(value);
+        //envelope()->hold(value);
+    }
+    void decay(float value)
+    {
+        _decay->setValue(value);
+        //envelope()->decay(value);
+    }
+    void sustain(float value)
+    {
+        _sustain->setValue(value);
+        //envelope()->sustain(value);
+    }
+    void release(float value)
+    {
+        _release->setValue(value);
+        //envelope()->release(value);
+    }
+    void amount(float value)
+    {
+        _amount->setValue(value);
+        // if (amplifier())
+        // {
+        //     std::cout << "setting amp amount: " << value << std::endl;
+        //     _amp->gain(value);
+        // }
+    }
 
     float getValue(const std::string &key) { return parms[key]->getValue(); }
 
@@ -84,4 +135,6 @@ public:
 
 private:
     PSParameter *_attack, *_hold, *_decay, *_sustain, *_release, *_amount;
+    AudioEffectEnvelope *_envelope;
+    AudioAmplifier *_amp;
 };

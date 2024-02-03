@@ -33,8 +33,7 @@ public:
         for (auto &button : Controllers.buttons)
         {
             if (PSParameter *p = Parameters[button->key])
-            {
-                
+            {                
                 if (button->isPressed())
                     printf("<<%s>>\t", p->displayName.c_str());
                 else

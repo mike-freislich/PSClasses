@@ -1,14 +1,22 @@
 #pragma once
 
-#include "PSControllerManager.h"
-#include "PSParameterManager.h"
-#include "PSSceneManager.h"
-#include "PSModuleManager.h"
+//#include "PSControllerManager.h"
+//#include "PSParameterManager.h"
+//#include "PSSceneManager.h"
+//#include "PSModuleManager.h"
+//#include "testAudioUnitFactory.h"
+//#include "AudioDerived.h"
+#include "ParameterList.h"
 
 void testCollection();
+
 void runTests()
 {
-    testCollection();
+    //testCollection();
+    //testL();
+    //testAudioUnitFactory();
+    //testAudioDerived();
+    testParameters();
 }
 
 #pragma region alpha tests
@@ -141,34 +149,34 @@ void runTests()
 
 #pragma endregion
 
-void testCollection()
-{    
-    try
-    {        
-        Controllers.add(CTRL_BTN_DataG, PSCButton::create(CTRL_BTN_DataG, 12, "enter"));
-        Controllers.add(CTRL_BTN_Shift, PSCButton::create(CTRL_BTN_Shift, 17, "shift"));
-        Controllers.add(CTRL_POT_DataA, PSCPotentiometer::create(CTRL_POT_DataA, 22, "Env-Attack"));
+// void testCollection()
+// {    
+//     try
+//     {        
+//         Controllers.add(CTRL_BTN_DataG, PSCButton::create(CTRL_BTN_DataG, 12, "enter"));
+//         Controllers.add(CTRL_BTN_Shift, PSCButton::create(CTRL_BTN_Shift, 17, "shift"));
+//         Controllers.add(CTRL_POT_DataA, PSCPotentiometer::create(CTRL_POT_DataA, 22, "Env-Attack"));
         
-        // for (const auto &pair : Controllers.getData())
-        //     if (PSController *c = pair.second)                                
-        //         c->display();        
+//         // for (const auto &pair : Controllers.getData())
+//         //     if (PSController *c = pair.second)                                
+//         //         c->display();        
 
-        Parameters.add(PARM_AENVa_AMOUNT, PSParameter::create(PARM_AENVa_AMOUNT, "lvl"));
-        Parameters.add(PARM_AENVa_ATTACK, PSParameter::create(PARM_AENVa_ATTACK, "atk"));
-        Parameters.add(PARM_AENVa_HOLD, PSParameter::create(PARM_AENVa_HOLD, "hld"));
-        Parameters.add(PARM_AENVa_DECAY, PSParameter::create(PARM_AENVa_DECAY, "dec"));
-        Parameters.add(PARM_AENVa_SUSTAIN, PSParameter::create(PARM_AENVa_SUSTAIN, "sus"));
-        Parameters.add(PARM_AENVa_RELEASE, PSParameter::create(PARM_AENVa_RELEASE, "rel"));
+//         Parameters.add(PARM_AENVa_AMOUNT, PSParameter::create(PARM_AENVa_AMOUNT, "lvl"));
+//         Parameters.add(PARM_AENVa_ATTACK, PSParameter::create(PARM_AENVa_ATTACK, "atk"));
+//         Parameters.add(PARM_AENVa_HOLD, PSParameter::create(PARM_AENVa_HOLD, "hld"));
+//         Parameters.add(PARM_AENVa_DECAY, PSParameter::create(PARM_AENVa_DECAY, "dec"));
+//         Parameters.add(PARM_AENVa_SUSTAIN, PSParameter::create(PARM_AENVa_SUSTAIN, "sus"));
+//         Parameters.add(PARM_AENVa_RELEASE, PSParameter::create(PARM_AENVa_RELEASE, "rel"));
 
-        // for (const auto &pair : Parameters.getData())
-        //     if (PSParameter *p = pair.second)                                
-        //         p->display();        
+//         // for (const auto &pair : Parameters.getData())
+//         //     if (PSParameter *p = pair.second)                                
+//         //         p->display();        
 
-    }
-    catch (const std::exception &e)
-    {
-        std::cerr << e.what() << '\n';
-    }
+//     }
+//     catch (const std::exception &e)
+//     {
+//         std::cerr << e.what() << '\n';
+//     }
 
-    printf("{\n%s,\n%s\n}\n", Controllers.serialize().c_str(), Parameters.serialize().c_str());    
-}
+//     printf("{\n%s,\n%s\n}\n", Controllers.serialize().c_str(), Parameters.serialize().c_str());    
+// }

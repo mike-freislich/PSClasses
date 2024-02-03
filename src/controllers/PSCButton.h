@@ -15,21 +15,14 @@ public:
     {
         typeName = "PSCButton";
         _readMode = PSControllerReadMode::PSCRandom;
-        // setValueRange(0, 1);
     }
     ~PSCButton() override {}
 
-    static PSCButton *create(const char *key, int pin, const char *displayName)
+    static PSCButton *create(const std::string &key, int pin, const std::string &displayName)
     {
         PSCButton *newButton = PSController::create<PSCButton>(key, pin, displayName);
-        newButton->debounceMS(30);
+        newButton->debounceMS(30);    
         return newButton;
-    }
-
-    void serializeCustomProperties(StringBuilder *sb) override
-    {
-        sb->addPair("state", isPressed())
-            ->delimiter();
     }
 
     void buttonType(const PSCButtonType &bt) { _buttonType = bt; }
@@ -43,10 +36,16 @@ protected:
     {
         if (_readMode == PSControllerReadMode::PSCRandom)
         {
-            float v = (float)((rand() % (int)(_range * 10000))) / 10000.0f;            
+            float v = (float)((rand() % (int)(_range * 10000))) / 10000.0f;
             v = (v <= 0.5f) ? 0 : 1;
             return setValue(v);
         }
         return false;
+    }
+
+    void serializeCustomProperties(StringBuilder *sb) override
+    {
+        sb->addPair("state", isPressed())
+            ->delimiter();
     }
 };

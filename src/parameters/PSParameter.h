@@ -3,6 +3,37 @@
 #include <algorithm>
 #include "StringBuilder.h"
 #include "CollectionItem.h"
+#include "AudioShard.h"
+
+typedef std::function<void(float)> AUValueFunc;
+typedef std::function<void(unsigned int, float)> AUChannelValueFunc;
+
+template <typename T>
+AUValueFunc mapValueFunc(T *audioUnitInstance, void (T::*func)(float))
+{
+    return [func, audioUnitInstance](float value)
+    {
+        if (auto derived = dynamic_cast<T *>(audioUnitInstance))
+            (derived->*func)(value);
+        else
+            std::cerr << "Invalid cast!" << std::endl;
+    };
+}
+
+template <typename T>
+AUChannelValueFunc mapValueFunc(T *audioUnitInstance, void (T::*func)(unsigned int, float))
+{
+    return [func, audioUnitInstance](unsigned int channel, float value)
+    {
+        if (auto derived = dynamic_cast<T *>(audioUnitInstance))
+        {
+            (derived->*func)(channel, value);
+            //derived->channel = channel;
+        }
+        else
+            std::cerr << "Invalid cast!" << std::endl;
+    };
+}
 
 enum PSParameterMode
 {
@@ -13,6 +44,7 @@ enum PSParameterMode
 class PSParameter : public CollectionItemBase
 {
 public:
+    unsigned int channel;
     enum TAPER
     {
         LINEAR,
@@ -38,7 +70,17 @@ public:
         return getValueLog();
     }
 
-    void setValue(float val) { _value = val; }
+    void setValue(float val)
+    {
+        if (val != _value)
+        {
+            if (auSetValue)
+                auSetValue(val); // TODO this is where AudioUnit values need to be set
+            else if (auSetChannelValue)
+                auSetChannelValue(channel, val);
+        }
+        _value = val;
+    }
 
     void setValueFromController(float controllerValue) { setValue(controllerValue * _range + _min); }
 
@@ -54,6 +96,19 @@ public:
     PSParameter *setTaper(PSParameter::TAPER taper)
     {
         _taper = taper;
+        return this;
+    }
+
+    PSParameter *setAudioUnitHandle(AUValueFunc &func)
+    {
+        auSetValue = func;
+        return this;
+    }
+
+    PSParameter *setAudioUnitHandle(AUChannelValueFunc &func, uint8_t channel)
+    {
+        auSetChannelValue = func;
+        this->channel = channel;
         return this;
     }
 
@@ -80,6 +135,8 @@ public:
     }
 
 protected:
+    AUValueFunc auSetValue;
+    AUChannelValueFunc auSetChannelValue;
     float _value, _max, _min, _range;
     TAPER _taper = LINEAR;
 

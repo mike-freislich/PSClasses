@@ -1,5 +1,6 @@
 #pragma once
 
+// -- Voice A Modules ---
 #define MOD_LFO1a "MOD_LFO1a"
 #define MOD_LFO2a "MOD_LFO2a"
 #define MOD_PENVa "MOD_PENVa"
@@ -12,6 +13,7 @@
 #define MOD_RINGMODa "MOD_RINGMODa"
 #define MOD_FOLDa "MOD_FOLDa"
 
+// -- Voice B Modules ---
 #define MOD_LFO1b "MOD_LFO1b"
 #define MOD_LFO2b "MOD_LFO2b"
 #define MOD_PENVb "MOD_PENVb"
@@ -24,6 +26,10 @@
 #define MOD_RINGMODb "MOD_RINGMODb"
 #define MOD_FOLDb "MOD_FOLDb"
 
+// -- Mixers -- 
+#define MOD_MIXER_MAIN "MOD_MIXER_MAIN"
+
+// -- Attack Envelopes A / B --
 #define PARM_AENVa_ATTACK "PARM_AENVa_ATTACK"
 #define PARM_AENVa_HOLD "PARM_AENVa_HOLD"
 #define PARM_AENVa_DECAY "PARM_AENVa_DECAY"
@@ -37,6 +43,7 @@
 #define PARM_AENVb_RELEASE "PARM_AENVb_RELEASE"
 #define PARM_AENVb_AMOUNT "PARM_AENVb_AMOUNT"
 
+// -- Pitch Envelopes A / B --
 #define PARM_PENVa_ATTACK "PARM_PENVa_ATTACK"
 #define PARM_PENVa_HOLD "PARM_PENVa_HOLD"
 #define PARM_PENVa_DECAY "PARM_PENVa_DECAY"
@@ -50,6 +57,7 @@
 #define PARM_PENVb_RELEASE "PARM_PENVb_RELEASE"
 #define PARM_PENVb_AMOUNT "PARM_PENVb_AMOUNT"
 
+// -- Filter Envelopes A / B --
 #define PARM_FENVa_ATTACK "PARM_FENVa_ATTACK"
 #define PARM_FENVa_HOLD "PARM_FENVa_HOLD"
 #define PARM_FENVa_DECAY "PARM_FENVa_DECAY"
@@ -90,6 +98,7 @@
 #define CTRL_POT5 "CTRL_POT5"
 #define CTRL_POT6 "CTRL_POT6"
 
+
 // ---------------------- SCENES ----------------------
 #define SCN_ENVELOPE "SCN_ENVELOPE"
 
@@ -100,3 +109,5 @@ struct Range
     float min;
     float max;
 };
+
+

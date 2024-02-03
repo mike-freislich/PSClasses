@@ -30,12 +30,13 @@ public:
     }
 
     template <typename T>
-    static T *create(const char * key, const char *displayName)
+    static T *create(const char * key, const string &displayName)
     {
         static_assert(std::is_base_of<PSScene, T>::value, "T must be a derived class of PSScene");
         PSScene *scene = new T();
-        scene->key = key;
+        scene->key = key;        
         scene->refreshRateHz(120);
+        scene->displayName = displayName;        
         return dynamic_cast<T *>(scene);
     }
 

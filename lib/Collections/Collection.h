@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <unordered_map>
+#include "CollectionItem.h"
 
 template <typename Key, typename T>
 class CollectionBase
@@ -9,20 +10,7 @@ protected:
     std::unordered_map<Key, T> collectionData;
 
 public:
-    virtual ~CollectionBase()
-    {
-        // for (auto &item : collectionData)
-        // {
-                        
-        //     if (CollectionItemBase *forDelete = dynamic_cast<CollectionItemBase *>(item.second))
-        //     {
-        //         printf("about to delete %s", forDelete->key.c_str());
-        //         if (forDelete != nullptr)
-        //             delete forDelete;                
-        //     }
-        // }
-
-    }
+    virtual ~CollectionBase() {}
 
     // Overload [] operator for reading elements
     T operator[](const Key &key) const
@@ -36,14 +24,6 @@ public:
         }
         return it->second;
     }
-
-    // // Overload [] operator for writing and creating elements
-    // T &operator[](const Key &key)
-    // {
-    //     if (contains(key))
-    //         return collectionData[key]; // return existing item
-    //     return collectionData[key]; // add a new item
-    // }
 
     // Function to create a new item
     virtual T add(const Key &key, T value)

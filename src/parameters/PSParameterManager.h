@@ -24,14 +24,7 @@ public:
         if (PSParameter *p = collectionData[key])
             return p->getValue();
         return 0;
-    }
-
-    // const char *c_str(const std::string &key)
-    // {
-    //     if (PSParameter *p = collectionData[key])
-    //         return p->displayName.c_str();
-    //     return nullptr;
-    // }    
+    }    
     
     bool update() override { return CollectionBase::update(); }
 
@@ -54,12 +47,3 @@ public:
         return sb.toString();
     }
 } Parameters;
-
-// void testParmManager()
-// {
-//     Parameters.add(PSK::PARM_AENVa_AMOUNT, "level");
-//     Parameters.setValue(PARM_AENVa_AMOUNT, 1.0f);
-//     float f = Parameters.getValue(PARM_AENVa_AMOUNT);
-//     if (PSParameter *p = Parameters.byKey(PARM_AENVa_AMOUNT))
-//         p->attachController(nullptr)->setRange(0, 1);
-// }

@@ -19,4 +19,9 @@ public:
         newPot->setReadMode(PSControllerReadMode::PSCSine);        
         return newPot;
     }
+
+protected:
+    void serializeCustomProperties(StringBuilder *sb) override
+    {        
+    }
 };

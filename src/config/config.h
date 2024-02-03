@@ -56,7 +56,8 @@ private:
     }
 
 public:
-    PSConfig(const char *filename) { _json_data = loadJson(filename); }
+
+    void loadConfig(const char *filename) { _json_data = loadJson(filename); }
 
     void applyConfig()
     {
@@ -97,17 +98,13 @@ public:
                 std::cerr << e.what() << "|| Error parsing config at CONTROLLERS " << count << "\n";
             }
 
-            // printf("\ncreating new controller : %s, %s, %s ||| ",
-            //     cv.key.c_str(),
-            //     cv.typeName.c_str(),
-            //     cv.displayName.c_str());
-
             if (cv.typeName == "PSCButton")
             {
                 if (!Controllers.contains(cv.key))
                     Controllers.add(cv.key, PSCButton::create(cv.key.c_str(), cv.pin, cv.displayName.c_str()));
                 // if (PSCButton *button = dynamic_cast<PSCButton *>(Controllers[cv.key]))
                 // {
+                        // button specific
                 // }
             }
             else if (cv.typeName == "PSCPotentiometer")
@@ -116,6 +113,7 @@ public:
                     Controllers.add(cv.key, PSCPotentiometer::create(cv.key.c_str(), cv.pin, cv.displayName.c_str()));
                 // if (PSCPotentiometer *pot = dynamic_cast<PSCPotentiometer *>(Controllers[cv.key]))
                 // {
+                        // Potentiometer specific
                 // }
             }
 

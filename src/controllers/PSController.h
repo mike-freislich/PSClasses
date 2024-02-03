@@ -18,7 +18,6 @@ enum PSControllerReadMode
 class PSController : public CollectionItemBase
 {
 public:
-    int pin;
     PSParameterManager params;
     PSParameterManager paramsShift;
 
@@ -29,12 +28,13 @@ public:
     }
 
     template <typename T>
-    static T *create(const char *key, int pin, const char *displayName)
+    static T *create(const std::string &key, int pin, const std::string &displayName)
     {
         static_assert(std::is_base_of<PSController, T>::value, "T must be a derived class of Controller");
-        T *c = CollectionItemBase::create<T>(key, displayName);
-        c->pin = pin;
-        c->displayName = displayName;
+        
+        T *c = CollectionItemBase::create<T>(key, displayName);    
+        c->setPin(pin);
+        c->displayName = displayName;    
         return c;
     }
 
@@ -74,9 +74,7 @@ public:
 
     bool isShiftPressed() { return (Parameters[CTRL_BTN_Shift]->getValue()); }
 
-    // virtual PSK getKey() { return key; }
-
-    virtual PSController *setPin(uint8_t pin)
+    virtual PSController *setPin(uint16_t pin)
     {
         // TODO implement hardware setup
         _pin = pin;
@@ -187,7 +185,7 @@ protected:
     PSControllerReadMode _readMode = PSCSine;
     bool _changed, _allowRandom;
     float _value, _min, _max, _range;
-    uint8_t _pin;
+    uint16_t _pin;
     SimpleTimer bounceTimer = SimpleTimer(0);
     float _randPhase = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
 
