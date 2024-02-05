@@ -113,11 +113,15 @@ class AudioSynthWaveformModulated : public AudioStream
 {
 public:
     AudioSynthWaveformModulated(void) : AudioStream(2, NULL) {}
-    void frequency(float freq) {}
-    void amplitude(float n) {}
+    void frequency(float freq) { LOG("WaveformModulated frequency set to " << freq); }
+    void amplitude(float n) { LOG("WaveformModulated amplitude set to " << n); }
     void offset(float n) {}
-    void begin(short t_type) {}
-    void begin(float t_amp, float t_freq, short t_type) {}
+    void begin(short t_type) {
+		LOG("wioefh oiw eofij woief jowiej foijwoiefj owij efoiwj oe fj");
+	}
+    void begin(float t_amp, float t_freq, short t_type) {
+		LOG("WaveFormModulated.begin( amp=" << t_amp << ", freq=" << t_freq << ", type=" << t_type << ")");
+	}
     void arbitraryWaveform(const int16_t *data, float maxFreq) {}
     void frequencyModulation(float octaves) {}
     void phaseModulation(float degrees) {}

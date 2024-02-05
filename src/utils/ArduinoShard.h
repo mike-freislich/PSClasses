@@ -9,7 +9,7 @@
 #define SCENE_REFRESH_RATE 120
 
 //#define TESTMODE
-#define DEBUG
+//#define DEBUG
 #include "DebugLog.h"
 
 #ifdef TESTMODE
@@ -83,4 +83,8 @@ long map(long x, long in_min, long in_max, long out_min, long out_max)
 
     // Calculates and returns the mapped value
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+float clampf(float value, float minValue, float maxValue) {
+    return std::max(minValue, std::min(value, maxValue));
 }

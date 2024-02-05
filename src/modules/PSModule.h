@@ -1,4 +1,5 @@
 #pragma once
+#include "AudioShard.h"
 #include "PSParameterManager.h"
 #include "PSControllerConnection.h"
 
@@ -75,4 +76,48 @@ public:
 
 protected:
     std::vector<AudioStream *> audioUnits;
+
+    // handle units that have a function (float, float, short)
+    template <typename T>
+    void updateUnits(PSParameter *p1, PSParameter *p2, PSParameter *p3, void (T::*func)(float, float, short), float multiplier = 1.0f)
+    {
+        if (p1->changed(true) || p2->changed(true) || p3->changed(true))
+        {
+            for (auto i : audioUnits)
+                if (T *e = dynamic_cast<T *>(i))
+                {
+                    auto callFunc = [func, e, multiplier](float t_amp, float t_freq, short t_type)
+                    {
+                        if (auto derived = dynamic_cast<T *>(e))
+                            (derived->*func)(t_amp * multiplier, t_freq, t_type);
+                        else
+                            LOG("Invalid cast!");
+                    };
+                    callFunc(p1->getValue(), p2->getValue(), p3->getValue());
+                }
+        }
+    }
+
+    // handle units that have a function (float, float, short)
+    template <typename T>
+    void updateUnits(PSParameter *p, void (T::*func)(float), float multiplier = 1.0f)
+    {
+        if (p->changed(true))
+        {
+            for (auto i : audioUnits)
+                if (T *e = dynamic_cast<T *>(i))
+                {
+                    auto f = [func, e, multiplier](float value)
+                    {
+                        if (auto derived = dynamic_cast<T *>(e))
+                            (derived->*func)(value * multiplier);
+                        else
+                            LOG("Invalid cast!");
+                    };
+                    f(p->getValue());
+                }
+        }
+    }
+
+
 };

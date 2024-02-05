@@ -26,9 +26,12 @@ void attachAudioFunc(const char *parmKey, T *audioUnit, void (T::*func)(unsigned
    }
 }
 
+
+
+
 void connectParameterTargets()
 {
-   attachAudioFunc(PARM_AENV_AMOUNT, &auDC_AMPENV, &AudioSynthWaveformDc::amplitude);
+   //attachAudioFunc(PARM_AENV_AMOUNT, &auDC_AMPENV, &AudioSynthWaveformDc::amplitude);
 
    //attachAudioFunc(PARM_AENV_ATTACK, &auENV_AMP_V1, &AudioEffectEnvelope::attack);
    //attachAudioFunc(PARM_AENV_HOLD, &auENV_AMP_V1, &AudioEffectEnvelope::hold);
@@ -42,22 +45,22 @@ void connectParameterTargets()
    //attachAudioFunc(PARM_AENV_SUSTAIN, &auENV_AMP_V1, &AudioEffectEnvelope::sustain);
    //attachAudioFunc(PARM_AENV_RELEASE, &auENV_AMP_V1, &AudioEffectEnvelope::release);
 
-   attachAudioFunc(PARM_MASTER_GAIN_A, &auAMP_MASTER_GAIN_L, &AudioAmplifier::gain);
-   attachAudioFunc(PARM_MASTER_GAIN_B, &auAMP_MASTER_GAIN_L, &AudioAmplifier::gain);
+   //attachAudioFunc(PARM_MASTER_GAIN_A, &auAMP_MASTER_GAIN_L, &AudioAmplifier::gain);
+   //attachAudioFunc(PARM_MASTER_GAIN_B, &auAMP_MASTER_GAIN_L, &AudioAmplifier::gain);
 }
 
-void testParameters()
-{
-   PSConfig config;
-   config.loadConfig("config.json");
-   config.applyConfig();
-   connectParameterTargets();
+// void testParameters()
+// {
+//    PSConfig config;
+//    config.loadConfig("config.json");
+//    config.applyConfig();
+//    connectParameterTargets();
 
-   Parameters[PARM_AENV_ATTACK]->setValue(9);
-   Parameters[PARM_AENV_AMOUNT]->setValue(85);
-   Parameters[PARM_AENV_DECAY]->setValue(200);
-   Parameters[PARM_AENV_AMOUNT]->setValue(99);
+//    Parameters[PARM_AENV_ATTACK]->setValue(9);
+//    Parameters[PARM_AENV_AMOUNT]->setValue(85);
+//    Parameters[PARM_AENV_DECAY]->setValue(200);
+//    Parameters[PARM_AENV_AMOUNT]->setValue(99);
 
-   Parameters[PARM_MASTER_GAIN_A]->setValue(50);
-   Parameters[PARM_MASTER_GAIN_B]->setValue(75);
-}
+//    Parameters[PARM_MASTER_GAIN_A]->setValue(50);
+//    Parameters[PARM_MASTER_GAIN_B]->setValue(75);
+// }
