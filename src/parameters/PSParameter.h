@@ -73,13 +73,23 @@ public:
     void setValue(float val)
     {
         if (val != _value)
-        {
+        {            
             if (auSetValue)
                 auSetValue(val); // TODO this is where AudioUnit values need to be set
             else if (auSetChannelValue)
                 auSetChannelValue(channel, val);
-        }
-        _value = val;
+            
+            _changed = true;
+            _value = val;
+        }   
+    }
+
+    bool changed(bool reset = false) 
+    {
+        bool result = _changed;
+        if (result && reset)
+            _changed = false;
+        return result;
     }
 
     void setValueFromController(float controllerValue) { setValue(controllerValue * _range + _min); }
@@ -138,7 +148,9 @@ protected:
     AUValueFunc auSetValue;
     AUChannelValueFunc auSetChannelValue;
     float _value, _max, _min, _range;
+    bool _changed;
     TAPER _taper = LINEAR;
+    
 
     float convertToAudio(float linearValue, float linearMin, float linearMax, float audioMin = 0, float audioMax = 0, float exponent = 2.0f)
     {

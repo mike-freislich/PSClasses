@@ -103,7 +103,7 @@ public:
             if (PSModule *m = dynamic_cast<PSModule *>(module.second))
             {                
                 printf("MODULE [%s] : ", m->displayName.c_str());
-                for (auto &parameter : m->parms.getData())
+                for (auto &parameter : m->moduleParameters.getData())
                 {
                     if (PSParameter *p = dynamic_cast<PSParameter *>(parameter.second))
                     {

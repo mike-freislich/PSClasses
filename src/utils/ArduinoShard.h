@@ -7,8 +7,10 @@
 
 #define TICKTIME 5
 #define SCENE_REFRESH_RATE 120
-#define DEBUG
+
 //#define TESTMODE
+#define DEBUG
+#include "DebugLog.h"
 
 #ifdef TESTMODE
 #include "tests.h"
@@ -64,6 +66,8 @@ void pauseForReview(const std::string &reason, uint32_t delayMS)
     delay(delayMS);
 #endif
 }
+
+
 
 long map(long x, long in_min, long in_max, long out_min, long out_max)
 {

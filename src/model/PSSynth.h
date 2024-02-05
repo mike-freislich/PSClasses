@@ -1,6 +1,7 @@
 #pragma once
 #include "AUMapping.h"
 #include "PSParameterManager.h"
+#include "ParameterList.h"
 #include "PSControllerManager.h"
 #include "PSModuleManager.h"
 #include "PSSceneManager.h"
@@ -13,13 +14,13 @@ public:
     ~PSSynth() {}
 
     void initialise();
-
     void update()
     {
 #ifdef DEBUG
         // printf("%dms elapsed since last update", elapsed());
 #endif
         Controllers.update();
+        Modules.update();
         Scenes.render();
     }
 
@@ -38,7 +39,7 @@ private:
     static void initEnvelopes();
     static void initLFOs();
     static void initScenes();
-    //static void mapAudioUnitParameters();
+    // static void mapAudioUnitParameters();
 } synth;
 
 #pragma region--------------- PSSynthModel implementation
@@ -57,9 +58,10 @@ void PSSynth::initScenes()
 
 void PSSynth::initialise()
 {
-    PSConfig config;    
+    PSConfig config;
     config.loadConfig("config.json");
     config.applyConfig();
+    connectParameterTargets();
     initModules();
     initScenes();
     printConfig();
@@ -91,12 +93,35 @@ void PSSynth::initModules()
 void PSSynth::initEnvelopes()
 {
     // TODO remove AU mapping to modules...
-    Modules.add(MOD_PENVa, PSMEnvelope::create(MOD_PENVa, "PENV_a", PSMEnvelopeParameters(EPARMS_PENVa))); //->addAudioUnit(&auENV_PITCH_a);
-    Modules.add(MOD_AENVa, PSMEnvelope::create(MOD_AENVa, "AENV_a", PSMEnvelopeParameters(EPARMS_AENVa))); //->addAudioUnit(&auENV_AMP_a);
-    Modules.add(MOD_FENVa, PSMEnvelope::create(MOD_FENVa, "FENV_a", PSMEnvelopeParameters(EPARMS_FENVa))); //->addAudioUnit(&auENV_FILTER_a);
-    Modules.add(MOD_PENVb, PSMEnvelope::create(MOD_PENVb, "PENV_b", PSMEnvelopeParameters(EPARMS_PENVb))); //->addAudioUnit(&osc2PENV);
-    Modules.add(MOD_AENVb, PSMEnvelope::create(MOD_AENVb, "AENV_b", PSMEnvelopeParameters(EPARMS_AENVb))); //->addAudioUnit(&auENV_AMP_b);
-    Modules.add(MOD_FENVb, PSMEnvelope::create(MOD_FENVb, "FENV_b", PSMEnvelopeParameters(EPARMS_FENVb))); //->addAudioUnit(&auENV_FILTER_b);
+    Modules.add(MOD_PENV, PSMEnvelope::create(MOD_PENV, "PENV_a", PSMEnvelopeParameters(EPARMS_PENV)));
+
+    if (PSMEnvelope *emod = dynamic_cast<PSMEnvelope *>(Modules[MOD_PENV]))
+    {
+        emod->addAudioUnit(&auENV_PITCH_V1)
+            ->addAudioUnit(&auENV_PITCH_V2)
+            ->addAudioUnit(&auENV_PITCH_V3)
+            ->addAudioUnit(&auENV_PITCH_V4)
+            ->addAudioUnit(&auDC_PITCHENV);
+    }
+    Modules.add(MOD_AENV, PSMEnvelope::create(MOD_AENV, "AENV_a", PSMEnvelopeParameters(EPARMS_AENV)));
+    if (PSMEnvelope *emod = dynamic_cast<PSMEnvelope *>(Modules[MOD_AENV]))
+    {
+        emod->addAudioUnit(&auENV_AMP_V1)
+            ->addAudioUnit(&auENV_AMP_V2)
+            ->addAudioUnit(&auENV_AMP_V3)
+            ->addAudioUnit(&auENV_AMP_V4)
+            ->addAudioUnit(&auDC_AMPENV);
+    }
+
+    Modules.add(MOD_FENV, PSMEnvelope::create(MOD_FENV, "FENV_a", PSMEnvelopeParameters(EPARMS_FENV)));
+    if (PSMEnvelope *emod = dynamic_cast<PSMEnvelope *>(Modules[MOD_FENV]))
+    {
+        emod->addAudioUnit(&auENV_FILTER_V1)
+            ->addAudioUnit(&auENV_FILTER_V2)
+            ->addAudioUnit(&auENV_FILTER_V3)
+            ->addAudioUnit(&auENV_FILTER_V4)
+            ->addAudioUnit(&auDC_FILTERENV);
+    }
 }
 
 void PSSynth::initLFOs()
@@ -105,7 +130,7 @@ void PSSynth::initLFOs()
 
 // void PSSynth::mapAudioUnitParameters()
 // {
-//     // AudioEffectEnvelope env1;\
+//     // AudioEffectEnvelope env1;
 
 //     // Lambda = [&env1](float value)
 //     // {

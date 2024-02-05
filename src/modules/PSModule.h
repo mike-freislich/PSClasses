@@ -4,14 +4,17 @@
 
 class PSModule : public CollectionItemBase
 {
-public:    
-    PSParameterManager parms;
+public:
+    PSParameterManager moduleParameters;
 
     PSModule() : CollectionItemBase() { typeName = "PSModule"; }
     ~PSModule() override {}
 
-    //template <typename T>
-    //void addAudioUnit(T *au) { audioUnits.push_back(dynamic_cast<AudioStream *>(au)); }
+    PSModule *addAudioUnit(AudioStream *au)
+    {
+        audioUnits.push_back(au);
+        return this;
+    }
 
     template <typename T>
     static T *create(const char *key, const char *displayName)
@@ -25,14 +28,14 @@ public:
 
     PSParameter *addParameter(PSParameter *p)
     {
-        parms.add(p->key, p);
+        moduleParameters.add(p->key, p);
         return p;
     }
 
     PSParameter *getParameter(const std::string &key)
     {
-        if (parms.contains(key))
-            return parms[key];
+        if (moduleParameters.contains(key))
+            return moduleParameters[key];
         else
             return nullptr;
     }
@@ -71,4 +74,5 @@ public:
     }
 
 protected:
+    std::vector<AudioStream *> audioUnits;
 };
