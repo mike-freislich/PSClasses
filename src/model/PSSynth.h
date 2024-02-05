@@ -1,7 +1,6 @@
 #pragma once
 #include "AUMapping.h"
 #include "PSParameterManager.h"
-#include "ParameterList.h"
 #include "PSControllerManager.h"
 #include "PSModuleManager.h"
 #include "PSSceneManager.h"
@@ -61,7 +60,7 @@ void PSSynth::initialise()
     PSConfig config;
     config.loadConfig("config.json");
     config.applyConfig();
-    connectParameterTargets();
+    //connectParameterTargets();
     initModules();
     initScenes();
     printConfig();
