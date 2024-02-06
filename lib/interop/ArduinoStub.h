@@ -9,7 +9,7 @@
 #define SCENE_REFRESH_RATE 120
 
 //#define TESTMODE
-//#define DEBUG
+#define DEBUG
 #include "DebugLog.h"
 
 #ifdef TESTMODE

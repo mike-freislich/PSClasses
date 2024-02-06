@@ -91,8 +91,10 @@ public:
     {
         clearDisplay();
         drawTitle();
-        // drawParameters();
+        //drawParameters();
         drawModules();
+        drawBorder();
+        drawButtons();
         drawBorder();
     }
 
@@ -116,7 +118,7 @@ public:
         printf("\n");
     }
 
-    void drawParameters()
+    virtual void drawParameters()
     {
         for (auto &item : _params.getData())
         {
@@ -127,6 +129,21 @@ public:
             }
         }
         printf("\n");
+    }
+    
+    virtual void drawButtons()
+    {
+        printf("\nButtons : ");
+        for (auto &button : Controllers.buttons)
+        {
+            if (PSParameter *p = Parameters[button->key])
+            {
+                if (button->isPressed())
+                    printf("<<%s>>\t", p->displayName.c_str());
+                else
+                    printf("..%s..\t", p->displayName.c_str());
+            }
+        }
     }
 
     std::string parmDisplay(PSParameter *p) { return "(" + p->displayName + " " + std::to_string(p->getValue()) + ")"; }

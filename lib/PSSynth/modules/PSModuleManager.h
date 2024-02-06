@@ -2,6 +2,7 @@
 #include "PSModule.h"
 #include "PSMEnvModulator.h"
 #include "PSMStereoVoiceMixer.h"
+#include "PSMPulseWidthMod.h"
 //#include "PSMLFO.h"
 //#include "PSMVCO.h"
 //#include "PSMWaveFolder.h"
@@ -15,7 +16,5 @@ class PSModuleManager : public CollectionBase<std::string, PSModule *>
 {
 public:
     ~PSModuleManager() override {}
-
-    //PSController *controller(const PSK &key) { return  getItem<PSController>(key); }
-    //PSMEnvModulator *envelope(const PSK &key) { return getItem<PSMEnvModulator>(key); }    
+      
 } Modules;

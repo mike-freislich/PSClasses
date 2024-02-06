@@ -77,7 +77,7 @@ public:
 protected:
     std::vector<AudioStream *> audioUnits;
 
-    // handle units that have a function (float, float, short)
+    // handle units that have a function (float, float, short) e.g. AudioWaveFormDC
     template <typename T>
     void updateUnits(PSParameter *p1, PSParameter *p2, PSParameter *p3, void (T::*func)(float, float, short), float multiplier = 1.0f)
     {
@@ -98,16 +98,16 @@ protected:
         }
     }
 
-    // handle units that have a function (float, float, short)
-    template <typename T>
-    void updateUnits(PSParameter *p, void (T::*func)(float), float multiplier = 1.0f)
+    // handle units that have a function (float) e.g. AudioAmplifier.gain
+    template <typename T, typename V>
+    void updateUnits(PSParameter *p, void (T::*func)(V), float multiplier = 1.0f)
     {
         if (p->changed(true))
         {
             for (auto i : audioUnits)
                 if (T *e = dynamic_cast<T *>(i))
                 {
-                    auto f = [func, e, multiplier](float value)
+                    auto f = [func, e, multiplier](V value)
                     {
                         if (auto derived = dynamic_cast<T *>(e))
                             (derived->*func)(value * multiplier);
@@ -119,5 +119,17 @@ protected:
         }
     }
 
-
+    // handle audio unit with a single parameter e.g. AudioAmplifier.gain
+    template <typename T, typename X>
+    void updateUnit1(T *instance, PSParameter *p, void (T::*func)(X), float multiplier = 1.0f)
+    {
+        if (p->changed(true))
+        {
+            auto f = [func, instance, multiplier](X value)
+            {
+                (instance->*func)(value * multiplier);
+            };
+            f(p->getValue());
+        }
+    }
 };

@@ -20,14 +20,14 @@ public:
 #ifdef DEBUG
         // printf("%dms elapsed since last update", elapsed());
 #endif
-        
+
         bool shiftNow = Controllers.button(CTRL_BTN_Shift)->isPressed();
         if (shiftNow != lastShiftState)
         {
             lastShiftState = shiftNow;
             Scenes.nextScene();
         }
-        
+
         Controllers.update();
         Modules.update();
         Scenes.render();
@@ -95,43 +95,39 @@ void PSSynth::printConfig()
 
 void PSSynth::initModules()
 {
-    Modules.add(MOD_MIXER_MAIN, PSMStereoVoiceMixer::create(MOD_MIXER_MAIN, "Main Mix", PSMStereoVoiceMixerParameters(PARAMS_VOICEMIXER)));
     initEnvelopes();
+    Modules.add(MOD_MIXER_MAIN, PSMStereoVoiceMixer::create(MOD_MIXER_MAIN, "Main Mix", PSMStereoVoiceMixerParameters(PARAMS_VOICEMIXER)));
+    Modules.add(MOD_PWM_A, PSMPulseWidthMod::create(MOD_PWM_A, "PWM A", PSMPulseWidthModParameters(PARAMS_PWM_A), &auWAVE_PWM_a, &auAMP_PWM_a));
+    Modules.add(MOD_PWM_B, PSMPulseWidthMod::create(MOD_PWM_B, "PWM B", PSMPulseWidthModParameters(PARAMS_PWM_B), &auWAVE_PWM_b, &auAMP_PWM_b));
 }
 
 void PSSynth::initEnvelopes()
 {
-    Modules.add(MOD_PENV, PSMEnvModulator::create(MOD_PENV, "PENV_a", PSMEnvelopeParameters(EPARMS_PENV)));
-
+    Modules.add(MOD_PENV, PSMEnvModulator::create(MOD_PENV, "PENV_a", PSMEnvelopeParameters(EPARMS_PENV), &auLFO_PITCH, &auDC_PITCHBEND, &auDC_PITCHENV));
     if (PSMEnvModulator *emod = dynamic_cast<PSMEnvModulator *>(Modules[MOD_PENV]))
     {
         emod->addAudioUnit(&auENV_PITCH_V1)
             ->addAudioUnit(&auENV_PITCH_V2)
             ->addAudioUnit(&auENV_PITCH_V3)
-            ->addAudioUnit(&auENV_PITCH_V4)
-            ->addAudioUnit(&auDC_PITCHENV)
-            ->addAudioUnit(&auLFO_PITCH);
+            ->addAudioUnit(&auENV_PITCH_V4);
     }
-    Modules.add(MOD_AENV, PSMEnvModulator::create(MOD_AENV, "AENV_a", PSMEnvelopeParameters(EPARMS_AENV)));
+
+    Modules.add(MOD_AENV, PSMEnvModulator::create(MOD_AENV, "AENV_a", PSMEnvelopeParameters(EPARMS_AENV), &auLFO_AMP, nullptr, &auDC_AMPENV));
     if (PSMEnvModulator *emod = dynamic_cast<PSMEnvModulator *>(Modules[MOD_AENV]))
     {
         emod->addAudioUnit(&auENV_AMP_V1)
             ->addAudioUnit(&auENV_AMP_V2)
             ->addAudioUnit(&auENV_AMP_V3)
-            ->addAudioUnit(&auENV_AMP_V4)
-            ->addAudioUnit(&auDC_AMPENV)
-            ->addAudioUnit(&auLFO_AMP);
+            ->addAudioUnit(&auENV_AMP_V4);
     }
 
-    Modules.add(MOD_FENV, PSMEnvModulator::create(MOD_FENV, "FENV_a", PSMEnvelopeParameters(EPARMS_FENV)));
+    Modules.add(MOD_FENV, PSMEnvModulator::create(MOD_FENV, "FENV_a", PSMEnvelopeParameters(EPARMS_FENV), &auLFO_FILTER, nullptr, &auDC_FILTERENV));
     if (PSMEnvModulator *emod = dynamic_cast<PSMEnvModulator *>(Modules[MOD_FENV]))
     {
         emod->addAudioUnit(&auENV_FILTER_V1)
             ->addAudioUnit(&auENV_FILTER_V2)
             ->addAudioUnit(&auENV_FILTER_V3)
-            ->addAudioUnit(&auENV_FILTER_V4)
-            ->addAudioUnit(&auDC_FILTERENV)
-            ->addAudioUnit(&auLFO_FILTER);
+            ->addAudioUnit(&auENV_FILTER_V4);
     }
 }
 

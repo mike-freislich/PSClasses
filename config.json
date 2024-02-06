@@ -16,7 +16,7 @@
         {"key":"CTRL_BTN_DataG", "type":"PSCButton", "name":"rotary button", "pin":14, "debounce":500, "min":0.000000, "max":1.000000, "state":false, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"CTRL_BTN_DataG"}]}, {"mode":"shift", "assigned": []}]}, 
         {"key":"CTRL_BTN_VoiceSelect", "type":"PSCButton", "name":"voice select", "pin":13, "debounce":100, "min":0.000000, "max":1.000000, "state":false, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"CTRL_BTN_VoiceSelect"}]}, {"mode":"shift", "assigned": []}]}, 
         {"key":"CTRL_BTN_Shift", "type":"PSCButton", "name":"shift", "pin":22, "debounce":1000, "min":0.000000, "max":1.000000, "state":false, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"CTRL_BTN_Shift"}]}, {"mode":"shift", "assigned": []}]},
-        {"key":"CTRL_BTN_Invert", "type":"PSCButton", "name":"invert", "pin":23, "debounce":1000, "min":0.000000, "max":1.000000, "state":false, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"CTRL_BTN_Invert"}]}, {"mode":"shift", "assigned": []}]}
+        {"key":"CTRL_BTN_Invert", "type":"PSCButton", "name":"invert", "pin":23, "debounce":650, "min":0.000000, "max":1.000000, "state":false, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"CTRL_BTN_Invert"}]}, {"mode":"shift", "assigned": []}]}
     ],
 
     "PARAMETERS": [                
@@ -35,6 +35,7 @@
         {"key": "PARM_PLFO_SHAPE", "name": "p-lfo-shape", "value": 0, "min": 0, "max": 12, "taper": 0, "integervalue": true},
         {"key": "PARM_PLFO_FREQ", "name": "p-lfo-freq", "value": 0, "min": 0.000000, "max": 20.0, "taper": 1},
         {"key": "PARM_PLFO_AMOUNT", "name": "p-lfo-lvl", "value": 0, "min": 0.000000, "max": 1.000000, "taper": 1},
+        {"key": "PARM_PITCH_BEND", "name": "pitch bend", "value": 0, "min": -1.0, "max": 1.0, "taper": 0},
 
         {"key": "PARM_AENV_ATTACK", "name": "a-atk", "value": 6627.824219, "min": 0.000000, "max": 10000.000000, "taper": 1}, 
         {"key": "PARM_AENV_HOLD", "name": "a-hld", "value": 4474.942871, "min": 0.000000, "max": 5000.000000, "taper": 1}, 
@@ -46,6 +47,7 @@
         {"key": "PARM_ALFO_SHAPE", "name": "a-lfo-shape", "value": 0, "min": 0, "max": 12, "taper": 0, "integervalue": true},
         {"key": "PARM_ALFO_FREQ", "name": "a-lfo-freq", "value": 0, "min": 0.000000, "max": 20.0, "taper": 1},
         {"key": "PARM_ALFO_AMOUNT", "name": "a-lfo-lvl", "value": 0, "min": 0.000000, "max": 1.000000, "taper": 1},
+        {"key": "PARM_AMP_BEND", "name": "volume pedal", "value": 0, "min": -1.0, "max": 1.0, "taper": 0},
 
         {"key": "PARM_FENV_ATTACK", "name": "f-atk", "value": 119.930000, "min": 0.000000, "max": 10000.000000, "taper": 1}, 
         {"key": "PARM_FENV_HOLD", "name": "f-hld", "value": 3527.927979, "min": 0.000000, "max": 5000.000000, "taper": 1}, 
@@ -57,6 +59,7 @@
         {"key": "PARM_FLFO_SHAPE", "name": "f-lfo-shape", "value": 0, "min": 0, "max": 12, "taper": 0, "integervalue": true},
         {"key": "PARM_FLFO_FREQ", "name": "f-lfo-freq", "value": 0, "min": 0.000000, "max": 20.0, "taper": 1},
         {"key": "PARM_FLFO_AMOUNT", "name": "f-lfo-lvl", "value": 0, "min": 0.000000, "max": 1.000000, "taper": 1},
+        {"key": "PARM_FILTER_BEND", "name": "filter bend", "value": 0, "min": -1.0, "max": 1.0, "taper": 0},
 
         {"key": "PARM_VOICE_GAIN0", "name": "voice0 gain", "value": 1.0, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
         {"key": "PARM_VOICE_GAIN1", "name": "voice1 gain", "value": 1.0, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
@@ -67,6 +70,13 @@
         {"key": "PARM_VOICE_PAN2", "name": "voice2 pan", "value": 0.5, "min": 0.0, "max": 1.0, "taper": 0, "integervalue": false},
         {"key": "PARM_VOICE_PAN3", "name": "voice3 pan", "value": 0.5, "min": 0.0, "max": 1.0, "taper": 0, "integervalue": false},
         {"key": "PARM_MASTER_GAIN", "name": "master gain", "value": 0.85, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
-        {"key": "PARM_MASTER_PAN", "name": "master pan", "value": 0.5, "min": 0.0, "max": 1.0, "taper": 0, "integervalue": false}
+        {"key": "PARM_MASTER_PAN", "name": "master pan", "value": 0.5, "min": 0.0, "max": 1.0, "taper": 0, "integervalue": false},
+
+        {"key":"PARM_PWM_A_SHAPE", "name": "PWM shape a", "value": 0, "min": 0, "max": 11, "taper": 0, "integervalue": true},
+        {"key":"PARM_PWM_A_FREQ", "name": "PWM freq a", "value": 0, "min": 0, "max": 13289.75, "taper": 0, "integervalue": false},
+        {"key":"PARM_PWM_A_GAIN", "name": "PWM lvl", "value": 0.0, "min": 0.0, "max": 1.2, "taper": 0, "integervalue": false},
+        {"key":"PARM_PWM_B_SHAPE", "name": "PWM shape a", "value": 0, "min": 0, "max": 11, "taper": 0, "integervalue": true},
+        {"key":"PARM_PWM_B_FREQ", "name": "PWM freq b", "value": 0, "min": 0, "max": 13289.75, "taper": 0, "integervalue": false},
+        {"key":"PARM_PWM_B_GAIN", "name": "PWM lvl", "value": 0.0, "min": 0.0, "max": 1.2, "taper": 0, "integervalue": false}
     ]
 }

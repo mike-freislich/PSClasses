@@ -5,8 +5,6 @@
 #include "PSSceneStereoVoiceMixer.h"
 
 #include "PSModuleManager.h"
-// #define SCENE_SPLASH 0
-// #define SCENE_ENVELOPE 1
 
 class PSSceneManager : public CollectionBase<std::string, PSScene *>
 {
@@ -62,21 +60,6 @@ public:
 
     PSScene *active() { return _activeScene; }
 
-protected:
-    void drawButtons()
-    {
-        printf("\nButtons : ");
-        for (auto &button : Controllers.buttons)
-        {
-            if (PSParameter *p = Parameters[button->key])
-            {
-                if (button->isPressed())
-                    printf("<<%s>>\t", p->displayName.c_str());
-                else
-                    printf("..%s..\t", p->displayName.c_str());
-            }
-        }
-    }
 
 private:
     PSScene *_activeScene;

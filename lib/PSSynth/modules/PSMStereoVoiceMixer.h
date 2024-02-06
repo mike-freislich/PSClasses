@@ -149,7 +149,6 @@ public:
 
 protected:
     PSParameter *_voiceGain[VOICES], *_voicePan[VOICES], *_masterGain, *_masterPan;
-
     AudioMixer4 *_leftMix, *_rightMix;
     AudioAmplifier *_leftAmp, *_rightAmp;
 };

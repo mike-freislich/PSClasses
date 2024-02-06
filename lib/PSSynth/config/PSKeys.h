@@ -1,6 +1,8 @@
 #pragma once
 
+#pragma region MODULES
 // -- Voice A Modules ---
+#define MOD_PWM_A "MOD_PWM_A"
 #define MOD_LFO1a "MOD_LFO1a"
 #define MOD_LFO2a "MOD_LFO2a"
 #define MOD_PENV "MOD_PENV"
@@ -13,7 +15,9 @@
 #define MOD_RINGMODa "MOD_RINGMODa"
 #define MOD_FOLDa "MOD_FOLDa"
 
+
 // -- Voice B Modules ---
+#define MOD_PWM_B "MOD_PWM_B"
 #define MOD_LFO1b "MOD_LFO1b"
 #define MOD_LFO2b "MOD_LFO2b"
 #define MOD_VCFb "MOD_VCFb"
@@ -26,6 +30,9 @@
 // -- Mixers --
 #define MOD_MIXER_MAIN "MOD_MIXER_MAIN"
 
+#pragma endregion
+
+#pragma region PARAMETERS
 // -- Attack Envelopes A / B --
 #define PARM_AENV_ATTACK "PARM_AENV_ATTACK"
 #define PARM_AENV_HOLD "PARM_AENV_HOLD"
@@ -61,6 +68,17 @@
 #define PARM_FLFO_SHAPE "PARM_FLFO_SHAPE"
 #define PARM_FLFO_FREQ "PARM_FLFO_FREQ"
 #define PARM_FLFO_AMOUNT "PARM_FLFO_AMOUNT"
+#define PARM_PITCH_BEND "PARM_PITCH_BEND"
+#define PARM_AMP_BEND "PARM_AMP_BEND"
+#define PARM_FILTER_BEND "PARM_FILTER_BEND"
+
+// PWM
+#define PARM_PWM_A_SHAPE "PARM_PWM_A_SHAPE"
+#define PARM_PWM_A_FREQ "PARM_PWM_A_FREQ"
+#define PARM_PWM_A_GAIN "PARM_PWM_A_GAIN"
+#define PARM_PWM_B_SHAPE "PARM_PWM_B_SHAPE"
+#define PARM_PWM_B_FREQ "PARM_PWM_B_FREQ"
+#define PARM_PWM_B_GAIN "PARM_PWM_B_GAIN"
 
 // Ring Modulation
 #define PARM_RING_LEVEL "PARM_RING_LEVEL"
@@ -79,7 +97,9 @@
 #define PARM_MASTER_GAIN "PARM_MASTER_GAIN"
 #define PARM_MASTER_PAN "PARM_MASTER_PAN"
 
+#pragma endregion
 
+#pragma region CONTROLLERS
 // ---------------------- CONTROLLERS ----------------------
 #define CTRL_POT1 "CTRL_POT1"
 #define CTRL_POT2 "CTRL_POT2"
@@ -98,13 +118,18 @@
 #define CTRL_BTN_VoiceSelect "CTRL_BTN_VoiceSelect"
 #define CTRL_BTN_Invert "CTRL_BTN_Invert"
 
+#pragma endregion
+
+#pragma region SCENES
 // ---------------------- SCENES ----------------------
 #define SCN_ENVELOPE "SCN_ENVELOPE"
 #define SCN_VOICEMIXER "SCN_VOICEMIXER"
 
-struct Range
-{
-    Range(float min, float max) : min(min), max(max) {}
-    float min;
-    float max;
-};
+#pragma endregion
+
+// struct Range
+// {
+//     Range(float min, float max) : min(min), max(max) {}
+//     float min;
+//     float max;
+// };
