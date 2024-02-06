@@ -1,5 +1,5 @@
 // #define TEENSYDUINO 210
-#include "ArduinoShard.h"
+#include "ArduinoStub.h"
 #include "timing.h"
 #include "PSSynth.h"
 

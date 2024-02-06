@@ -2,7 +2,7 @@
 #include <vector>
 #include "PSKeys.h"
 #include "PSParameterManager.h"
-#include "AudioShard.h"
+#include "AudioStub.h"
 #include "AUMapping.h"
 #include "config.h"
 

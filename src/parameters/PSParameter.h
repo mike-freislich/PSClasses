@@ -3,7 +3,7 @@
 #include <algorithm>
 #include "StringBuilder.h"
 #include "CollectionItem.h"
-#include "AudioShard.h"
+#include "AudioStub.h"
 
 typedef std::function<void(float)> AUValueFunc;
 typedef std::function<void(unsigned int, float)> AUChannelValueFunc;
