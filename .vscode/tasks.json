@@ -18,6 +18,7 @@
                 "-I${workspaceRoot}/src/parameters",   
                 "-I${workspaceRoot}/lib/",              
                 "-I${workspaceRoot}/lib/Collections",
+                "-I${workspaceRoot}/lib/interop",    
                 "-g",                
                 "-o",
                 "${workspaceRoot}/testSynth",
@@ -45,7 +46,8 @@
                 "-I${workspaceRoot}/src/view", 
                 "-I${workspaceRoot}/src/parameters",
                 "-I${workspaceRoot}/lib/",              
-                "-I${workspaceRoot}/lib/Collections",                 
+                "-I${workspaceRoot}/lib/Collections",
+                "-I${workspaceRoot}/lib/interop",                 
                 "-o",
                 "${workspaceRoot}/testSynth",
                 "${workspaceRoot}/src/main.cpp"
