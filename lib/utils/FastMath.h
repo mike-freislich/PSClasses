@@ -64,13 +64,11 @@ float convertToAudio(float linearValue, float linearMin, float linearMax, float 
 // {
 //     // Map x to the range [-pi, pi]
 //     x = std::fmod(x + M_PI, 2.0f * M_PI) - M_PI;
-
 //     // Polynomial coefficients
 //     float x2 = x * x;
 //     float x3 = x2 * x;
 //     float x5 = x3 * x2;
 //     float result = x * (1.0f - x2 / 6.0f + x5 / 120.0f);
-
 //     return result;
 // }
 
@@ -81,5 +79,3 @@ float sineWavePoint(float amplitude, float frequency, float phaseOffset, uint32_
     double phase = twoPi * frequency * timeInSeconds + twoPi * phaseOffset;
     return amplitude * sinewave(phase);
 }
-
-

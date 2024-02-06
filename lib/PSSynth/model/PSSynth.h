@@ -84,8 +84,8 @@ void PSSynth::printConfig()
 #pragma region--------------- INIT: modules
 
 void PSSynth::initModules()
-{
-    Modules.add(MOD_MIXER_MAIN, PSMStereoVoiceMixer::create(MOD_MIXER_MAIN, "Main Mix", PSMStereoVoiceMixerParameters(PARAMS_MASTER)));
+{    
+    Modules.add(MOD_MIXER_MAIN, PSMStereoVoiceMixer::create(MOD_MIXER_MAIN, "Main Mix", PSMStereoVoiceMixerParameters(PARAMS_VOICEMIXER)));
     initEnvelopes();    
 }
 

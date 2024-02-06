@@ -59,16 +59,16 @@
         {"key": "PARM_FLFO_FREQ", "name": "f-lfo-freq", "value": 0, "min": 0.000000, "max": 20.0, "taper": 1},
         {"key": "PARM_FLFO_AMOUNT", "name": "f-lfo-lvl", "value": 0, "min": 0.000000, "max": 1.000000, "taper": 1},
 
-        {"key": "PARM_MASTER_L1", "name": "mst-chan1-L", "value": 0.85, "min": 0.000000, "max": 1.000000, "taper": 0, "integervalue": false},
-        {"key": "PARM_MASTER_L2", "name": "mst-chan2-L", "value": 0.85, "min": 0.000000, "max": 1.000000, "taper": 0, "integervalue": false},
-        {"key": "PARM_MASTER_L3", "name": "mst-chan3-L", "value": 0.85, "min": 0.000000, "max": 1.000000, "taper": 0, "integervalue": false},
-        {"key": "PARM_MASTER_L4", "name": "mst-chan4-L", "value": 0.85, "min": 0.000000, "max": 1.000000, "taper": 0, "integervalue": false},
-        {"key": "PARM_MASTER_R1", "name": "mst-chan1-R", "value": 0.85, "min": 0.000000, "max": 1.000000, "taper": 0, "integervalue": false},
-        {"key": "PARM_MASTER_R2", "name": "mst-chan2-R", "value": 0.85, "min": 0.000000, "max": 1.000000, "taper": 0, "integervalue": false},
-        {"key": "PARM_MASTER_R3", "name": "mst-chan3-R", "value": 0.85, "min": 0.000000, "max": 1.000000, "taper": 0, "integervalue": false},
-        {"key": "PARM_MASTER_R4", "name": "mst-chan4-R", "value": 0.85, "min": 0.000000, "max": 1.000000, "taper": 0, "integervalue": false},
-        {"key": "PARM_MASTER_GAINL", "name": "mst-gain-L", "value": 0.85, "min": 0.000000, "max": 5.000000, "taper": 0, "integervalue": false},
-        {"key": "PARM_MASTER_GAINR", "name": "mst-gain-R", "value": 0.85, "min": 0.000000, "max": 5.000000, "taper": 0, "integervalue": false}
+        {"key": "PARM_VOICE_GAIN0", "name": "voice0 gain", "value": 0.85, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
+        {"key": "PARM_VOICE_GAIN1", "name": "voice1 gain", "value": 0.85, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
+        {"key": "PARM_VOICE_GAIN2", "name": "voice2 gain", "value": 0.85, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
+        {"key": "PARM_VOICE_GAIN3", "name": "voice3 gain", "value": 0.85, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
+        {"key": "PARM_VOICE_PAN0", "name": "voice0 pan", "value": 0.5, "min": 0.0, "max": 1.0, "taper": 0, "integervalue": false},
+        {"key": "PARM_VOICE_PAN1", "name": "voice1 pan", "value": 0.5, "min": 0.0, "max": 1.0, "taper": 0, "integervalue": false},
+        {"key": "PARM_VOICE_PAN2", "name": "voice2 pan", "value": 0.5, "min": 0.0, "max": 1.0, "taper": 0, "integervalue": false},
+        {"key": "PARM_VOICE_PAN3", "name": "voice3 pan", "value": 0.5, "min": 0.0, "max": 1.0, "taper": 0, "integervalue": false},
+        {"key": "PARM_MASTER_GAIN", "name": "master gain", "value": 0.85, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
+        {"key": "PARM_MASTER_PAN", "name": "master pan", "value": 0.5, "min": 0.0, "max": 1.0, "taper": 0, "integervalue": false}
 
     ]
 }
