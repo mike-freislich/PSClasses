@@ -99,7 +99,7 @@ public:
         _min = minV;
         _max = maxV;
         _range = _max - _min;
-        _value = std::clamp(_value, _min, _max);
+        _value = clampf(_value, _min, _max);
         return this;
     }
 

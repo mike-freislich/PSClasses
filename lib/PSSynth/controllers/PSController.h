@@ -195,7 +195,7 @@ protected:
         switch (_readMode)
         {
         case PSCRandom:
-            v = (float)(rand() % (int)(_range * 10000)) / 10000.0f;
+            v = (float)(arc4random() % (int)(_range * 10000)) / 10000.0f;
             return setValue(v);
             break;
         case PSCSine:

@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "clang",
             "args": [
-                "-std=c++17",
+                "-std=c++11",
                 "-I${workspaceRoot}/src/",
                 "-I${workspaceRoot}/lib/Collections",
                 "-I${workspaceRoot}/lib/interop",  
@@ -34,7 +34,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-std=c++17",
+                "-std=c++11",
                 "-I${workspaceRoot}/src/",
                 "-I${workspaceRoot}/lib/Collections",
                 "-I${workspaceRoot}/lib/interop",  

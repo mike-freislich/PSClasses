@@ -67,7 +67,7 @@
 #define PARM_RING_FREQ "PARM_RING_FREQ"
 #define PARM_RING_WAVE "PARM_RING_WAVE"
 
-// Output stage
+// Output Mixer
 #define PARM_VOICE_GAIN0 "PARM_VOICE_GAIN0"
 #define PARM_VOICE_GAIN1 "PARM_VOICE_GAIN1"
 #define PARM_VOICE_GAIN2 "PARM_VOICE_GAIN2"
@@ -78,8 +78,6 @@
 #define PARM_VOICE_PAN3 "PARM_VOICE_PAN3"
 #define PARM_MASTER_GAIN "PARM_MASTER_GAIN"
 #define PARM_MASTER_PAN "PARM_MASTER_PAN"
-
-
 
 
 // ---------------------- CONTROLLERS ----------------------

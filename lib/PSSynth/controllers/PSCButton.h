@@ -36,7 +36,7 @@ protected:
     {
         if (_readMode == PSControllerReadMode::PSCRandom)
         {
-            float v = (float)((rand() % (int)(_range * 10000))) / 10000.0f;
+            float v = (float)((arc4random() % (int)(_range * 10000))) / 10000.0f;
             v = (v <= 0.5f) ? 0 : 1;
             return setValue(v);
         }

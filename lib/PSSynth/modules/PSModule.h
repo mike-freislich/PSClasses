@@ -50,7 +50,7 @@ public:
                 if (controller)
                 {
                     std::cout << controller->displayName << "->" << displayName << "_" << p->displayName << ", ";
-                    PSParameterMode mode = (random() % 2 == 0) ? SHIFT_PARM : STANDARD_PARM;
+                    PSParameterMode mode = (arc4random() % 2 == 0) ? SHIFT_PARM : STANDARD_PARM;
                     controller->assignParameter(p, mode);
                 }
                 else
