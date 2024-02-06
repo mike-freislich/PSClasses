@@ -142,23 +142,30 @@ public:
                 count++;
                 try
                 {
-                    const char *key = p.objectValue.at("key").stringValue.c_str();
-                    const char *displayName = p.objectValue.at("name").stringValue.c_str();
-                    float value = p.objectValue.at("value").numberValue;
-                    float min = p.objectValue.at("min").numberValue;
-                    float max = p.objectValue.at("max").numberValue;
+                    std::map<std::string, JSONValue> obj = p.objectValue;
+                    const char *key = obj.at("key").stringValue.c_str();
+                    const char *displayName = obj.at("name").stringValue.c_str();
+                    float value = obj.at("value").numberValue;
+                    float min = obj.at("min").numberValue;
+                    float max = obj.at("max").numberValue;
                     PSParameter::TAPER taper = (PSParameter::TAPER)p.objectValue.at("taper").numberValue;
+                    // optional integerValue
+                    float integerValue = false;
+                    if (obj.find("integervalue") != obj.cend()) 
+                        integerValue = obj.at("integervalue").boolValue;                    
 
                     if (!Parameters.contains(key))
                     {
                         printf("loading parameter: %s<>%s\n", key, displayName);
-                        Parameters.add(key, PSParameter::create(key, displayName));
+                        if (PSParameter *np = Parameters.add(key, PSParameter::create(key, displayName)))
+                            np->integerValue(integerValue);
                     }
 
                     Parameters[key]
                         ->setRange((float)min, (float)max)
                         ->setTaper(taper)
-                        ->setValue((float)value);
+                        ->integerValue(integerValue)
+                        ->setValue((float)value);                        
                 }
                 catch (const std::exception &e)
                 {

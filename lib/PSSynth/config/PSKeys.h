@@ -100,6 +100,7 @@
 
 // ---------------------- SCENES ----------------------
 #define SCN_ENVELOPE "SCN_ENVELOPE"
+#define SCN_VOICEMIXER "SCN_VOICEMIXER"
 
 struct Range
 {

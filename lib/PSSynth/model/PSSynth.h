@@ -6,6 +6,8 @@
 #include "PSSceneManager.h"
 #include "config.h"
 
+float lastShiftState;
+
 class PSSynth
 {
 public:
@@ -18,6 +20,14 @@ public:
 #ifdef DEBUG
         // printf("%dms elapsed since last update", elapsed());
 #endif
+        
+        bool shiftNow = Controllers.button(CTRL_BTN_Shift)->isPressed();
+        if (shiftNow != lastShiftState)
+        {
+            lastShiftState = shiftNow;
+            Scenes.nextScene();
+        }
+        
         Controllers.update();
         Modules.update();
         Scenes.render();
@@ -45,14 +55,13 @@ private:
 
 void PSSynth::initScenes()
 {
-    if (!Scenes.contains(SCN_ENVELOPE))
-        Scenes.add(SCN_ENVELOPE, PSScene::create<PSSceneEnvelope>(SCN_ENVELOPE, "View Envelope"));
-
-    if (PSScene *scene = Scenes["SCN_ENVELOPE"])
-    {
+    // if (!Scenes.contains(SCN_ENVELOPE))
+    if (PSScene *scene = Scenes.add(SCN_ENVELOPE, PSScene::create<PSSceneEnvelope>(SCN_ENVELOPE, "View Envelope")))
         scene->refreshRateHz(SCENE_REFRESH_RATE);
-    }
-    Scenes.setActive("SCN_ENVELOPE");
+
+    Scenes.add(SCN_VOICEMIXER, PSScene::create<PSSceneStereoVoiceMixer>(SCN_VOICEMIXER, "Main Mix"));
+
+    Scenes.setActive();
 }
 
 void PSSynth::initialise()
@@ -60,9 +69,10 @@ void PSSynth::initialise()
     PSConfig config;
     config.loadConfig("config.json");
     config.applyConfig();
-    //connectParameterTargets();
+    // connectParameterTargets();
     initModules();
     initScenes();
+    lastShiftState = Controllers.button(CTRL_BTN_Shift)->isPressed();
     printConfig();
 }
 
@@ -84,13 +94,13 @@ void PSSynth::printConfig()
 #pragma region--------------- INIT: modules
 
 void PSSynth::initModules()
-{    
+{
     Modules.add(MOD_MIXER_MAIN, PSMStereoVoiceMixer::create(MOD_MIXER_MAIN, "Main Mix", PSMStereoVoiceMixerParameters(PARAMS_VOICEMIXER)));
-    initEnvelopes();    
+    initEnvelopes();
 }
 
 void PSSynth::initEnvelopes()
-{    
+{
     Modules.add(MOD_PENV, PSMEnvModulator::create(MOD_PENV, "PENV_a", PSMEnvelopeParameters(EPARMS_PENV)));
 
     if (PSMEnvModulator *emod = dynamic_cast<PSMEnvModulator *>(Modules[MOD_PENV]))

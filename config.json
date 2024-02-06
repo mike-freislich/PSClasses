@@ -2,11 +2,11 @@
     "config name": "PS Synth v1.0",
     "date": "04.01.29",
     
-    "CONTROLLERS": [
-        {"key":"CTRL_POT1", "type":"PSCPotentiometer", "name":"pot 1", "pin":10, "debounce":5, "min":10.000000, "max":1010.000000, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"PARM_PLFO_FREQ"},{"pkey":"PARM_PLFO_AMOUNT"}]}, {"mode":"shift", "assigned": [{"pkey":"PARM_FENV_HOLD"},{"pkey":"PARM_FENV_SUSTAIN"},{"pkey":"PARM_AENV_SUSTAIN"}]}]},
-        {"key":"CTRL_POT2", "type":"PSCPotentiometer", "name":"pot 2", "pin":4, "debounce":5, "min":10.000000, "max":1010.000000, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"PARM_FENV_AMOUNT"},{"pkey":"PARM_AENV_DECAY"},{"pkey":"PARM_PENV_DECAY"},{"pkey":"PARM_PENV_SUSTAIN"}]}, {"mode":"shift", "assigned": []}]}, 
-        {"key":"CTRL_POT3", "type":"PSCPotentiometer", "name":"pot 3", "pin":2, "debounce":5, "min":10.000000, "max":1010.000000, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"PARM_AENV_AMOUNT"},{"pkey":"PARM_PLFO_FREQ"},{"pkey":"PARM_PLFO_AMOUNT"}]}, {"mode":"shift", "assigned": [{"pkey":"PARM_AENV_ATTACK"},{"pkey":"PARM_AENV_AMOUNT"},{"pkey":"PARM_PENV_RELEASE"},{"pkey":"PARM_PENV_HOLD"}]}]}, 
-        {"key":"CTRL_POT4", "type":"PSCPotentiometer", "name":"pot 4", "pin":71, "debounce":5, "min":10.000000, "max":1010.000000, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"PARM_AENV_RELEASE"},{"pkey":"PARM_PENV_AMOUNT"},{"pkey":"PARM_PENV_ATTACK"}]}, {"mode":"shift", "assigned": [{"pkey":"PARM_AENV_RELEASE"}]}]},         
+    "CONTROLLERS": [        
+        {"key":"CTRL_POT1", "type":"PSCPotentiometer", "name":"pot 1", "pin":10, "debounce":5, "min":10.000000, "max":1010.000000, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"PARM_VOICE_PAN0"},{"pkey":"PARM_PLFO_FREQ"},{"pkey":"PARM_PLFO_AMOUNT"}]}, {"mode":"shift", "assigned": [{"pkey":"PARM_VOICE_PAN0"}, {"pkey":"PARM_FENV_HOLD"},{"pkey":"PARM_FENV_SUSTAIN"},{"pkey":"PARM_AENV_SUSTAIN"}]}]},
+        {"key":"CTRL_POT2", "type":"PSCPotentiometer", "name":"pot 2", "pin":4, "debounce":5, "min":10.000000, "max":1010.000000, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"PARM_VOICE_PAN1"},{"pkey":"PARM_FENV_AMOUNT"},{"pkey":"PARM_AENV_DECAY"},{"pkey":"PARM_PENV_DECAY"},{"pkey":"PARM_PENV_SUSTAIN"}]}, {"mode":"shift", "assigned": [{"pkey":"PARM_VOICE_PAN1"}]}]}, 
+        {"key":"CTRL_POT3", "type":"PSCPotentiometer", "name":"pot 3", "pin":2, "debounce":5, "min":10.000000, "max":1010.000000, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"PARM_VOICE_PAN2"},{"pkey":"PARM_AENV_AMOUNT"},{"pkey":"PARM_PLFO_FREQ"},{"pkey":"PARM_PLFO_AMOUNT"}]}, {"mode":"shift", "assigned": [{"pkey":"PARM_AENV_ATTACK"},{"pkey":"PARM_AENV_AMOUNT"},{"pkey":"PARM_PENV_RELEASE"},{"pkey":"PARM_PENV_HOLD"}]}]}, 
+        {"key":"CTRL_POT4", "type":"PSCPotentiometer", "name":"pot 4", "pin":71, "debounce":5, "min":10.000000, "max":1010.000000, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"PARM_VOICE_PAN3"},{"pkey":"PARM_AENV_RELEASE"},{"pkey":"PARM_PENV_AMOUNT"},{"pkey":"PARM_PENV_ATTACK"}]}, {"mode":"shift", "assigned": [{"pkey":"PARM_VOICE_PAN3"}, {"pkey":"PARM_AENV_RELEASE"}]}]},         
         {"key":"CTRL_POT5", "type":"PSCPotentiometer", "name":"pot 5", "pin":5, "debounce":5, "min":10.000000, "max":1010.000000, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"PARM_FENV_RELEASE"},{"pkey":"PARM_PENV_RELEASE"}]}, {"mode":"shift", "assigned": [{"pkey":"PARM_AENV_SUSTAIN"},{"pkey":"PARM_PENV_HOLD"}]}]}, 
         {"key":"CTRL_POT6", "type":"PSCPotentiometer", "name":"pot 6", "pin":6, "debounce":5, "min":10.000000, "max":1010.000000, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"PARM_FENV_AMOUNT"},{"pkey":"PARM_PENV_AMOUNT"}]}, {"mode":"shift", "assigned": [{"pkey":"PARM_PENV_ATTACK"}]}]},    
         {"key":"CTRL_POT_DataA", "type":"PSCPotentiometer", "name":"pot data a", "pin":7, "debounce":5, "min":10.000000, "max":1010.000000, "PARMS": [{"mode":"normal", "assigned": [{"pkey":"PARM_PLFO_SHAPE"},{"pkey":"PARM_FENV_SUSTAIN"}]}, {"mode":"shift", "assigned": [{"pkey":"PARM_FENV_DECAY"},{"pkey":"PARM_AENV_ATTACK"}]}]}, 
@@ -20,10 +20,10 @@
     ],
 
     "PARAMETERS": [                
-        {"key": "CTRL_BTN_DataG", "name": "enter", "value": 0.000000, "min": 0.000000, "max": 1.000000, "taper": 0}, 
-        {"key": "CTRL_BTN_Shift", "name": "shift", "value": 0.000000, "min": 0.000000, "max": 1.000000, "taper": 0},
-        {"key": "CTRL_BTN_VoiceSelect", "name": "v-sel", "value": 0.000000, "min": 0.000000, "max": 1.000000, "taper": 0},
-        {"key": "CTRL_BTN_Invert", "name": "invert", "value": 0.000000, "min": 0.000000, "max": 1.000000, "taper": 0}, 
+        {"key": "CTRL_BTN_DataG", "name": "enter", "value": 0.000000, "min": 0.000000, "max": 1.000000, "taper": 0, "integervalue": true}, 
+        {"key": "CTRL_BTN_Shift", "name": "shift", "value": 0.000000, "min": 0.000000, "max": 1.000000, "taper": 0, "integervalue": true},
+        {"key": "CTRL_BTN_VoiceSelect", "name": "v-sel", "value": 0.000000, "min": 0.000000, "max": 1.000000, "taper": 0, "integervalue": true},
+        {"key": "CTRL_BTN_Invert", "name": "invert", "value": 0.000000, "min": 0.000000, "max": 1.000000, "taper": 0, "integervalue": true}, 
 
         {"key": "PARM_PENV_ATTACK", "name": "p-atk", "value": 6435.954102, "min": 0.000000, "max": 10000.000000, "taper": 1}, 
         {"key": "PARM_PENV_HOLD", "name": "p-hld", "value": 2501.230957, "min": 0.000000, "max": 5000.000000, "taper": 1},
@@ -32,7 +32,7 @@
         {"key": "PARM_PENV_RELEASE", "name": "p-rel", "value": 2533.042480, "min": 0.000000, "max": 5000.000000, "taper": 1}, 
         {"key": "PARM_PENV_AMOUNT", "name": "p-lvl", "value": 0.992036, "min": 0.000000, "max": 1.000000, "taper": 0},  
         {"key": "PARM_PENV_INVERT", "name": "p-inv", "value": 0, "min": 0.000000, "max": 1.000000, "taper": 0},        
-        {"key": "PARM_PLFO_SHAPE", "name": "p-lfo-shape", "value": 0, "min": 0, "max": 12, "taper": 0},
+        {"key": "PARM_PLFO_SHAPE", "name": "p-lfo-shape", "value": 0, "min": 0, "max": 12, "taper": 0, "integervalue": true},
         {"key": "PARM_PLFO_FREQ", "name": "p-lfo-freq", "value": 0, "min": 0.000000, "max": 20.0, "taper": 1},
         {"key": "PARM_PLFO_AMOUNT", "name": "p-lfo-lvl", "value": 0, "min": 0.000000, "max": 1.000000, "taper": 1},
 
@@ -43,7 +43,7 @@
         {"key": "PARM_AENV_RELEASE", "name": "a-rel", "value": 3854.467041, "min": 0.000000, "max": 5000.000000, "taper": 1}, 
         {"key": "PARM_AENV_AMOUNT", "name": "a-lvl", "value": 0.500246, "min": 0.000000, "max": 1.000000, "taper": 0}, 
         {"key": "PARM_AENV_INVERT", "name": "a-inv", "value": 0, "min": 0.000000, "max": 1.000000, "taper": 0},
-        {"key": "PARM_ALFO_SHAPE", "name": "a-lfo-shape", "value": 0, "min": 0, "max": 12, "taper": 0},
+        {"key": "PARM_ALFO_SHAPE", "name": "a-lfo-shape", "value": 0, "min": 0, "max": 12, "taper": 0, "integervalue": true},
         {"key": "PARM_ALFO_FREQ", "name": "a-lfo-freq", "value": 0, "min": 0.000000, "max": 20.0, "taper": 1},
         {"key": "PARM_ALFO_AMOUNT", "name": "a-lfo-lvl", "value": 0, "min": 0.000000, "max": 1.000000, "taper": 1},
 
@@ -54,14 +54,14 @@
         {"key": "PARM_FENV_RELEASE", "name": "f-rel", "value": 1468.479492, "min": 0.000000, "max": 5000.000000, "taper": 1}, 
         {"key": "PARM_FENV_AMOUNT", "name": "f-lvl", "value": 0.296997, "min": 0.000000, "max": 1.000000, "taper": 0},
         {"key": "PARM_FENV_INVERT", "name": "f-inv", "value": 0, "min": 0.000000, "max": 1.000000, "taper": 0},
-        {"key": "PARM_FLFO_SHAPE", "name": "f-lfo-shape", "value": 0, "min": 0, "max": 12, "taper": 0},
+        {"key": "PARM_FLFO_SHAPE", "name": "f-lfo-shape", "value": 0, "min": 0, "max": 12, "taper": 0, "integervalue": true},
         {"key": "PARM_FLFO_FREQ", "name": "f-lfo-freq", "value": 0, "min": 0.000000, "max": 20.0, "taper": 1},
         {"key": "PARM_FLFO_AMOUNT", "name": "f-lfo-lvl", "value": 0, "min": 0.000000, "max": 1.000000, "taper": 1},
 
-        {"key": "PARM_VOICE_GAIN0", "name": "voice0 gain", "value": 0.85, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
-        {"key": "PARM_VOICE_GAIN1", "name": "voice1 gain", "value": 0.85, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
-        {"key": "PARM_VOICE_GAIN2", "name": "voice2 gain", "value": 0.85, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
-        {"key": "PARM_VOICE_GAIN3", "name": "voice3 gain", "value": 0.85, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
+        {"key": "PARM_VOICE_GAIN0", "name": "voice0 gain", "value": 1.0, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
+        {"key": "PARM_VOICE_GAIN1", "name": "voice1 gain", "value": 1.0, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
+        {"key": "PARM_VOICE_GAIN2", "name": "voice2 gain", "value": 1.0, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
+        {"key": "PARM_VOICE_GAIN3", "name": "voice3 gain", "value": 1.0, "min": 0.0, "max": 1.5, "taper": 0, "integervalue": false},
         {"key": "PARM_VOICE_PAN0", "name": "voice0 pan", "value": 0.5, "min": 0.0, "max": 1.0, "taper": 0, "integervalue": false},
         {"key": "PARM_VOICE_PAN1", "name": "voice1 pan", "value": 0.5, "min": 0.0, "max": 1.0, "taper": 0, "integervalue": false},
         {"key": "PARM_VOICE_PAN2", "name": "voice2 pan", "value": 0.5, "min": 0.0, "max": 1.0, "taper": 0, "integervalue": false},

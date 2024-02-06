@@ -28,7 +28,7 @@ AUChannelValueFunc mapValueFunc(T *audioUnitInstance, void (T::*func)(unsigned i
         if (auto derived = dynamic_cast<T *>(audioUnitInstance))
         {
             (derived->*func)(channel, value);
-            //derived->channel = channel;
+            // derived->channel = channel;
         }
         else
             std::cerr << "Invalid cast!" << std::endl;
@@ -44,7 +44,6 @@ enum PSParameterMode
 class PSParameter : public CollectionItemBase
 {
 public:
-    unsigned int channel;
     enum TAPER
     {
         LINEAR,
@@ -65,6 +64,12 @@ public:
 
     float getValue()
     {
+        if (_integerValue)
+        {
+            if (_taper == LINEAR)
+                return (int)_value;
+            return (int)getValueLog();
+        }
         if (_taper == LINEAR)
             return _value;
         return getValueLog();
@@ -72,19 +77,17 @@ public:
 
     void setValue(float val)
     {
-        if (val != _value)
-        {            
-            if (auSetValue)
-                auSetValue(val); // TODO this is where AudioUnit values need to be set
-            else if (auSetChannelValue)
-                auSetChannelValue(channel, val);
+        if (_integerValue)
+            val = (int)val;
             
+        if (val != _value)
+        {
             _changed = true;
             _value = val;
-        }   
+        }
     }
 
-    bool changed(bool reset = false) 
+    bool changed(bool reset = false)
     {
         bool result = _changed;
         if (result && reset)
@@ -109,18 +112,13 @@ public:
         return this;
     }
 
-    PSParameter *setAudioUnitHandle(AUValueFunc &func)
-    {
-        auSetValue = func;
-        return this;
-    }
-
-    PSParameter *setAudioUnitHandle(AUChannelValueFunc &func, uint8_t channel)
-    {
-        auSetChannelValue = func;
-        this->channel = channel;
-        return this;
-    }
+    /**
+     * @brief
+     * If set will cause values returned from this->getValue() to be truncated to an integer
+     * @param isInteger - true or false
+     * @return PSParameter*
+     */
+    PSParameter *integerValue(bool isInteger) { _integerValue = isInteger; return this; }
 
     void serialize(StringBuilder *sb) override
     {
@@ -136,11 +134,14 @@ public:
             ->addPair("max", _max)
             ->delimiter()
             ->addPair("taper", (int)_taper)
+            ->delimiter()
+            ->addPair("integervalue", (bool)_integerValue)
             ->endElement();
     }
 
     static PSParameter *deserialize(const std::string &jsonData)
     {
+        //TODO move code from config LoadParameters to here
         return nullptr;
     }
 
@@ -148,9 +149,8 @@ protected:
     AUValueFunc auSetValue;
     AUChannelValueFunc auSetChannelValue;
     float _value, _max, _min, _range;
-    bool _changed;
+    bool _changed, _integerValue;
     TAPER _taper = LINEAR;
-    
 
     float convertToAudio(float linearValue, float linearMin, float linearMax, float audioMin = 0, float audioMax = 0, float exponent = 2.0f)
     {

@@ -63,6 +63,29 @@ public:
         return this;
     }
 
+    void getStereoGainLR(float gain, float pan, float &left, float &right)
+    {
+        // float gain = _voiceGain[voice]->getValue();
+        // float pan = _voicePan[voice]->getValue();
+        left = (1 - pan) * gain;
+        right = (1 - left) * gain;
+    }
+
+    float getVoicePan(uint8_t voice)
+    {
+        voice = (int)clampf(voice, 0, VOICES);        
+        return _voicePan[voice]->getValue();
+    }
+
+    float getVoiceGain(uint8_t voice)
+    {
+        voice = (int)clampf(voice, 0, VOICES);
+        return _voiceGain[voice]->getValue();
+    }
+
+    float getMasterPan() { return _masterPan->getValue(); }
+    float getMasterGain() { return _masterGain->getValue(); }
+
     /**
      * @brief
      * Pans a stereo channel to the relevant position.
@@ -76,14 +99,6 @@ public:
             position = clampf(position, 0, 1.0);
             _voicePan[voice]->setValue(position);
         }
-    }
-
-    void getStereoGainLR(float gain, float pan, float &left, float &right)
-    {
-        // float gain = _voiceGain[voice]->getValue();
-        // float pan = _voicePan[voice]->getValue();
-        left = (1 - pan) * gain;
-        right = (1 - left) * gain;
     }
 
     void voiceGain(uint8_t voice, float value)
@@ -124,10 +139,10 @@ public:
 
         // set output amp levels
         if (_masterPan->changed(true) || _masterGain->changed(true))
-        {            
+        {
             getStereoGainLR(_masterGain->getValue(), _masterPan->getValue(), left, right);
             _leftAmp->gain(left);
-            _rightAmp->gain(right);            
+            _rightAmp->gain(right);
         }
         return true;
     }

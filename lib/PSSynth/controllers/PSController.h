@@ -199,7 +199,7 @@ protected:
             return setValue(v);
             break;
         case PSCSine:
-            v = (sineWavePoint(0.5f, 2.0f, _randPhase, millis()) + 0.5f) * _range;
+            v = (sineWavePoint(0.5f, 0.05f, _randPhase, millis()) + 0.5f) * _range;
             return setValue(v);
             break;
         case PSCHardware:

@@ -8,12 +8,20 @@
 #define LOG(message) // Define as empty for release builds
 #endif
 
+// enum LOGLEVEL
+// {
+//     DEBUG_ONLY,
+//     ALWAYS,
+// };
+
+// //#define CURR_LOGLEVEL LL_DEBUG
+
 // Forward declaration of logDebug function
 void logDebug(const std::string& message);
 
 // Log function for DEBUG builds
 void logDebug(const std::ostringstream& oss) {
-    logDebug(oss.str());
+    logDebug(oss.str());    
 }
 
 // Actual log function implementation

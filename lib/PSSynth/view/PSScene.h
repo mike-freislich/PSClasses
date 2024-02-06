@@ -30,13 +30,13 @@ public:
     }
 
     template <typename T>
-    static T *create(const char * key, const string &displayName)
+    static T *create(const char *key, const string &displayName)
     {
         static_assert(std::is_base_of<PSScene, T>::value, "T must be a derived class of PSScene");
         PSScene *scene = new T();
-        scene->key = key;        
+        scene->key = key;
         scene->refreshRateHz(120);
-        scene->displayName = displayName;        
+        scene->displayName = displayName;
         return dynamic_cast<T *>(scene);
     }
 
@@ -62,7 +62,7 @@ public:
     {
         if (c)
         {
-            _modules.add(c->key, c);            
+            _modules.add(c->key, c);
         }
         return this;
     }
@@ -101,7 +101,7 @@ public:
         for (auto &module : _modules.getData())
         {
             if (PSModule *m = dynamic_cast<PSModule *>(module.second))
-            {                
+            {
                 printf("MODULE [%s] : ", m->displayName.c_str());
                 for (auto &parameter : m->moduleParameters.getData())
                 {
@@ -128,6 +128,8 @@ public:
         }
         printf("\n");
     }
+
+    std::string parmDisplay(PSParameter *p) { return "(" + p->displayName + " " + std::to_string(p->getValue()) + ")"; }
 
     virtual void clearDisplay() { system("clear"); }
     virtual void drawTitle() { printf("******** SCENE: %s **********\n\n", displayName.c_str()); }

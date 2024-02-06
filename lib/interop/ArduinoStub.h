@@ -2,14 +2,14 @@
 #include <cstdio>
 #include "timing.h"
 
-#define LOOPDURATION 8000
+#define LOOPDURATION 16000
 #define REVIEWTIME 250
 
 #define TICKTIME 5
 #define SCENE_REFRESH_RATE 120
 
 //#define TESTMODE
-#define DEBUG
+//#define DEBUG
 #include "DebugLog.h"
 
 #ifdef TESTMODE
