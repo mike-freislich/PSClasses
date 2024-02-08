@@ -1,6 +1,5 @@
 #pragma once
-// #include "Parameter.h"
-#include "PSModuleManager.h"
+#include "ModuleManager.h"
 #include "ParameterManager.h"
 #include "ControllerManager.h"
 #include "Keys.h"
@@ -9,7 +8,7 @@
 namespace ps
 {
 
-    class PSScene : public CollectionItemBase
+    class Scene : public CollectionItemBase
     {
 
     private:
@@ -18,12 +17,12 @@ namespace ps
 
     protected:
         ParameterManager _params;
-        PSModuleManager _modules;
+        ModuleManager _modules;
         ControllerManager _controllers;
         bool _active;
 
     public:
-        ~PSScene() override
+        ~Scene() override
         {
             _modules.clear();
             _params.clear();
@@ -33,8 +32,8 @@ namespace ps
         template <typename T>
         static T *create(const char *key, const string &displayName)
         {
-            static_assert(std::is_base_of<PSScene, T>::value, "T must be a derived class of PSScene");
-            PSScene *scene = new T();
+            static_assert(std::is_base_of<Scene, T>::value, "T must be a derived class of Scene");
+            Scene *scene = new T();
             scene->key = key;
             scene->refreshRateHz(120);
             scene->displayName = displayName;
@@ -59,7 +58,7 @@ namespace ps
 
         void addParameter(Parameter *param) { _params.add(param->key, param); }
 
-        PSScene *addModule(Module *c)
+        Scene *addModule(Module *c)
         {
             if (c)
             {

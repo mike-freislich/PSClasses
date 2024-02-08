@@ -1,23 +1,22 @@
 #pragma once
 #include "Collection.h"
-#include "PSScene.h"
-#include "PSSceneEnvelope.h"
-#include "PSSceneStereoVoiceMixer.h"
-#include "PSModuleManager.h"
+#include "Scene.h"
+#include "SceneEnvelope.h"
+#include "SceneStereoVoiceMixer.h"
+#include "ModuleManager.h"
 
 namespace ps
 {
-
-    class PSSceneManager : public CollectionBase<std::string, PSScene *>
+    class SceneManager : public CollectionBase<std::string, Scene *>
     {
     public:
-        ~PSSceneManager() override {}
-        std::vector<PSScene *> scenes;
+        ~SceneManager() override {}
+        std::vector<Scene *> scenes;
         uint8_t sceneIndex = 0;
 
-        PSScene *scene(const std::string &key) { return collectionData[key]; }
+        Scene *scene(const std::string &key) { return collectionData[key]; }
 
-        PSScene *add(const std::string &key, PSScene *scene) override
+        Scene *add(const std::string &key, Scene *scene) override
         {
             scenes.push_back(scene);
             return CollectionBase::add(key, scene);
@@ -31,7 +30,7 @@ namespace ps
             setActive(scenes[sceneIndex]);
         }
 
-        void setActive(PSScene *scene)
+        void setActive(Scene *scene)
         {
             if (_activeScene)
                 _activeScene->deactivate();
@@ -60,10 +59,10 @@ namespace ps
                 _activeScene->render();
         }
 
-        PSScene *active() { return _activeScene; }
+        Scene *active() { return _activeScene; }
 
     private:
-        PSScene *_activeScene;
+        Scene *_activeScene;
     } Scenes;
 
 }

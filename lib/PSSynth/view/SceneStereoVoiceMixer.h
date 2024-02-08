@@ -1,18 +1,18 @@
 #pragma once
-#include "PSScene.h"
+#include "Scene.h"
 #include "PSMStereoVoiceMixer.h"
+
 namespace ps
 {
-
-    class PSSceneStereoVoiceMixer : public PSScene
+    class SceneStereoVoiceMixer : public Scene
     {
     public:
-        PSSceneStereoVoiceMixer() : PSScene()
+        SceneStereoVoiceMixer() : Scene()
         {
-            typeName = "PSSceneStereoVoiceMixer";
+            typeName = "SceneStereoVoiceMixer";
             addModule(Modules[MOD_MIXER_MAIN]);
         }
-        ~PSSceneStereoVoiceMixer() override {}
+        ~SceneStereoVoiceMixer() override {}
 
         void drawModules() override
         {

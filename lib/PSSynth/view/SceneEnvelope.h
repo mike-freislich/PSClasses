@@ -1,21 +1,20 @@
 #pragma once
-#include "PSScene.h"
+#include "Scene.h"
 #include "PSMEnvModulator.h"
 
 namespace ps
 {
-
-    class PSSceneEnvelope : public PSScene
+    class SceneEnvelope : public Scene
     {
     public:
-        PSSceneEnvelope() : PSScene()
+        SceneEnvelope() : Scene()
         {
-            typeName = "PSSceneEnvelope";
+            typeName = "SceneEnvelope";
             addModule(Modules[MOD_PENV]);
             addModule(Modules[MOD_AENV]);
             addModule(Modules[MOD_FENV]);
         }
-        ~PSSceneEnvelope() override {}
+        ~SceneEnvelope() override {}
 
         void drawModules() override
         {

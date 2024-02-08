@@ -3,8 +3,8 @@
 #include "AUMapping.h"
 #include "ParameterManager.h"
 #include "ControllerManager.h"
-#include "PSModuleManager.h"
-#include "PSSceneManager.h"
+#include "ModuleManager.h"
+#include "SceneManager.h"
 #include "config.h"
 
 namespace ps
@@ -56,10 +56,10 @@ namespace ps
     void Synth::initScenes()
     {
         // if (!Scenes.contains(SCN_ENVELOPE))
-        if (PSScene *scene = Scenes.add(SCN_ENVELOPE, PSScene::create<PSSceneEnvelope>(SCN_ENVELOPE, "View Envelope")))
+        if (Scene *scene = Scenes.add(SCN_ENVELOPE, Scene::create<SceneEnvelope>(SCN_ENVELOPE, "View Envelope")))
             scene->refreshRateHz(SCENE_REFRESH_RATE);
 
-        Scenes.add(SCN_VOICEMIXER, PSScene::create<PSSceneStereoVoiceMixer>(SCN_VOICEMIXER, "Main Mix"));
+        Scenes.add(SCN_VOICEMIXER, Scene::create<SceneStereoVoiceMixer>(SCN_VOICEMIXER, "Main Mix"));
 
         Scenes.setActive();
     }

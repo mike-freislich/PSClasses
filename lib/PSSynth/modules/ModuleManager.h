@@ -9,14 +9,15 @@
 // #include "PSMMultiModeFilter.h"
 // #include "PSMRingMod.h"
 // #include "PSMNoiseGen.h"
-// #include "PSMStereoAmp.h"
+
+
 
 namespace ps
 {
-    class PSModuleManager : public CollectionBase<std::string, Module *>
+    class ModuleManager : public CollectionBase<std::string, Module *>
     {
     public:
-        ~PSModuleManager() override {}
+        ~ModuleManager() override {}
 
     } Modules;
 }
