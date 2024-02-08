@@ -3,64 +3,67 @@
 #include "PSScene.h"
 #include "PSSceneEnvelope.h"
 #include "PSSceneStereoVoiceMixer.h"
-
 #include "PSModuleManager.h"
 
-class PSSceneManager : public CollectionBase<std::string, PSScene *>
+namespace ps
 {
-public:
-    ~PSSceneManager() override {}
-    std::vector<PSScene *> scenes;
-    uint8_t sceneIndex = 0;
 
-    PSScene *scene(const std::string &key) { return collectionData[key]; }
-
-    PSScene *add(const std::string &key, PSScene *scene) override
+    class PSSceneManager : public CollectionBase<std::string, PSScene *>
     {
-        scenes.push_back(scene);
-        return CollectionBase::add(key, scene);
-    }
+    public:
+        ~PSSceneManager() override {}
+        std::vector<PSScene *> scenes;
+        uint8_t sceneIndex = 0;
 
-    void setActive(const std::string &key) { setActive(collectionData[key]); }
+        PSScene *scene(const std::string &key) { return collectionData[key]; }
 
-    void setActive()
-    {
-        sceneIndex = 0;
-        setActive(scenes[sceneIndex]);
-    }
+        PSScene *add(const std::string &key, PSScene *scene) override
+        {
+            scenes.push_back(scene);
+            return CollectionBase::add(key, scene);
+        }
 
-    void setActive(PSScene *scene)
-    {
-        if (_activeScene)
-            _activeScene->deactivate();
+        void setActive(const std::string &key) { setActive(collectionData[key]); }
 
-        if ((_activeScene = scene))
-            _activeScene->activate();
-        else
-            printf("no active scene to render\n");
-    }
+        void setActive()
+        {
+            sceneIndex = 0;
+            setActive(scenes[sceneIndex]);
+        }
 
-    void nextScene()
-    {
-        sceneIndex = ++sceneIndex % scenes.size();
-        setActive(scenes[sceneIndex]);
-    }
+        void setActive(PSScene *scene)
+        {
+            if (_activeScene)
+                _activeScene->deactivate();
 
-    void prevScene()
-    {
-        sceneIndex = --sceneIndex % scenes.size();
-        setActive(scenes[sceneIndex]);
-    }
+            if ((_activeScene = scene))
+                _activeScene->activate();
+            else
+                printf("no active scene to render\n");
+        }
 
-    void render()
-    {
-        if (_activeScene)
-            _activeScene->render();
-    }
+        void nextScene()
+        {
+            sceneIndex = ++sceneIndex % scenes.size();
+            setActive(scenes[sceneIndex]);
+        }
 
-    PSScene *active() { return _activeScene; }
+        void prevScene()
+        {
+            sceneIndex = --sceneIndex % scenes.size();
+            setActive(scenes[sceneIndex]);
+        }
 
+        void render()
+        {
+            if (_activeScene)
+                _activeScene->render();
+        }
 
-private:
-    PSScene *_activeScene;
-} Scenes;
+        PSScene *active() { return _activeScene; }
+
+    private:
+        PSScene *_activeScene;
+    } Scenes;
+
+}

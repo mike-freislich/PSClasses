@@ -4,7 +4,7 @@
  * 
  * @brief
  * Controllers exist to read current values from hardware of software(mock hardware)
- * Controllers are managed in a central repository called a PSControllerManager
+ * Controllers are managed in a central repository called a ControllerManager
  * 
  * REQUIREMENTS:
  * Measure and store values from hardware / software

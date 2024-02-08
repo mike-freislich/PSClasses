@@ -9,7 +9,7 @@
 template <typename T>
 void attachAudioFunc(const char *parmKey, T *audioUnit, void (T::*func)(float))
 {
-   if (PSParameter *p = Parameters[parmKey])
+   if (Parameter *p = Parameters[parmKey])
    {
       auto f = mapValueFunc(audioUnit, func);
       p->setAudioUnitHandle(f);
@@ -19,7 +19,7 @@ void attachAudioFunc(const char *parmKey, T *audioUnit, void (T::*func)(float))
 template <typename T>
 void attachAudioFunc(const char *parmKey, T *audioUnit, void (T::*func)(unsigned int, float), uint8_t channel)
 {
-   if (PSParameter *p = Parameters[parmKey])
+   if (Parameter *p = Parameters[parmKey])
    {
       auto f = mapValueFunc(audioUnit, func);
       p->setAudioUnitHandle(f, channel);

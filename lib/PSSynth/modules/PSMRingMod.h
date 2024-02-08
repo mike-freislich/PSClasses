@@ -1,3 +1,8 @@
 #pragma once
-#include "PSModule.h"
-#include "PSParameterManager.h"
+#include "Module.h"
+#include "ParameterManager.h"
+
+namespace ps
+{
+    
+}

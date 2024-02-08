@@ -1,7 +1,7 @@
 #pragma once
 
-//#include "PSControllerManager.h"
-//#include "PSParameterManager.h"
+//#include "ControllerManager.h"
+//#include "ParameterManager.h"
 //#include "PSSceneManager.h"
 //#include "PSModuleManager.h"
 //#include "testAudioUnitFactory.h"
@@ -153,23 +153,23 @@ void runTests()
 // {    
 //     try
 //     {        
-//         Controllers.add(CTRL_BTN_DataG, PSCButton::create(CTRL_BTN_DataG, 12, "enter"));
-//         Controllers.add(CTRL_BTN_Shift, PSCButton::create(CTRL_BTN_Shift, 17, "shift"));
-//         Controllers.add(CTRL_POT_DataA, PSCPotentiometer::create(CTRL_POT_DataA, 22, "Env-Attack"));
+//         Controllers.add(CTRL_BTN_DataG, CButton::create(CTRL_BTN_DataG, 12, "enter"));
+//         Controllers.add(CTRL_BTN_Shift, CButton::create(CTRL_BTN_Shift, 17, "shift"));
+//         Controllers.add(CTRL_POT_DataA, CPotentiometer::create(CTRL_POT_DataA, 22, "Env-Attack"));
         
 //         // for (const auto &pair : Controllers.getData())
-//         //     if (PSController *c = pair.second)                                
+//         //     if (Controller *c = pair.second)                                
 //         //         c->display();        
 
-//         Parameters.add(PARM_AENVa_AMOUNT, PSParameter::create(PARM_AENVa_AMOUNT, "lvl"));
-//         Parameters.add(PARM_AENVa_ATTACK, PSParameter::create(PARM_AENVa_ATTACK, "atk"));
-//         Parameters.add(PARM_AENVa_HOLD, PSParameter::create(PARM_AENVa_HOLD, "hld"));
-//         Parameters.add(PARM_AENVa_DECAY, PSParameter::create(PARM_AENVa_DECAY, "dec"));
-//         Parameters.add(PARM_AENVa_SUSTAIN, PSParameter::create(PARM_AENVa_SUSTAIN, "sus"));
-//         Parameters.add(PARM_AENVa_RELEASE, PSParameter::create(PARM_AENVa_RELEASE, "rel"));
+//         Parameters.add(PARM_AENVa_AMOUNT, Parameter::create(PARM_AENVa_AMOUNT, "lvl"));
+//         Parameters.add(PARM_AENVa_ATTACK, Parameter::create(PARM_AENVa_ATTACK, "atk"));
+//         Parameters.add(PARM_AENVa_HOLD, Parameter::create(PARM_AENVa_HOLD, "hld"));
+//         Parameters.add(PARM_AENVa_DECAY, Parameter::create(PARM_AENVa_DECAY, "dec"));
+//         Parameters.add(PARM_AENVa_SUSTAIN, Parameter::create(PARM_AENVa_SUSTAIN, "sus"));
+//         Parameters.add(PARM_AENVa_RELEASE, Parameter::create(PARM_AENVa_RELEASE, "rel"));
 
 //         // for (const auto &pair : Parameters.getData())
-//         //     if (PSParameter *p = pair.second)                                
+//         //     if (Parameter *p = pair.second)                                
 //         //         p->display();        
 
 //     }

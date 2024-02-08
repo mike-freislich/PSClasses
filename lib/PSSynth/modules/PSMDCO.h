@@ -1,8 +1,10 @@
 #pragma once
-#include "PSModule.h"
-#include "PSParameterManager.h"
+#include "Module.h"
+#include "ParameterManager.h"
 
-class PSMDCO : public PSModule
+namespace ps
 {
-    
-};
+    class PSMDCO : public Module
+    {
+    };
+}
