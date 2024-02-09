@@ -1,31 +1,23 @@
 #pragma once
 
 #pragma region MODULES
-// -- Voice A Modules ---
-#define MOD_PWM_A "MOD_PWM_A"
-#define MOD_LFO1a "MOD_LFO1a"
-#define MOD_LFO2a "MOD_LFO2a"
+
+// -- Global Modules ---
 #define MOD_PENV "MOD_PENV"
 #define MOD_AENV "MOD_AENV"
 #define MOD_FENV "MOD_FENV"
-#define MOD_VCFa "MOD_VCFa"
-#define MOD_VCOa "MOD_VCOa"
-#define MOD_VCAa "MOD_VCAa"
-#define MOD_NOISEa "MOD_NOISEa"
-#define MOD_RINGMODa "MOD_RINGMODa"
-#define MOD_FOLDa "MOD_FOLDa"
+#define MOD_XMOD "MOD_XMOD"
+#define MOD_RINGMOD "MOD_RINGMOD"
+#define MOD_NOISE "MOD_NOISE"
+
+// -- Voice A Modules ---
+#define MOD_PWM_A "MOD_PWM_A"
+#define MOD_DCO_A "MOD_DCO_A"
 
 
 // -- Voice B Modules ---
 #define MOD_PWM_B "MOD_PWM_B"
-#define MOD_LFO1b "MOD_LFO1b"
-#define MOD_LFO2b "MOD_LFO2b"
-#define MOD_VCFb "MOD_VCFb"
-#define MOD_VCOb "MOD_VCOb"
-#define MOD_VCAb "MOD_VCAb"
-#define MOD_NOISEb "MOD_NOISEb"
-#define MOD_RINGMODb "MOD_RINGMODb"
-#define MOD_FOLDb "MOD_FOLDb"
+#define MOD_DCO_B "MOD_DCO_B"
 
 // -- Mixers --
 #define MOD_MIXER_MAIN "MOD_MIXER_MAIN"
@@ -33,6 +25,7 @@
 #pragma endregion
 
 #pragma region PARAMETERS
+
 // -- Attack Envelopes A / B --
 #define PARM_AENV_ATTACK "PARM_AENV_ATTACK"
 #define PARM_AENV_HOLD "PARM_AENV_HOLD"
@@ -80,10 +73,27 @@
 #define PARM_PWM_B_FREQ "PARM_PWM_B_FREQ"
 #define PARM_PWM_B_GAIN "PARM_PWM_B_GAIN"
 
+// DCO
+#define PARM_DCO_A_AMP "PARM_DCO_A_AMP"
+#define PARM_DCO_A_FREQ "PARM_DCO_A_FREQ"
+#define PARM_DCO_A_SHAPE "PARM_DCO_A_SHAPE"
+#define PARM_DCO_A_DETUNE "PARM_DCO_A_DETUNE"
+#define PARM_DCO_B_AMP "PARM_DCO_B_AMP"
+#define PARM_DCO_B_FREQ "PARM_DCO_B_FREQ"
+#define PARM_DCO_B_SHAPE "PARM_DCO_B_SHAPE"
+#define PARM_DCO_B_DETUNE "PARM_DCO_B_DETUNE"
+
+// X Modulation
+#define PARM_XMOD_AMOUNT "PARM_XMOD_AMOUNT"
+
 // Ring Modulation
 #define PARM_RING_LEVEL "PARM_RING_LEVEL"
 #define PARM_RING_FREQ "PARM_RING_FREQ"
-#define PARM_RING_WAVE "PARM_RING_WAVE"
+#define PARM_RING_SHAPE "PARM_RING_SHAPE"
+
+// Noise Generator
+#define PARM_NOISE_LEVEL "PARM_NOISE_LEVEL"
+#define PARM_NOISE_TYPE "PARM_NOISE_TYPE"
 
 // Output Mixer
 #define PARM_VOICE_GAIN0 "PARM_VOICE_GAIN0"

@@ -85,6 +85,9 @@ long map(long x, long in_min, long in_max, long out_min, long out_max)
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-float clampf(float value, float minValue, float maxValue) {
-    return std::max(minValue, std::min(value, maxValue));
-}
+// float clampf(float value, float minValue, float maxValue) {
+//     return std::max(minValue, std::min(value, maxValue));
+// }
+
+template <typename T>
+T clampf(T value, T minVal, T maxVal) { return std::max(minVal, std::min(value, maxVal)); }

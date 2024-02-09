@@ -22,10 +22,10 @@
 
 namespace ps
 {
-    struct PSMEnvelopeParameters
+    struct ModuleModulatorParameters
     {
         std::string attack, hold, decay, sustain, release, amount, invert, lfoShape, lfoFreq, lfoAmplitude, bend;
-        PSMEnvelopeParameters(
+        ModuleModulatorParameters(
             const std::string &attack,
             const std::string &hold,
             const std::string &decay,
@@ -52,7 +52,7 @@ namespace ps
         }
     };
 
-    class PSMEnvModulator : public Module
+    class ModuleModulator : public Module
     {
     private:
         Parameter *_attack, *_hold, *_decay, *_sustain, *_release, *_amount, *_invert, *_lfoShape, *_lfoFreq, *_lfoAmplitude, *_bend;
@@ -61,22 +61,22 @@ namespace ps
         bool isInverted() { return (Controllers.button(CTRL_BTN_Invert)->isPressed()); }
 
     public:
-        PSMEnvModulator() : Module() {}
-        ~PSMEnvModulator() override { moduleParameters.clear(); }
+        ModuleModulator() : Module() {}
+        ~ModuleModulator() override { moduleParameters.clear(); }
 
-        static PSMEnvModulator *create(const char *key, const char *displayName,
-                                       const PSMEnvelopeParameters &ep,
+        static ModuleModulator *create(const char *key, const char *displayName,
+                                       const ModuleModulatorParameters &ep,
                                        AudioSynthWaveformModulated *lfoUnit,
                                        AudioSynthWaveformDc *amountDC,
                                        AudioSynthWaveformDc *bendDC)
         {
-            PSMEnvModulator *newMod = Module::create<PSMEnvModulator>(key, displayName);
+            ModuleModulator *newMod = Module::create<ModuleModulator>(key, displayName);
             newMod->attachParameters(ep);
             newMod->addExtraUnits(lfoUnit, bendDC, amountDC);
             return newMod;
         }
 
-        PSMEnvModulator *attachParameters(const PSMEnvelopeParameters &ep)
+        ModuleModulator *attachParameters(const ModuleModulatorParameters &ep)
         {
             _attack = addParameter(Parameters[ep.attack]);
             _hold = addParameter(Parameters[ep.hold]);
@@ -92,7 +92,7 @@ namespace ps
             return this;
         }
 
-        PSMEnvModulator *setValue(const std::string &key, float value)
+        ModuleModulator *setValue(const std::string &key, float value)
         {
             moduleParameters[key]->setValue(value);
             return this;

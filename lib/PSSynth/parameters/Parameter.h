@@ -105,7 +105,7 @@ namespace ps
             _min = minV;
             _max = maxV;
             _range = _max - _min;
-            _value = clampf(_value, _min, _max);
+            _value = clampf<float>(_value, _min, _max);
             return this;
         }
 

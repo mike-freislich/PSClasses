@@ -1,14 +1,12 @@
 #pragma once
 #include "Module.h"
-#include "PSMEnvModulator.h"
-#include "PSMStereoVoiceMixer.h"
-#include "PSMPulseWidthMod.h"
-// #include "PSMLFO.h"
-// #include "PSMVCO.h"
-// #include "PSMWaveFolder.h"
-// #include "PSMMultiModeFilter.h"
-// #include "PSMRingMod.h"
-// #include "PSMNoiseGen.h"
+#include "ModuleModulator.h"
+#include "ModuleVoiceMixer.h"
+#include "ModulePulseWidthMod.h"
+#include "ModuleOscillator.h"
+#include "ModuleXModulation.h"
+#include "ModuleRingMod.h"
+#include "ModuleNoise.h"
 
 
 

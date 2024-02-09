@@ -1,6 +1,6 @@
 #pragma once
 #include "Scene.h"
-#include "PSMStereoVoiceMixer.h"
+#include "ModuleVoiceMixer.h"
 
 namespace ps
 {
@@ -18,7 +18,7 @@ namespace ps
         {
             for (auto &module : _modules.getData())
             {
-                if (PSMStereoVoiceMixer *mixer = dynamic_cast<PSMStereoVoiceMixer *>(module.second))
+                if (ModuleVoiceMixer *mixer = dynamic_cast<ModuleVoiceMixer *>(module.second))
                 {
                     for (uint8_t voice = 0; voice < VOICES; voice++)
                     {

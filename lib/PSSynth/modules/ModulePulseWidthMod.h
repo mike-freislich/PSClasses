@@ -8,28 +8,27 @@
 
 namespace ps
 {
-
-    struct PSMPulseWidthModParameters
+    struct ModulePulseWidthModParameters
     {
         std::string shape, freq, gain;
-        PSMPulseWidthModParameters(
+        ModulePulseWidthModParameters(
             const std::string &shape,
             const std::string &freq,
             const std::string &gain) : shape(shape), freq(freq), gain(gain) {}
     };
 
-    class PSMPulseWidthMod : public ps::Module
+    class ModulePulseWidthMod : public ps::Module
     {
     public:
-        PSMPulseWidthMod() : Module() { typeName = "PSMPulseWidthMod"; }
+        ModulePulseWidthMod() : Module() { typeName = "ModulePulseWidthMod"; }
 
-        static PSMPulseWidthMod *create(
+        static ModulePulseWidthMod *create(
             const char *key,
             const char *displayName,
-            const PSMPulseWidthModParameters &smp,
+            const ModulePulseWidthModParameters &smp,
             AudioSynthWaveform *lfo, AudioAmplifier *amp)
         {
-            PSMPulseWidthMod *newMod = Module::create<PSMPulseWidthMod>(key, displayName);
+            ModulePulseWidthMod *newMod = Module::create<ModulePulseWidthMod>(key, displayName);
             newMod
                 ->attachParameters(smp)
                 ->addAudioUnits(lfo, amp);
@@ -49,7 +48,7 @@ namespace ps
         AudioAmplifier *_amp;
         AudioSynthWaveform *_lfo;
 
-        PSMPulseWidthMod *attachParameters(const PSMPulseWidthModParameters &p)
+        ModulePulseWidthMod *attachParameters(const ModulePulseWidthModParameters &p)
         {
             _freq = addParameter(Parameters[p.freq]);
             _gain = addParameter(Parameters[p.gain]);
@@ -57,7 +56,7 @@ namespace ps
             return this;
         }
 
-        PSMPulseWidthMod *addAudioUnits(AudioSynthWaveform *lfo, AudioAmplifier *amp)
+        ModulePulseWidthMod *addAudioUnits(AudioSynthWaveform *lfo, AudioAmplifier *amp)
         {
             _lfo = lfo;
             addAudioUnit(lfo);

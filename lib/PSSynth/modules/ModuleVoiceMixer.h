@@ -3,21 +3,19 @@
 #include "Module.h"
 #include "ParameterManager.h"
 
-#define VOICES 4
-
-namespace ps
-{
-
 #define PARAMS_VOICEMIXER (std::string[VOICES]){PARM_VOICE_GAIN0, PARM_VOICE_GAIN1, PARM_VOICE_GAIN2, PARM_VOICE_GAIN3}, \
                           (std::string[VOICES]){PARM_VOICE_PAN0, PARM_VOICE_PAN1, PARM_VOICE_PAN2, PARM_VOICE_PAN3},     \
                           PARM_MASTER_GAIN, PARM_MASTER_PAN
 
-    struct PSMStereoVoiceMixerParameters
+namespace ps
+{
+
+    struct ModuleVoiceMixerParameters
     {
         std::string voiceGain[VOICES];
         std::string voicePan[VOICES];
         std::string masterGain, masterPan;
-        PSMStereoVoiceMixerParameters(
+        ModuleVoiceMixerParameters(
             const std::string voiceGain[VOICES],
             const std::string voicePan[VOICES],
             const std::string &masterGain,
@@ -31,10 +29,10 @@ namespace ps
         }
     };
 
-    class PSMStereoVoiceMixer : public Module
+    class ModuleVoiceMixer : public Module
     {
     public:
-        PSMStereoVoiceMixer()
+        ModuleVoiceMixer()
         {
             _leftMix = &auMIXER_FINAL_L;
             _rightMix = &auMIXER_FINAL_R;
@@ -46,14 +44,14 @@ namespace ps
             addAudioUnit(_rightAmp);
         }
 
-        static PSMStereoVoiceMixer *create(const char *key, const char *displayName, const PSMStereoVoiceMixerParameters &smp)
+        static ModuleVoiceMixer *create(const char *key, const char *displayName, const ModuleVoiceMixerParameters &smp)
         {
-            PSMStereoVoiceMixer *newMod = Module::create<PSMStereoVoiceMixer>(key, displayName);
+            ModuleVoiceMixer *newMod = Module::create<ModuleVoiceMixer>(key, displayName);
             newMod->attachParameters(smp);
             return newMod;
         }
 
-        PSMStereoVoiceMixer *attachParameters(const PSMStereoVoiceMixerParameters &p)
+        ModuleVoiceMixer *attachParameters(const ModuleVoiceMixerParameters &p)
         {
             for (uint8_t i = 0; i < VOICES; i++)
             {
@@ -68,21 +66,19 @@ namespace ps
 
         void getStereoGainLR(float gain, float pan, float &left, float &right)
         {
-            // float gain = _voiceGain[voice]->getValue();
-            // float pan = _voicePan[voice]->getValue();
             left = (1 - pan) * gain;
             right = (1 - left) * gain;
         }
 
         float getVoicePan(uint8_t voice)
         {
-            voice = (int)clampf(voice, 0, VOICES);
+            voice = clampf<uint8_t>(voice, 0, VOICES);
             return _voicePan[voice]->getValue();
         }
 
         float getVoiceGain(uint8_t voice)
         {
-            voice = (int)clampf(voice, 0, VOICES);
+            voice = clampf<uint8_t>(voice, 0, VOICES);
             return _voiceGain[voice]->getValue();
         }
 
@@ -99,7 +95,7 @@ namespace ps
         {
             if (voice >= 0 && voice < 4)
             {
-                position = clampf(position, 0, 1.0);
+                position = clampf<uint8_t>(position, 0, 1.0);
                 _voicePan[voice]->setValue(position);
             }
         }
@@ -108,19 +104,13 @@ namespace ps
         {
             if (voice >= 0 && voice < VOICES)
             {
-                value = clampf(value, 0, 1.0);
+                value = clampf<uint8_t>(value, 0, 1.0);
                 _voiceGain[voice]->setValue(value);
             }
         }
 
-        void masterPan(float value) { _masterPan->setValue(clampf(value, 0, 1.0f)); }
-        void masterGain(float value) { _masterGain->setValue(clampf(value, 0, 1.5f)); }
-
-        // void setValue(const std::string &key, float value)
-        // {
-        //     if (PSParameter *p = getParameter(key))
-        //         p->setValue(value);
-        // }
+        void masterPan(float value) { _masterPan->setValue(clampf<float>(value, 0, 1.0f)); }
+        void masterGain(float value) { _masterGain->setValue(clampf<float>(value, 0, 1.5f)); }        
 
         bool update() override
         {
