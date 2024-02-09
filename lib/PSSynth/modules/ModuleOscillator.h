@@ -5,7 +5,7 @@
 #define PARAMS_DCO_A PARM_DCO_A_AMP, PARM_DCO_A_FREQ, PARM_DCO_A_SHAPE, PARM_DCO_A_DETUNE
 #define PARAMS_DCO_B PARM_DCO_B_AMP, PARM_DCO_B_FREQ, PARM_DCO_B_SHAPE, PARM_DCO_B_DETUNE
 
-namespace ps
+namespace PS
 {
     struct ModuleOscillatorParameters
     {        

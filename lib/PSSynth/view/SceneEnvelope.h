@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "ModuleModulator.h"
 
-namespace ps
+namespace PS
 {
     class SceneEnvelope : public Scene
     {

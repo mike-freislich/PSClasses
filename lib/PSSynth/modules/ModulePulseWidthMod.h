@@ -6,7 +6,7 @@
 #define PARAMS_PWM_A PARM_PWM_A_SHAPE, PARM_PWM_A_FREQ, PARM_PWM_A_GAIN
 #define PARAMS_PWM_B PARM_PWM_B_SHAPE, PARM_PWM_B_FREQ, PARM_PWM_B_GAIN
 
-namespace ps
+namespace PS
 {
     struct ModulePulseWidthModParameters
     {
@@ -17,7 +17,7 @@ namespace ps
             const std::string &gain) : shape(shape), freq(freq), gain(gain) {}
     };
 
-    class ModulePulseWidthMod : public ps::Module
+    class ModulePulseWidthMod : public PS::Module
     {
     public:
         ModulePulseWidthMod() : Module() { typeName = "ModulePulseWidthMod"; }

@@ -3,11 +3,11 @@
 #include "timing.h"
 #include "Synth.h"
 
-ps::Synth *synth;
+PS::Synth *synth;
 
 void setup()
 {
-    synth = new ps::Synth();
+    synth = new PS::Synth();
     synth->initialise("config.json");
 }
 

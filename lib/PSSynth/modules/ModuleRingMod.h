@@ -5,7 +5,7 @@
 
 #define PARAMS_RINGMOD PARM_RING_LEVEL, PARM_RING_FREQ, PARM_RING_SHAPE
 
-namespace ps
+namespace PS
 {
     struct ModuleRingModParamaters
     {

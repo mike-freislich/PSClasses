@@ -7,7 +7,7 @@
 #include "SceneManager.h"
 #include "config.h"
 
-namespace ps
+namespace PS
 {
     class Synth
     {
@@ -51,7 +51,6 @@ namespace ps
             scene->refreshRateHz(SCENE_REFRESH_RATE);
 
         Scenes.add(SCN_VOICEMIXER, Scene::create<SceneStereoVoiceMixer>(SCN_VOICEMIXER, "Main Mix"));
-
         Scenes.setActive();
     }
 
@@ -80,17 +79,16 @@ namespace ps
 
     void Synth::initModules()
     {        
-        Modules.add(MOD_PENV, ps::ModuleModulator::create(MOD_PENV, "PENV_a", ps::ModuleModulatorParameters(EPARMS_PENV), &auLFO_PITCH, &auDC_PITCHBEND, &auDC_PITCHENV));
-        if (ps::ModuleModulator *emod = dynamic_cast<ps::ModuleModulator *>(Modules[MOD_PENV]))
+        Modules.add(MOD_PENV, PS::ModuleModulator::create(MOD_PENV, "PENV_a", PS::ModuleModulatorParameters(EPARMS_PENV), &auLFO_PITCH, &auDC_PITCHBEND, &auDC_PITCHENV));
+        if (PS::ModuleModulator *emod = dynamic_cast<PS::ModuleModulator *>(Modules[MOD_PENV]))
             emod->addAudioUnits({&auENV_PITCH_V1, &auENV_PITCH_V2, &auENV_PITCH_V3, &auENV_PITCH_V4});
-        Modules.add(MOD_AENV, ps::ModuleModulator::create(MOD_AENV, "AENV_a", ps::ModuleModulatorParameters(EPARMS_AENV), &auLFO_AMP, nullptr, &auDC_AMPENV));
-        if (ps::ModuleModulator *emod = dynamic_cast<ps::ModuleModulator *>(Modules[MOD_AENV]))
+        Modules.add(MOD_AENV, PS::ModuleModulator::create(MOD_AENV, "AENV_a", PS::ModuleModulatorParameters(EPARMS_AENV), &auLFO_AMP, nullptr, &auDC_AMPENV));
+        if (PS::ModuleModulator *emod = dynamic_cast<PS::ModuleModulator *>(Modules[MOD_AENV]))
             emod->addAudioUnits({&auENV_AMP_V1, &auENV_AMP_V2, &auENV_AMP_V3, &auENV_AMP_V4});
-        Modules.add(MOD_FENV, ps::ModuleModulator::create(MOD_FENV, "FENV_a", ps::ModuleModulatorParameters(EPARMS_FENV), &auLFO_FILTER, nullptr, &auDC_FILTERENV));
-        if (ps::ModuleModulator *emod = dynamic_cast<ps::ModuleModulator *>(Modules[MOD_FENV]))
+        Modules.add(MOD_FENV, PS::ModuleModulator::create(MOD_FENV, "FENV_a", PS::ModuleModulatorParameters(EPARMS_FENV), &auLFO_FILTER, nullptr, &auDC_FILTERENV));
+        if (PS::ModuleModulator *emod = dynamic_cast<PS::ModuleModulator *>(Modules[MOD_FENV]))
             emod->addAudioUnits({&auENV_FILTER_V1, &auENV_FILTER_V2, &auENV_FILTER_V3, &auENV_FILTER_V4});
 
-        Modules.add(MOD_MIXER_MAIN, ps::ModuleVoiceMixer::create(MOD_MIXER_MAIN, "Main Mix", ps::ModuleVoiceMixerParameters(PARAMS_VOICEMIXER)));
         Modules.add(MOD_PWM_A, ModulePulseWidthMod::create(MOD_PWM_A, "PWM A", ModulePulseWidthModParameters(PARAMS_PWM_A), &auWAVE_PWM_a, &auAMP_PWM_a));
         Modules.add(MOD_PWM_B, ModulePulseWidthMod::create(MOD_PWM_B, "PWM B", ModulePulseWidthModParameters(PARAMS_PWM_B), &auWAVE_PWM_b, &auAMP_PWM_b));
         Modules.add(MOD_DCO_A, ModuleOscillator::create(MOD_DCO_A, "OSC A", ModuleOscillatorParameters(PARAMS_DCO_A), {&auDCO_V1a, &auDCO_V2a, &auDCO_V3a, &auDCO_V4a}));
@@ -98,6 +96,10 @@ namespace ps
         Modules.add(MOD_XMOD, ModuleXModulation::create(MOD_XMOD, "X-Mod", ModuleXModulationParamaters(PARAMS_XMOD)));
         Modules.add(MOD_RINGMOD, ModuleRingMod::create(MOD_RINGMOD, "Ring Mod", ModuleRingModParamaters(PARAMS_RINGMOD)));
         Modules.add(MOD_NOISE, ModuleNoise::create(MOD_NOISE, "Noise", ModuleNoiseParameters(PARAMS_NOISE)));
+        Modules.add(MOD_WAVESHAPER, ModuleWaveShaper::create(MOD_WAVESHAPER, "wave shaper", ModuleWaveShaperParameters(PARAMS_SHAPER)));
+        Modules.add(MOD_FILTER, ModuleFilterBlock::create(MOD_FILTER, "filter", ModuleFilterBlockParameters(PARAMS_FILTERBLOCK)));
+        Modules.add(MOD_PARTMIXER, ModulePartMixer::create(MOD_PARTMIXER, "Part A/B Mix", ModulePartMixerParameters(PARAMS_PARTMIXER)));
+        Modules.add(MOD_MIXER_MAIN, ModuleVoiceMixer::create(MOD_MIXER_MAIN, "Main Mix", ModuleVoiceMixerParameters(PARAMS_VOICEMIXER)));
     }
 
     uint32_t Synth::elapsed()

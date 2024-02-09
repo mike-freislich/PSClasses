@@ -4,7 +4,7 @@
 
 #define PARAMS_XMOD PARM_XMOD_AMOUNT
 
-namespace ps
+namespace PS
 {
     struct ModuleXModulationParamaters
     {

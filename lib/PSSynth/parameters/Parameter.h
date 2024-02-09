@@ -5,7 +5,7 @@
 #include "CollectionItem.h"
 #include "AudioStub.h"
 
-namespace ps
+namespace PS
 {
 
     typedef std::function<void(float)> AUValueFunc;

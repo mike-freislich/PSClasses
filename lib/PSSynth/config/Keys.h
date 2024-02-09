@@ -9,11 +9,12 @@
 #define MOD_XMOD "MOD_XMOD"
 #define MOD_RINGMOD "MOD_RINGMOD"
 #define MOD_NOISE "MOD_NOISE"
+#define MOD_WAVESHAPER "MOD_WAVESHAPER"
+#define MOD_FILTER "MOD_FILTER"
 
 // -- Voice A Modules ---
 #define MOD_PWM_A "MOD_PWM_A"
 #define MOD_DCO_A "MOD_DCO_A"
-
 
 // -- Voice B Modules ---
 #define MOD_PWM_B "MOD_PWM_B"
@@ -21,6 +22,7 @@
 
 // -- Mixers --
 #define MOD_MIXER_MAIN "MOD_MIXER_MAIN"
+#define MOD_PARTMIXER "MOD_PARTMIXER"
 
 #pragma endregion
 
@@ -95,6 +97,21 @@
 #define PARM_NOISE_LEVEL "PARM_NOISE_LEVEL"
 #define PARM_NOISE_TYPE "PARM_NOISE_TYPE"
 
+// Part Mixer
+#define PARM_PAN_AB "PARM_PAN_AB"
+
+// Wave Shaper
+#define PARM_SHAPER_PREGAIN "PARM_SHAPER_PREGAIN"
+#define PARM_SHAPER_SHAPE "PARM_SHAPER_SHAPE"
+#define PARM_SHAPER_BYPASS "PARM_SHAPER_BYPASS"
+
+// FILTER
+#define PARM_FILTER_RES "PARM_FILTER_RES"
+#define PARM_FILTER_FREQ "PARM_FILTER_FREQ"
+#define PARM_FILTER_OCTAVES "PARM_FILTER_OCTAVES"
+#define PARM_FILTER_TYPE "PARM_FILTER_TYPE"
+#define PARM_FILTER_POSTGAIN "PARM_FILTER_POSTGAIN"
+
 // Output Mixer
 #define PARM_VOICE_GAIN0 "PARM_VOICE_GAIN0"
 #define PARM_VOICE_GAIN1 "PARM_VOICE_GAIN1"
@@ -136,10 +153,3 @@
 #define SCN_VOICEMIXER "SCN_VOICEMIXER"
 
 #pragma endregion
-
-// struct Range
-// {
-//     Range(float min, float max) : min(min), max(max) {}
-//     float min;
-//     float max;
-// };

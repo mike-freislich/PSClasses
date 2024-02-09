@@ -5,13 +5,17 @@
 
 #define VOICES 4
 
-namespace ps
+namespace PS
 {
     struct ControllerTarget
     {
         std::string key;
         Controller *controller;
         ControllerTarget(const std::string &k, Controller *c) : key(k), controller(c) {}
+    };
+
+    struct ModuleParametersBase
+    {
     };
 
     typedef std::vector<ControllerTarget> PSControllerTargetVector;
@@ -53,6 +57,12 @@ namespace ps
             moduleParameters.add(p->key, p);
             return p;
         }
+
+        // template<typename T>
+        // virtual Parameter *addParameters(T &p)
+        // {
+        //     throw std::runtime_error("add parameters Not Implemented\n");
+        // }
 
         Parameter *getParameter(const std::string &key)
         {
@@ -99,14 +109,14 @@ namespace ps
         std::vector<AudioStream *> audioUnits;
 
         /**
-         * @brief 
+         * @brief
          * handle units that have a function (float, float, short) e.g. AudioWaveFormDC
-         * @tparam T 
+         * @tparam T
          * @param p1 amp / gain / level (float)
          * @param p2 freq (float)
          * @param p3 shape (short)
-         * @param func 
-         * @param multiplier 
+         * @param func
+         * @param multiplier
          * @param offset the amount to offset the freq value by e.g. detune
          */
         template <typename T>
@@ -136,7 +146,7 @@ namespace ps
         bool updateUnits(Parameter *p, void (T::*func)(V), float multiplier = 1.0f, float offset = 0.0f)
         {
             if (p->changed(true))
-            {                
+            {
                 for (auto i : audioUnits)
                     if (T *e = dynamic_cast<T *>(i))
                     {
@@ -182,7 +192,7 @@ namespace ps
                 f(channel, p->getValue());
                 return true;
             }
-            return false; 
+            return false;
         }
     };
 }

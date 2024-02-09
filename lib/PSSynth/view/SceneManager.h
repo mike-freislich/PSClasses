@@ -5,7 +5,7 @@
 #include "SceneStereoVoiceMixer.h"
 #include "ModuleManager.h"
 
-namespace ps
+namespace PS
 {
     class SceneManager : public CollectionBase<std::string, Scene *>
     {

@@ -5,7 +5,7 @@
 
 #define PARAMS_NOISE PARM_NOISE_LEVEL, PARM_NOISE_TYPE
 
-namespace ps
+namespace PS
 {
     enum NoiseType {
         NOISE_WHITE,

@@ -20,7 +20,7 @@
 //         {}
 // };
 
-namespace ps
+namespace PS
 {
     struct ModuleModulatorParameters
     {

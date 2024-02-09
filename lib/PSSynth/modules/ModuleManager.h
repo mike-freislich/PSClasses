@@ -7,10 +7,11 @@
 #include "ModuleXModulation.h"
 #include "ModuleRingMod.h"
 #include "ModuleNoise.h"
+#include "ModulePartMixer.h"
+#include "ModuleWaveShaper.h"
+#include "ModuleFilterBlock.h"
 
-
-
-namespace ps
+namespace PS
 {
     class ModuleManager : public CollectionBase<std::string, Module *>
     {

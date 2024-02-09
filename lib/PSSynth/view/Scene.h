@@ -5,7 +5,7 @@
 #include "Keys.h"
 #include "timing.h"
 
-namespace ps
+namespace PS
 {
 
     class Scene : public CollectionItemBase

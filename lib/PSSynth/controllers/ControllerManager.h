@@ -5,7 +5,7 @@
 #include "CPotentiometer.h"
 #include "CButton.h"
 
-namespace ps
+namespace PS
 {
 
     class ControllerManager : public CollectionBase<std::string, Controller *>

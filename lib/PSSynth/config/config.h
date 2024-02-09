@@ -8,7 +8,7 @@
 #include "ControllerManager.h"
 #include "ParameterManager.h"
 
-namespace ps
+namespace PS
 {
 
     struct ParameterStruct

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace ps
+namespace PS
 {
 
     class StringBuilder

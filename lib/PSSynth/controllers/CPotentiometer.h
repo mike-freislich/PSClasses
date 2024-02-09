@@ -2,7 +2,7 @@
 #include "Controller.h"
 #include "StringBuilder.h"
 
-namespace ps
+namespace PS
 {
 
     class CPotentiometer : public Controller

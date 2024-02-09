@@ -8,7 +8,7 @@
 #include "CollectionItem.h"
 #include "StringBuilder.h"
 
-namespace ps
+namespace PS
 {
     enum ControllerReadMode
     {

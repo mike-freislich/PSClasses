@@ -7,7 +7,7 @@
                           (std::string[VOICES]){PARM_VOICE_PAN0, PARM_VOICE_PAN1, PARM_VOICE_PAN2, PARM_VOICE_PAN3},     \
                           PARM_MASTER_GAIN, PARM_MASTER_PAN
 
-namespace ps
+namespace PS
 {
 
     struct ModuleVoiceMixerParameters

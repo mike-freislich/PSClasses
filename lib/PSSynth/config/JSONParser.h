@@ -4,7 +4,7 @@
 #include <vector>
 #include <map>
 
-namespace ps
+namespace PS
 {
 
     enum class JSONType

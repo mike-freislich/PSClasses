@@ -1,7 +1,7 @@
 #pragma once
 #include "Controller.h"
 
-namespace ps
+namespace PS
 {
 
     // TODO implement momentary / latching button type

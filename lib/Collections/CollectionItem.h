@@ -13,7 +13,7 @@ public:
     CollectionItemBase() { collectionItemCount++; }
     virtual ~CollectionItemBase() { printf("deleting %s : %d remaining\n", typeName.c_str(), --collectionItemCount); }
     virtual bool update() { return false; }
-    virtual void serialize(ps::StringBuilder *sb) {}
+    virtual void serialize(PS::StringBuilder *sb) {}
 
     template <typename T>
     static T *create(const std::string &key, const std::string &displayName)
@@ -30,7 +30,7 @@ public:
 
     virtual void display()
     {
-        ps::StringBuilder sb;
+        PS::StringBuilder sb;
         serialize(&sb);
         printf("%s\n", sb.c_str());
     }

@@ -2,7 +2,7 @@
 #include "Parameter.h"
 #include "Collection.h"
 
-namespace ps
+namespace PS
 {
 
     class ParameterManager : public CollectionBase<std::string, Parameter *>

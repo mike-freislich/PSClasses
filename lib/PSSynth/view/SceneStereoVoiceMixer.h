@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "ModuleVoiceMixer.h"
 
-namespace ps
+namespace PS
 {
     class SceneStereoVoiceMixer : public Scene
     {
