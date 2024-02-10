@@ -35,6 +35,8 @@ namespace PS
             return newMod;
         }
 
+        ObjectType getType() override { return ObjectType::TModulePulseWidthMod; }
+
         bool update() override
         {
             updateUnit1(_lfo, _shape, &AudioSynthWaveform::begin);

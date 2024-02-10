@@ -30,6 +30,8 @@ namespace PS
             return newMod;
         }
 
+        ObjectType getType() override { return ObjectType::TModuleXModulation; }
+
         void addParameters(const ModuleXModulationParamaters &p)
         {
              _xmodAmount = addParameter(Parameters[p.xmodAmount]); 

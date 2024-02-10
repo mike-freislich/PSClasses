@@ -79,14 +79,14 @@ namespace PS
 
     void Synth::initModules()
     {        
-        Modules.add(MOD_PENV, PS::ModuleModulator::create(MOD_PENV, "PENV_a", PS::ModuleModulatorParameters(EPARMS_PENV), &auLFO_PITCH, &auDC_PITCHBEND, &auDC_PITCHENV));
-        if (PS::ModuleModulator *emod = dynamic_cast<PS::ModuleModulator *>(Modules[MOD_PENV]))
+        Modules.add(MOD_PENV, PS::ModuleModulator::create(MOD_PENV, "PENV_a", PS::ModuleModulatorParameters(EPARMS_PENV), &auLFO_PITCH, &auDC_PITCHBEND, &auDC_PITCHENV));        
+        if (PS::ModuleModulator *emod = static_cast<PS::ModuleModulator *>(Modules[MOD_PENV]))
             emod->addAudioUnits({&auENV_PITCH_V1, &auENV_PITCH_V2, &auENV_PITCH_V3, &auENV_PITCH_V4});
         Modules.add(MOD_AENV, PS::ModuleModulator::create(MOD_AENV, "AENV_a", PS::ModuleModulatorParameters(EPARMS_AENV), &auLFO_AMP, nullptr, &auDC_AMPENV));
-        if (PS::ModuleModulator *emod = dynamic_cast<PS::ModuleModulator *>(Modules[MOD_AENV]))
+        if (PS::ModuleModulator *emod = static_cast<PS::ModuleModulator *>(Modules[MOD_AENV]))
             emod->addAudioUnits({&auENV_AMP_V1, &auENV_AMP_V2, &auENV_AMP_V3, &auENV_AMP_V4});
         Modules.add(MOD_FENV, PS::ModuleModulator::create(MOD_FENV, "FENV_a", PS::ModuleModulatorParameters(EPARMS_FENV), &auLFO_FILTER, nullptr, &auDC_FILTERENV));
-        if (PS::ModuleModulator *emod = dynamic_cast<PS::ModuleModulator *>(Modules[MOD_FENV]))
+        if (PS::ModuleModulator *emod = static_cast<PS::ModuleModulator *>(Modules[MOD_FENV]))
             emod->addAudioUnits({&auENV_FILTER_V1, &auENV_FILTER_V2, &auENV_FILTER_V3, &auENV_FILTER_V4});
 
         Modules.add(MOD_PWM_A, ModulePulseWidthMod::create(MOD_PWM_A, "PWM A", ModulePulseWidthModParameters(PARAMS_PWM_A), &auWAVE_PWM_a, &auAMP_PWM_a));

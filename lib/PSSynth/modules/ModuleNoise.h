@@ -35,6 +35,8 @@ namespace PS
             return newMod;
         }
 
+        ObjectType getType() override { return ObjectType::TModuleNoise; }
+
         void addParameters(const ModuleNoiseParameters &p)
         {
             _level = addParameter(Parameters[p.level]);

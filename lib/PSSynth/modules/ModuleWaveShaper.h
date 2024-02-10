@@ -36,6 +36,7 @@ namespace PS
             newMod->addParameters(p);
             return newMod;
         }
+        ObjectType getType() override { return ObjectType::TModuleWaveShaper; }
 
         void addParameters(const ModuleWaveShaperParameters &p)
         {

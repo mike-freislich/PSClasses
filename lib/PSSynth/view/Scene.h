@@ -36,8 +36,8 @@ namespace PS
             Scene *scene = new T();
             scene->key = key;
             scene->refreshRateHz(120);
-            scene->displayName = displayName;
-            return dynamic_cast<T *>(scene);
+            scene->displayName = displayName;            
+            return static_cast<T *>(scene);
         }
 
         void setDisplay()
@@ -67,20 +67,6 @@ namespace PS
             return this;
         }
 
-        // void initParameters(Module *m)
-        // {
-        //     if (m)
-        //     {
-        //         printf("scene - adding parameters\n");
-        //         for (auto &item : m->items)
-        //         {
-        //             Parameter *p = dynamic_cast<Parameter *>(item.second);
-        //             if (p)
-        //                 _params.addItem(p);
-        //         }
-        //     }
-        // }
-
         void render()
         {
             if (shouldRender())
@@ -102,12 +88,12 @@ namespace PS
         {
             for (auto &module : _modules.getData())
             {
-                if (Module *m = dynamic_cast<Module *>(module.second))
+                if (Module *m = module.second)
                 {
                     printf("MODULE [%s] : ", m->displayName.c_str());
                     for (auto &parameter : m->moduleParameters.getData())
                     {
-                        if (Parameter *p = dynamic_cast<Parameter *>(parameter.second))
+                        if (Parameter *p = parameter.second)
                         {
                             printf("%s : %0.2f\t", p->displayName.c_str(), p->getValue());
                         }
@@ -121,9 +107,8 @@ namespace PS
         virtual void drawParameters()
         {
             for (auto &item : _params.getData())
-            {
-                Parameter *p = dynamic_cast<Parameter *>(item.second);
-                if (p)
+            {                
+                if (Parameter *p = item.second)
                 {
                     printf("%s : %0.2f\t", p->displayName.c_str(), p->getValue());
                 }

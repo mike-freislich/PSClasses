@@ -30,6 +30,8 @@ namespace PS
             return newMod;
         }
 
+        ObjectType getType() override { return ObjectType::TModulePartMixer; }
+
         void addParameters(const ModulePartMixerParameters &p)
         {
             _pan = addParameter(Parameters[p.pan]);

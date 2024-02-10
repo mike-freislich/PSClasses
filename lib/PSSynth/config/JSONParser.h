@@ -14,7 +14,8 @@ namespace PS
         STRING,
         NUMBER,
         BOOL,
-        NULL_TYPE
+        NULL_TYPE,
+        ERROR
     };
 
     struct JSONValue
@@ -26,6 +27,16 @@ namespace PS
         std::vector<JSONValue> arrayValue;
         std::map<std::string, JSONValue> objectValue;
     };
+
+    bool isFirstCharDigit(const std::string &str)
+    {
+        if (!str.empty())
+        {
+            char firstChar = str[0];
+            return std::isdigit(firstChar) != 0;
+        }
+        return false; // Return false if the string is empty
+    }
 
     class JSONParser
     {
@@ -92,7 +103,9 @@ namespace PS
                 skipWhitespace();
                 if (getCurrentChar() != ':')
                 {
-                    throw std::runtime_error("Expected ':' in object.");
+                    result.stringValue = "Expected ':' in object.\n";
+                    result.type = JSONType::ERROR;
+                    return result;
                 }
                 getNextChar(); // Skip ':'
 
@@ -106,7 +119,9 @@ namespace PS
                 }
                 else if (getCurrentChar() != '}')
                 {
-                    throw std::runtime_error("Expected ',' or '}' in object.");
+                    result.stringValue = "Expected ',' or '}' in object.\n";
+                    result.type = JSONType::ERROR;
+                    return result;
                 }
             }
 
@@ -132,7 +147,9 @@ namespace PS
                 }
                 else if (getCurrentChar() != ']')
                 {
-                    throw std::runtime_error("Expected ',' or ']' in array.");
+                    result.stringValue = "Expected ',' or ']' in array.\n";
+                    result.type = JSONType::ERROR;
+                    return result;
                 }
             }
 
@@ -173,7 +190,9 @@ namespace PS
             }
             else
             {
-                throw std::runtime_error("Invalid boolean value.");
+                result.stringValue = "Invalid boolean value.\n";
+                result.type = JSONType::ERROR;
+                return result;
             }
 
             return result;
@@ -194,7 +213,14 @@ namespace PS
             result.type = JSONType::NUMBER;
 
             size_t endPos;
+            // std::string x = jsonData.substr(currentIndex);
+            // if (isFirstCharDigit(jsonData.substr(currentIndex)))
             result.numberValue = std::stod(jsonData.substr(currentIndex), &endPos);
+            // else
+            // {
+            //     result.type = JSONType::ERROR;
+            //     result.stringValue = "Error Parsing JSON";
+            // }
             currentIndex += endPos;
 
             return result;

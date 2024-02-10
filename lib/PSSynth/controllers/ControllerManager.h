@@ -18,15 +18,31 @@ namespace PS
         Controller *add(const std::string &key, Controller *value) override
         {
             Controller *c = CollectionBase::add(key, value);
-            if (CButton *b = dynamic_cast<CButton *>(c))
+            if (c->getType() == ObjectType::TCButton)
+            {
+                CButton *b = static_cast<CButton *>(c);
                 buttons.push_back(b);
+            }
             return c;
         }
 
         bool isShiftPressed() { return button("CTRL_BTN_Shift")->getValue(); }
 
-        CButton *button(const std::string &key) { return dynamic_cast<CButton *>(collectionData[key]); }
-        CPotentiometer *potentiometer(const std::string &key) { return dynamic_cast<CPotentiometer *>(collectionData[key]); }
+        CButton *button(const std::string &key)
+        {
+            Controller *c = collectionData[key];            
+            if (c->getType() == ObjectType::TCButton)
+                return static_cast<CButton *>(c);
+            return nullptr;
+        }
+
+        CPotentiometer *potentiometer(const std::string &key)
+        {        
+            Controller *c = collectionData[key];
+            if (c->getType() == ObjectType::TCPotentiometer)
+                return (CPotentiometer *)(c);
+            return nullptr;
+        }
 
         std::string serialize() override
         {

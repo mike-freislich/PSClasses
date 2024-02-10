@@ -38,6 +38,8 @@ namespace PS
             return newMod;
         }
 
+        ObjectType getType() override { return ObjectType::TModuleOscillator; }
+
         ModuleOscillator *attachParameters(const ModuleOscillatorParameters &p)
         {
             _amp = addParameter(Parameters[p.amp]);

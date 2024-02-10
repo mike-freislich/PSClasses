@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <stdio.h>
 #include <unordered_map>
 #include "CollectionItem.h"
 
@@ -20,7 +21,8 @@ public:
         if (it == collectionData.end())
         {
             printf("ERROR - Key [%s] not found!", key.c_str());
-            throw std::out_of_range("Key not found!");
+            //throw std::out_of_range("Key not found!");
+            return nullptr;
         }
         return it->second;
     }
@@ -29,11 +31,21 @@ public:
     virtual T add(const Key &key, T value)
     {
         std::string tempKey = "unknown";
-        if (CollectionItemBase *ci = dynamic_cast<CollectionItemBase *>(value))
+        
+        if (CollectionItemBase *ci = static_cast<CollectionItemBase *>(value))
             tempKey = ci->key;
 
+        if (key == "")
+        {
+            printf("Key is empy!");
+            return nullptr;
+        }         
         if (contains(key))
-            throw std::out_of_range("Key [" + tempKey + "] already exists!");
+        {
+            printf("Key [%s] already exists!", tempKey.c_str());
+            return nullptr;
+            //throw std::out_of_range();
+        }
 
         collectionData[key] = value;
         return collectionData[key];

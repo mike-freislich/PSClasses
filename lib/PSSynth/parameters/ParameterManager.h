@@ -37,7 +37,7 @@ namespace PS
             int count = 0;
             for (auto i : collectionData)
             {
-                if (Parameter *c = dynamic_cast<Parameter *>(i.second))
+                if (Parameter *c = i.second)
                 {
                     c->serialize(&sb);
                     count++;

@@ -51,6 +51,8 @@ namespace PS
             return newMod;
         }
 
+        ObjectType getType() override { return ObjectType::TModuleVoiceMixer; }
+
         ModuleVoiceMixer *attachParameters(const ModuleVoiceMixerParameters &p)
         {
             for (uint8_t i = 0; i < VOICES; i++)

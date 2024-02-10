@@ -31,6 +31,8 @@ namespace PS
             return newMod;
         }
 
+        ObjectType getType() override { return ObjectType::TModuleRingMod; }
+
         void addParameters(const ModuleRingModParamaters &p)
         {
             _level = addParameter(Parameters[p.level]);

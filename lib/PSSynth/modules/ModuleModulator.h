@@ -76,6 +76,8 @@ namespace PS
             return newMod;
         }
 
+        ObjectType getType() override { return ObjectType::TModuleModulator; }
+
         ModuleModulator *attachParameters(const ModuleModulatorParameters &ep)
         {
             _attack = addParameter(Parameters[ep.attack]);

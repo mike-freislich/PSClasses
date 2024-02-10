@@ -107,7 +107,6 @@
         {"key":"PARM_FILTER_FREQ", "name": "filter freq", "value":0.0, "min":0.0, "max":13289.75, "taper":0, "integervalue":false},
         {"key":"PARM_FILTER_OCTAVES", "name": "filter octaves", "value":0.0, "min":0.0, "max":7.0, "taper":0, "integervalue":false},
         {"key":"PARM_FILTER_TYPE", "name": "filter select", "value":0.0, "min":0.0, "max":3.0, "taper":0, "integervalue":true},
-        {"key":"PARM_FILTER_POSTGAIN", "name": "filter select", "value":1.0, "min":0.0, "max":1.2, "taper":0, "integervalue":false}
-                    
+        {"key":"PARM_FILTER_POSTGAIN", "name": "filter select", "value":1.0, "min":0.0, "max":1.2, "taper":0, "integervalue":false}                    
     ]
 }

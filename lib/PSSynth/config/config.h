@@ -49,7 +49,8 @@ namespace PS
             if (!jsonFile.is_open())
             {
                 std::cerr << "Error opening the file." << std::endl;
-                throw std::runtime_error("Error opening config file '" + std::string(filename) + "'");
+                return "";
+                // throw std::runtime_error("Error opening config file '" + std::string(filename) + "'");
             }
             std::stringstream buffer;
             buffer << jsonFile.rdbuf();
@@ -63,16 +64,17 @@ namespace PS
 
         void applyConfig()
         {
-            try
+
+            JSONParser parser(_json_data);
+            JSONValue result = parser.parse();
+            if (result.type != JSONType::ERROR)
             {
-                JSONParser parser(_json_data);
-                JSONValue result = parser.parse();
                 loadParameters(result);
                 loadControllers(result);
             }
-            catch (const std::exception &e)
+            else
             {
-                fprintf(stderr, "Error parsing JSON: %s\n", e.what());
+                printf("Error parsing JSON: %s\n", result.stringValue.c_str());
             }
         }
 
@@ -85,20 +87,16 @@ namespace PS
             {
                 auto o = jsonController.objectValue;
                 ControllerStruct cv;
-                try
-                {
-                    cv.key = o.at("key").stringValue;
-                    cv.typeName = o.at("type").stringValue;
-                    cv.displayName = o.at("name").stringValue;
-                    cv.pin = o.at("pin").numberValue;
-                    cv.debounce = o.at("debounce").numberValue;
-                    cv.min = o.at("min").numberValue;
-                    cv.max = o.at("max").numberValue;
-                }
-                catch (const std::exception &e)
-                {
-                    std::cerr << e.what() << "|| Error parsing config at CONTROLLERS " << count << "\n";
-                }
+                // TODO figure out a way to cause this to bounce
+                cv.key = o.at("key").stringValue;
+                cv.typeName = o.at("type").stringValue;
+                cv.displayName = o.at("name").stringValue;
+                cv.pin = o.at("pin").numberValue;
+                cv.debounce = o.at("debounce").numberValue;
+                cv.min = o.at("min").numberValue;
+                cv.max = o.at("max").numberValue;
+
+                // std::cerr << e.what() << "|| Error parsing config at CONTROLLERS " << count << "\n";
 
                 if (cv.typeName == "CButton")
                 {
@@ -132,7 +130,7 @@ namespace PS
         {
             printf("\n\nLOADING PARAMETERS :\n\n");
 
-            try
+            if (result.type != JSONType::ERROR)
             {
                 auto obj = result.objectValue;
                 auto parmsSection = obj.at("PARAMETERS");
@@ -142,7 +140,7 @@ namespace PS
                 for (const auto &p : parmArray)
                 {
                     count++;
-                    try
+                    if (p.type != JSONType::ERROR)
                     {
                         std::map<std::string, JSONValue> obj = p.objectValue;
                         const char *key = obj.at("key").stringValue.c_str();
@@ -169,15 +167,15 @@ namespace PS
                             ->integerValue(integerValue)
                             ->setValue((float)value);
                     }
-                    catch (const std::exception &e)
+                    else
                     {
-                        std::cerr << e.what() << " | ERROR : JSON File error at PARAMETERS item " << count << '\n';
+                        std::cerr << p.stringValue << " | ERROR : JSON File error at PARAMETERS item " << count << '\n';
                     }
                 }
             }
-            catch (const std::exception &e)
+            else
             {
-                std::cerr << e.what() << '\n';
+                std::cerr << result.stringValue << '\n';
             }
         }
 

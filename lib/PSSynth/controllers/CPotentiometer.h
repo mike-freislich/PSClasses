@@ -14,6 +14,8 @@ namespace PS
         }
         ~CPotentiometer() override {}
 
+        ObjectType getType() override { return ObjectType::TCPotentiometer; }
+
         static CPotentiometer *create(const char *key, int pin, const char *displayName)
         {
             CPotentiometer *newPot = Controller::create<CPotentiometer>(key, pin, displayName);

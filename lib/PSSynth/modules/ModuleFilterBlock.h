@@ -51,6 +51,8 @@ namespace PS
             return newMod;
         }
 
+        ObjectType getType() override { return ObjectType::TModuleFilterBlock; }
+
         void addParameters(const ModuleFilterBlockParameters &p)
         {
             _postGain = addParameter(Parameters[p.postGain]);

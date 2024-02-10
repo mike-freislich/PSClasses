@@ -16,10 +16,8 @@ namespace PS
     {
         return [func, audioUnitInstance](float value)
         {
-            if (auto derived = dynamic_cast<T *>(audioUnitInstance))
-                (derived->*func)(value);
-            else
-                std::cerr << "Invalid cast!" << std::endl;
+            auto derived = audioUnitInstance;
+            (derived->*func)(value);
         };
     }
 
@@ -28,13 +26,8 @@ namespace PS
     {
         return [func, audioUnitInstance](unsigned int channel, float value)
         {
-            if (auto derived = dynamic_cast<T *>(audioUnitInstance))
-            {
-                (derived->*func)(channel, value);
-                // derived->channel = channel;
-            }
-            else
-                std::cerr << "Invalid cast!" << std::endl;
+            auto derived = audioUnitInstance;
+            (derived->*func)(channel, value);            
         };
     }
 

@@ -52,6 +52,8 @@ namespace PS
             return newMod;
         }
 
+        ObjectType getType() override { return ObjectType::TModule; }
+
         Parameter *addParameter(Parameter *p)
         {
             moduleParameters.add(p->key, p);
@@ -125,11 +127,11 @@ namespace PS
             if (p1->changed(true) || p2->changed(true) || p3->changed(true))
             {
                 for (auto i : audioUnits)
-                    if (T *e = dynamic_cast<T *>(i))
+                    if (T *e = static_cast<T *>(i)) //TODO this is going to break if audioUnits are not of one type
                     {
                         auto callFunc = [func, e, multiplier, offset](float t_amp, float t_freq, short t_type)
                         {
-                            if (auto derived = dynamic_cast<T *>(e))
+                            if (auto derived = static_cast<T *>(e)) //TODO this is going to break if audioUnits are not of one type
                                 (derived->*func)(t_amp * multiplier + offset, t_freq, t_type);
                             else
                                 LOG("Invalid cast!");
@@ -148,11 +150,11 @@ namespace PS
             if (p->changed(true))
             {
                 for (auto i : audioUnits)
-                    if (T *e = dynamic_cast<T *>(i))
+                    if (T *e = static_cast<T *>(i)) //TODO this is going to break if audioUnits are not of one type
                     {
                         auto f = [func, e, multiplier, offset](V value)
                         {
-                            if (auto derived = dynamic_cast<T *>(e))
+                            if (auto derived = static_cast<T *>(e)) //TODO this is going to break if audioUnits are not of one type
                                 (derived->*func)(value * multiplier + offset);
                             else
                                 LOG("Invalid cast!");

@@ -52,7 +52,7 @@ namespace PS
             {
                 for (auto item : activeParameters()->getData())
                 {
-                    if (Parameter *p = dynamic_cast<Parameter *>(item.second))
+                    if (Parameter *p = item.second)
                     {
                         p->setValueFromController(_value);
                         p->update();
@@ -134,7 +134,7 @@ namespace PS
             int count = 0;
             for (auto &item : collection->getData())
             {
-                if (Parameter *p = dynamic_cast<Parameter *>(item.second))
+                if (Parameter *p = item.second)
                 {
                     sb.startElement()
                         ->addPair("pkey", p->key)

@@ -18,8 +18,9 @@ namespace PS
         {
             for (auto &module : _modules.getData())
             {
-                if (ModuleVoiceMixer *mixer = dynamic_cast<ModuleVoiceMixer *>(module.second))
+                if (module.second->getType() == ObjectType::TModuleVoiceMixer)
                 {
+                    ModuleVoiceMixer *mixer = static_cast<ModuleVoiceMixer *>(module.second);
                     for (uint8_t voice = 0; voice < VOICES; voice++)
                     {
                         float left, right;

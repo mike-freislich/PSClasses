@@ -28,6 +28,8 @@ namespace PS
             return newButton;
         }
 
+        ObjectType getType() override { return ObjectType::TCButton; }
+
         void buttonType(const CButtonType &bt) { _buttonType = bt; }
 
         bool isPressed() { return (_value); }
