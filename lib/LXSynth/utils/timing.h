@@ -1,6 +1,7 @@
 #pragma once
 
-#ifndef __ARM_ARCH_7EM__
+#ifndef BUILD_FOR_TEENSY
+
 #include <thread>
 #include <chrono>
 

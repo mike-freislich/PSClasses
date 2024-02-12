@@ -2,7 +2,7 @@
 #include "CollectionLiteItem.h"
 #include "ContKeys.h"
 #include "LXParameter.h"
-#ifdef __ARM_ARCH_7EM__
+#ifdef BUILD_FOR_TEENSY
 #include "SimpleTimer.h"
 #else
 #include "timing.h"

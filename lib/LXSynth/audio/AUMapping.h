@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef __ARM_ARCH_7EM__
+#ifdef BUILD_FOR_TEENSY
 #include <Audio.h>
 #include <Wire.h>
 #include <SPI.h>
