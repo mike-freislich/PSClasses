@@ -1,0 +1,3 @@
+[submodule "lib/Synth"]
+	path = lib/Synth
+	url = https://github.com/mike-freislich/LXSynth.git
