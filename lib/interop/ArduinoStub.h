@@ -2,7 +2,7 @@
 #include <cstdio>
 #include "timing.h"
 #define FLASHMEM
-#define LOOPDURATION 20000
+#define LOOPDURATION 5000
 #define REVIEWTIME 250
 
 #define TICKTIME 5

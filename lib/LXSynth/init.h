@@ -157,7 +157,6 @@ FLASHMEM void initModules()
     Modules.add<LXVoiceMixer>(ModKeys::VoiceMixer);
 }
 
-
 FLASHMEM void initControllers()
 {
     Controllers.add<LXPotentiometer>(ContKeys::pot1)->attachParameters<LXPotentiometer>({aenv_attack, penv_attack, fenv_attack});        
