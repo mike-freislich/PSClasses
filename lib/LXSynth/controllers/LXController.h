@@ -2,11 +2,7 @@
 #include "CollectionLiteItem.h"
 #include "ContKeys.h"
 #include "LXParameter.h"
-#ifdef BUILD_FOR_TEENSY
-#include "SimpleTimer.h"
-#else
 #include "timing.h"
-#endif
 
 class LXController : public CollectionLiteItem<ContKeys>
 {
