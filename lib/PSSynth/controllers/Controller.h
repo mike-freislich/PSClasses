@@ -4,8 +4,8 @@
 #include "timing.h"
 #include "FastMath.h"
 #include "ParameterManager.h"
-#include "Collection.h"
-#include "CollectionItem.h"
+#include "CollectionLite.h"
+// #include "CollectionItem.h"
 #include "StringBuilder.h"
 
 namespace PS
@@ -17,24 +17,24 @@ namespace PS
         PSCSine
     };
 
-    class Controller : public CollectionItemBase
+    class Controller : public CollectionLiteItem
     {
     public:
         ParameterManager params;
         ParameterManager paramsShift;
+        const char * displayName;
 
-        Controller() : CollectionItemBase()
+        Controller(const char *key) : CollectionLiteItem(key)
         {
-            typeName = "Controller";
             bounceTimer.start(0);
         }
+        ItemType getType() override { return ItemType::TController; }
 
         template <typename T>
-        static T *create(const std::string &key, int pin, const std::string &displayName)
+        static T *create(const char *key, int pin, const std::string &displayName)
         {
-            static_assert(std::is_base_of<Controller, T>::value, "T must be a derived class of Controller");
-
-            T *c = CollectionItemBase::create<T>(key, displayName);
+            static_assert(std::is_base_of<Controller, T>::value, "T must be a derived class of Controller");            
+            T *c = new T(key);
             c->setPin(pin);
             c->displayName = displayName;
             return c;
@@ -109,7 +109,7 @@ namespace PS
             {
                 printf("%s\t: %s -> %s\n",
                        (parameterMode == SHIFT_PARM) ? "shift" : "normal",
-                       this->key.c_str(),
+                       this->key,
                        pAssign->key.c_str());
                 parameters->add(pAssign->key, pAssign);
             }
@@ -131,7 +131,7 @@ namespace PS
                 ->delimiter()
                 ->startArray("assigned");
 
-            int count = 0;
+            size_t count = 0;
             for (auto &item : collection->getData())
             {
                 if (Parameter *p = item.second)
@@ -157,7 +157,7 @@ namespace PS
             sb->begin()
                 ->addPair("key", key)
                 ->delimiter()
-                ->addPair("type", typeName)
+                ->addPair("type", typeName())
                 ->delimiter()
                 ->addPair("name", displayName)
                 ->delimiter()

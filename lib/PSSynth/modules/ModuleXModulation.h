@@ -42,8 +42,7 @@ namespace PS
             if (_xmodAmount->changed(true))
             {   
                 // pot centre = no xmod.... pot left = apply a -> b ... pot right = apply b -> a
-                float xmodA, xmodB, pan;
-                pan = _xmodAmount->getValue();
+                float pan = _xmodAmount->getValue();
                 _xmodA->amplitude(pan <= 0.4 ? pan * 2.5 : 0);
                 _xmodB->amplitude(pan >= 0.6 ? (pan-0.6) * 2.5 : 0);
             }

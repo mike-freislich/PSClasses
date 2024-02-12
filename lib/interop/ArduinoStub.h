@@ -1,8 +1,8 @@
 #pragma once
 #include <cstdio>
 #include "timing.h"
-
-#define LOOPDURATION 16000
+#define FLASHMEM
+#define LOOPDURATION 20000
 #define REVIEWTIME 250
 
 #define TICKTIME 5
@@ -69,7 +69,8 @@ void pauseForReview(const std::string &reason, uint32_t delayMS)
 
 
 
-long map(long x, long in_min, long in_max, long out_min, long out_max)
+template<typename T>
+T map(T x, T in_min, T in_max, T out_min, T out_max)
 {
     // Ensures that 'x' is within the input range
     if (x < in_min)

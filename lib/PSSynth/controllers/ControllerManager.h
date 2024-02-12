@@ -8,16 +8,16 @@
 namespace PS
 {
 
-    class ControllerManager : public CollectionBase<std::string, Controller *>
+    class ControllerManager : public CollectionLite<Controller> //CollectionBase<std::string, Controller *>
     {
     public:
         std::vector<CButton *> buttons;
 
         ~ControllerManager() override { buttons.clear(); }
 
-        Controller *add(const std::string &key, Controller *value) override
+        Controller *add(Controller *value) override
         {
-            Controller *c = CollectionBase::add(key, value);
+            Controller *c = CollectionLite::add(value);
             if (c->getType() == ObjectType::TCButton)
             {
                 CButton *b = static_cast<CButton *>(c);
@@ -48,7 +48,7 @@ namespace PS
         {
             StringBuilder sb;
             sb.startArray("CONTROLLERS")->add("\n");
-            int count = 0;
+            size_t count = 0;
             for (auto &pair : collectionData)
             {
                 sb.startElement();

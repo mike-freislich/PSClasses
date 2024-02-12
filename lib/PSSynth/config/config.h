@@ -29,9 +29,9 @@ namespace PS
 
     struct ControllerStruct
     {
-        std::string key;
-        std::string displayName;
-        std::string typeName;
+        const char *key;
+        const char *displayName;
+        const char *typeName;
         int pin;
         int debounce;
         float min;
@@ -80,7 +80,7 @@ namespace PS
 
         void loadControllers(JSONValue &result)
         {
-            int count;
+            // int count;
             printf("\n\nLOADING CONTROLLERS and PARAMETER MAPPINGS :\n\n");
 
             for (const auto &jsonController : result.objectValue.at("CONTROLLERS").arrayValue)

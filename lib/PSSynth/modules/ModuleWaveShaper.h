@@ -50,11 +50,11 @@ namespace PS
             bool result;
             if (_shape->changed(true))
             {
-                for (auto shaper : _shapers)
-                {
-                    //TODO switch the shape data of the shaper                     
-                    // shaper->shape(_shaper.getValue(), data);
-                }
+                // for (auto shaper : _shapers)
+                // {
+                //     //TODO switch the shape data of the shaper
+                //     // shaper->shape(_shaper.getValue(), data);
+                // }
                 result = true;
             }
 
@@ -82,11 +82,16 @@ namespace PS
                     }
                 }
                 result = true;
-            }        
+            }
             return result;
         }
 
-    protected:
+    private:
+        enum BypassChannels
+        {
+            bypassThru = 0,
+            bypassShaped = 1
+        };
         Parameter *_preGain, *_shape, *_bypass;
         std::vector<AudioAmplifier *> _amps;
         std::vector<AudioEffectWaveshaper *> _shapers;

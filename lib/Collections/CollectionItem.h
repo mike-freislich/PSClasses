@@ -8,7 +8,7 @@ enum ObjectType
 {
     TCollectionItemBase,
     TCButton,
-    TController,
+    //TController,
     TCPotentiometer,
     TModule,
     TModuleFilterBlock,

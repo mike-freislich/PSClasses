@@ -34,7 +34,7 @@ namespace PS
         {
             StringBuilder sb;
             sb.startArray("PARAMETERS")->add("\n");
-            int count = 0;
+            size_t count = 0;
             for (auto i : collectionData)
             {
                 if (Parameter *c = i.second)

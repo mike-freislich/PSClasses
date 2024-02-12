@@ -1,24 +1,20 @@
-// #define TEENSYDUINO 210
 #include "ArduinoStub.h"
-#include "timing.h"
-#include "Synth.h"
+#include "AudioStub.h"
+#include "init.h"
 
-PS::Synth *synth;
 
 void setup()
 {
-    synth = new PS::Synth();
-    synth->initialise("config.json");
+    initParameters();
+    initModules();
 }
 
 void loop()
 {
-    if (timer1.update())
-        synth->update();
+    Modules.update();
 }
 
 void exiting()
 {
-    synth->printConfig();    
-    delete synth;    
 }
+

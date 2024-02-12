@@ -87,7 +87,7 @@ class AudioSynthWaveformDc : public AudioStream
 public:
     AudioSynthWaveformDc() : AudioStream(0, NULL) {}
     void amplitude(float n) { LOG("DC-amplitude set to : " << n);}
-    void amplitude(float n, float milliseconds) {}
+    void amplitude(float n, float milliseconds) { }
     float read(void) { return 0; }
     virtual void update(void) {}
 };
@@ -139,13 +139,15 @@ class AudioSynthWaveform : public AudioStream
 {
 public:
     AudioSynthWaveform(void) : AudioStream(0, NULL) {}
-    void frequency(float freq) {}
+    void frequency(float freq) {LOG("WaveForm-freq set to : " << freq);}
     void phase(float angle) {}
-    void amplitude(float n) {}
+    void amplitude(float n) {LOG("WaveForm-amp set to : " << n);}
     void offset(float n) {}   
     void pulseWidth(float n) {}
     void begin(short t_type) {}
-    void begin(float t_amp, float t_freq, short t_type) {}
+    void begin(float t_amp, float t_freq, short t_type) {
+		LOG("WaveForm.begin( amp=" << t_amp << ", freq=" << t_freq << ", type=" << t_type << ")");
+	}
     void arbitraryWaveform(const int16_t *data, float maxFreq) {}
     virtual void update(void) {}
 };
@@ -154,7 +156,7 @@ class AudioSynthNoiseWhite : public AudioStream
 {
 public:
 	AudioSynthNoiseWhite() : AudioStream(0, NULL) {}
-	void amplitude(float n) {}	
+	void amplitude(float n) {LOG("WhiteNoise-amp set to : " << n);}	
 	virtual void update(void) {}
 };
 
@@ -162,7 +164,7 @@ class AudioSynthNoisePink : public AudioStream
 {
 public:
 	AudioSynthNoisePink() : AudioStream(0, NULL) {}	
-	void amplitude(float n) {}
+	void amplitude(float n) {LOG("PinkNoise-amp set to : " << n);}
 	virtual void update(void) {}
 };
 
@@ -179,9 +181,9 @@ class AudioFilterStateVariable: public AudioStream
 {
 public:
 	AudioFilterStateVariable() : AudioStream(2, NULL) {}
-	void frequency(float freq) {}
-	void resonance(float q) {}
-	void octaveControl(float n) {}
+	void frequency(float freq) {LOG("SVFilter-freq set to : " << freq);}
+	void resonance(float q) {LOG("SVFilter-res set to : " << q);}
+	void octaveControl(float n) {LOG("SVFilter-octaves set to : " << n);}
 	virtual void update(void) {}
 };
 
@@ -193,9 +195,9 @@ class AudioFilterLadder: public AudioStream
 {
 public:
 	AudioFilterLadder() : AudioStream(3, NULL) { };
-	void frequency(float FC) {}
-	void resonance(float reson) {}
-	void octaveControl(float octaves) {}
+	void frequency(float FC) {LOG("LadderFilter-freq set to : " << FC);}
+	void resonance(float reson) {LOG("LadderFilter-res set to : " << reson);}
+	void octaveControl(float octaves) {LOG("LadderFilter-octaves set to : " << octaves);}
 	void passbandGain(float passbandgain) {}
 	void inputDrive(float drv) {}
 	void interpolationMethod(AudioFilterLadderInterpolation im) {}

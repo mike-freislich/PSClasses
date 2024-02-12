@@ -21,7 +21,6 @@ public:
         if (it == collectionData.end())
         {
             printf("ERROR - Key [%s] not found!", key.c_str());
-            //throw std::out_of_range("Key not found!");
             return nullptr;
         }
         return it->second;
