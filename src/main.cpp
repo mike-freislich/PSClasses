@@ -7,10 +7,12 @@ void setup()
 {
     initParameters();
     initModules();
+    initControllers();
 }
 
 void loop()
 {
+    Controllers.update();
     Modules.update();
 }
 

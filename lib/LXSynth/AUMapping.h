@@ -2,14 +2,14 @@
 
 #ifdef __ARM_ARCH_7EM__
 #include <Audio.h>
+#include "AudioStub.h"
+#include <Wire.h>
+#include <SPI.h>
+#include <SD.h>
+#include <SerialFlash.h>
 #else
 #include "AudioStub.h"
 #endif
-
-// #include <Wire.h>
-// #include <SPI.h>
-// #include <SD.h>
-// #include <SerialFlash.h>
 
 // GUItool: begin automatically generated code
 AudioSynthWaveformDc     auDC_PITCHENV;  //xy=391.10931396484375,1512.1069087982178

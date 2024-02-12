@@ -89,10 +89,13 @@ enum ParmKeys
     voice_pan3 = 663,
 
     master_gain = 700,
-    master_pan = 701
+    master_pan = 701,
+
+    pressedShift = 800,
+    pressedEnter = 810
 };
 
-const char * parmKey_cstr(ParmKeys key)
+FLASHMEM const char * parmKey_cstr(ParmKeys key)
 {
     switch (key)
     {
@@ -184,6 +187,8 @@ const char * parmKey_cstr(ParmKeys key)
 
     case master_gain : return "master_gain";
     case master_pan : return "master_pan";
+    case pressedShift : return "pressedShift";
+    case pressedEnter : return "pressedEnter";
     default: return "unknown";
     }
 }

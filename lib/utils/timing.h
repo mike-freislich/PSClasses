@@ -6,10 +6,11 @@ uint32_t millis();
 void delay(uint32_t durationMS, bool allowYield = false);
 
 void delay(uint32_t durationMS, bool allowYield)
-{    
+{
     uint32_t start = millis();
-    while (millis() - start < durationMS) {            
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));        
+    while (millis() - start < durationMS)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
         if (allowYield)
             std::this_thread::yield();
     }
@@ -25,7 +26,10 @@ uint32_t millis()
 class SimpleTimer
 {
 public:
-    SimpleTimer(uint32_t d) {
+    SimpleTimer() { this->duration(1); }
+
+    SimpleTimer(uint32_t d)
+    {
         this->duration(d);
     }
 
@@ -34,10 +38,10 @@ public:
         _duration = d;
     }
 
-    uint32_t  getDuration() { return _duration; }    
+    uint32_t getDuration() { return _duration; }
 
     void start()
-    {        
+    {
         _start = millis();
         _running = true;
     }
@@ -64,14 +68,14 @@ public:
                 return true;
             }
         }
-        return false;        
+        return false;
     }
 
     bool isRunning() { return _running; }
 
 private:
-    uint32_t _start;   
-    uint32_t _duration; 
+    uint32_t _start;
+    uint32_t _duration;
     bool _running = false;
 
 } timer1(10), timer2(10), timer3(10);

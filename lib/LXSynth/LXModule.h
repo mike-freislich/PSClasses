@@ -26,13 +26,13 @@ public:
 
     virtual void afterAttachParameters() {}
 
-    LXModule *attachAudioUnits(const std::vector<AudioStream *> &audioUnits)
+    FLASHMEM LXModule *attachAudioUnits(const std::vector<AudioStream *> &audioUnits)
     {
         _audioUnits = audioUnits;
         return this;
     }
 
-    LXParameter *findParameter(ParmKeys key)
+    FLASHMEM LXParameter *findParameter(ParmKeys key)
     {
         for (auto &p : _parameters)
         {
@@ -53,22 +53,22 @@ public:
     LXEnvModulatorBank(ModKeys key) : LXModule(key) {}
     ItemType getType() override { return ItemType::TLXModulatorBank; }
 
-    LXEnvModulatorBank *attachEnvelopes(const std::vector<AudioEffectEnvelope *> &envelopes)
+    FLASHMEM LXEnvModulatorBank *attachEnvelopes(const std::vector<AudioEffectEnvelope *> &envelopes)
     {
         _envelopes = envelopes;
         return this;
     }
-    LXEnvModulatorBank *attachAmountDC(AudioSynthWaveformDc *amountDC)
+    FLASHMEM LXEnvModulatorBank *attachAmountDC(AudioSynthWaveformDc *amountDC)
     {
         _amountDC = amountDC;
         return this;
     }
-    LXEnvModulatorBank *attachBendDC(AudioSynthWaveformDc *bendDC)
+    FLASHMEM LXEnvModulatorBank *attachBendDC(AudioSynthWaveformDc *bendDC)
     {
         _bendDC = bendDC;
         return this;
     }
-    LXEnvModulatorBank *attachLFOWave(AudioSynthWaveformModulated *lfoWave)
+    FLASHMEM LXEnvModulatorBank *attachLFOWave(AudioSynthWaveformModulated *lfoWave)
     {
         _lfoWave = lfoWave;
         return this;
@@ -191,13 +191,13 @@ public:
 
     ItemType getType() override { return ItemType::TLXPulseWidthMod; }
 
-    LXPulseWidthMod *attachPWMWave(AudioSynthWaveform *wave)
+    FLASHMEM LXPulseWidthMod *attachPWMWave(AudioSynthWaveform *wave)
     {
         _wave = wave;
         return this;
     }
 
-    LXPulseWidthMod *attachAmp(AudioAmplifier *amp)
+    FLASHMEM LXPulseWidthMod *attachAmp(AudioAmplifier *amp)
     {
         _amp = amp;
         return this;
@@ -481,26 +481,26 @@ public:
     }
     ItemType getType() override { return ItemType::TLXVoiceMixer; }
 
-    void getStereoGainLR(float gain, float pan, float &left, float &right)
+    FLASHMEM void getStereoGainLR(float gain, float pan, float &left, float &right)
     {
         left = (1 - pan) * gain;
         right = (1 - left) * gain;
     }
 
-    float getVoicePan(uint8_t voice)
+    FLASHMEM float getVoicePan(uint8_t voice)
     {
         voice = clampf<uint8_t>(voice, 0, _voicePans.size());
         return _voicePans[voice]->getValue();
     }
 
-    float getVoiceGain(uint8_t voice)
+    FLASHMEM float getVoiceGain(uint8_t voice)
     {
         voice = clampf<uint8_t>(voice, 0, _voiceGains.size());
         return _voiceGains[voice]->getValue();
     }
 
-    float getMasterPan() { return _masterPan->getValue(); }
-    float getMasterGain() { return _masterGain->getValue(); }
+    FLASHMEM float getMasterPan() { return _masterPan->getValue(); }
+    FLASHMEM float getMasterGain() { return _masterGain->getValue(); }
 
     /**
      * @brief
@@ -508,7 +508,7 @@ public:
      * @param channel 4 channels : 0-3
      * @param position  L<<0.0 <<0.5>> 1.0>>R
      */
-    void voicePan(uint8_t voice, float position)
+    FLASHMEM void voicePan(uint8_t voice, float position)
     {
         if (voice >= 0 && voice < _voicePans.size())
         {
@@ -517,7 +517,7 @@ public:
         }
     }
 
-    void voiceGain(uint8_t voice, float value)
+    FLASHMEM void voiceGain(uint8_t voice, float value)
     {
         if (voice >= 0 && voice < _voiceGains.size())
         {
@@ -526,8 +526,8 @@ public:
         }
     }
 
-    void masterPan(float value) { _masterPan->setValue(clampf<float>(value, 0, 1.0f)); }
-    void masterGain(float value) { _masterGain->setValue(clampf<float>(value, 0, 1.5f)); }
+    FLASHMEM void masterPan(float value) { _masterPan->setValue(clampf<float>(value, 0, 1.0f)); }
+    FLASHMEM void masterGain(float value) { _masterGain->setValue(clampf<float>(value, 0, 1.5f)); }
 
     void update() override
     {

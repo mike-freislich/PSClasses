@@ -6,13 +6,12 @@
 #define PARM_BYTES 60
 
 using CallbackFuncPtr = void(*)(const char *);
-
 typedef std::vector<LXParameter *>LXParameterVector;
 
 class LXParameterList : public CollectionLite<LXParameter, ParmKeys>
 {
 public:    
-    void serialize(CallbackFuncPtr storeItem)
+    FLASHMEM void serialize(CallbackFuncPtr storeItem)
     {
         for (auto &p : items)
         {

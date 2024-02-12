@@ -1,11 +1,12 @@
 #pragma once
 #include "LXParameterList.h"
 #include "LXModuleList.h"
+#include "LXControllerList.h"
 #include "AUMapping.h"
 
 void storeParameter(const char *parm) { printf("storing : %s\n", parm); }
 
-void initParameters()
+FLASHMEM void initParameters()
 {
     // master gain
     Parameters.add(ParmKeys::master_gain)->setRange(0, 1)->setValue(1.0);
@@ -94,6 +95,11 @@ void initParameters()
     Parameters.add(ParmKeys::noise_level)->setRange(0,1)->setValue(0);
     Parameters.add(ParmKeys::noise_type)->setRange(0,1)->setValue(0);
 
+    // buttons
+    Parameters.add(ParmKeys::pressedShift)->setRange(0,1)->setValue(0);
+    Parameters.add(ParmKeys::pressedEnter)->setRange(0,1)->setValue(0);
+    
+    // SERIALIZE -----
     Parameters.serialize(&storeParameter);
 }
 
@@ -149,4 +155,17 @@ FLASHMEM void initModules()
     Modules.add<LXPartMixer>(ModKeys::PartMixer);
     Modules.add<LXWaveShaper>(ModKeys::Shaper);
     Modules.add<LXVoiceMixer>(ModKeys::VoiceMixer);
+}
+
+
+FLASHMEM void initControllers()
+{
+    Controllers.add<LXPotentiometer>(ContKeys::pot1)->attachParameters<LXPotentiometer>({aenv_attack, penv_attack, fenv_attack});        
+    Controllers.add<LXPotentiometer>(ContKeys::pot2)->attachParameters<LXPotentiometer>({aenv_hold, penv_hold, fenv_hold});
+    Controllers.add<LXPotentiometer>(ContKeys::pot3)->attachParameters<LXPotentiometer>({aenv_decay, penv_decay, fenv_decay});
+    Controllers.add<LXPotentiometer>(ContKeys::pot4)->attachParameters<LXPotentiometer>({aenv_sustain, penv_sustain, fenv_sustain});
+    Controllers.add<LXPotentiometer>(ContKeys::pot5)->attachParameters<LXPotentiometer>({aenv_release, penv_release, fenv_release});
+    Controllers.add<LXButton>(ContKeys::btnShift)->attachParameters<LXButton>({pressedShift});
+    Controllers.add<LXButton>(ContKeys::btnEnter)->attachParameters<LXButton>({pressedEnter});
+    Controllers.add<LXRotary>(ContKeys::rotA);
 }

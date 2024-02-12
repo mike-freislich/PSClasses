@@ -7,7 +7,7 @@ public:
     LXParameter(ParmKeys key) : CollectionLiteItem(key) {}
     ItemType getType() override { return ItemType::TLXParameter; }
 
-    LXParameter *setValue(float v)
+    FLASHMEM LXParameter *setValue(float v)
     {
         v = clampf(v, min_, max_);
 
@@ -20,31 +20,31 @@ public:
         return this;
     }
 
-    LXParameter *setValue(float v, float originMin, float originMax)
+    FLASHMEM LXParameter *setValue(float v, float originMin, float originMax)
     {
         setValue(map(v, originMin, originMax, min_, max_));
         return this;
     }
 
-    float getValue() { return value_; }
+    FLASHMEM float getValue() { return value_; }
 
-    LXParameter *setRange(float min, float max)
+    FLASHMEM LXParameter *setRange(float min, float max)
     {
         min_ = min;
         max_ = max;
         value_ = clampf(value_, min_, max_);
         return this;
     }
-    void getRange(float &min, float &max)
+    FLASHMEM void getRange(float &min, float &max)
     {
         min = min_;
         max = max_;
     }
 
-    float getMin() { return min_; }
-    float getMax() { return max_; }
+    FLASHMEM float getMin() { return min_; }
+    FLASHMEM float getMax() { return max_; }
 
-    bool changed(bool clearFlag)
+    FLASHMEM bool changed(bool clearFlag)
     {
         bool result = changed_;
 

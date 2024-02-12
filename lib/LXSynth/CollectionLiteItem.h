@@ -15,10 +15,15 @@ enum ItemType
     TLXPartMixer,
     TLXWaveShaper,
     TLXOscillator,
-    TLXVoiceMixer
+    TLXVoiceMixer,
+
+    TLXController,
+    TLXPotentiometer,
+    TLXButton,
+    TLXRotary
 };
 
-const char *ItemTypeToName(ItemType type)
+FLASHMEM const char *ItemTypeToName(ItemType type)
 {
     switch (type)
     {
@@ -35,6 +40,10 @@ const char *ItemTypeToName(ItemType type)
     case ItemType::TLXWaveShaper : return "LXWaveShaper";
     case ItemType::TLXOscillator : return "LXOscillator";
     case ItemType::TLXVoiceMixer : return "LXVoiceMixer";
+    case ItemType::TLXController : return "LXController";
+    case ItemType::TLXPotentiometer : return "LXPotentiometer";
+    case ItemType::TLXButton : return "LXButton";
+    case ItemType::TLXRotary : return "LXRotary";
     default: return "Unknown";
     }
 }
@@ -52,6 +61,4 @@ public:
     
     virtual void update() { }    
     //virtual void serialize(PS::StringBuilder *sb) {}
-
-protected:
 };
