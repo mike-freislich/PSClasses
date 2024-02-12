@@ -1,4 +1,6 @@
 #pragma once
+
+#ifndef __ARM_ARCH_7EM__
 #include <thread>
 #include <chrono>
 
@@ -23,20 +25,16 @@ uint32_t millis()
     return now.time_since_epoch().count();
 }
 
+#endif
+
 class SimpleTimer
 {
 public:
     SimpleTimer() { this->duration(1); }
 
-    SimpleTimer(uint32_t d)
-    {
-        this->duration(d);
-    }
+    SimpleTimer(uint32_t d) { this->duration(d); }
 
-    void duration(uint32_t d)
-    {
-        _duration = d;
-    }
+    void duration(uint32_t d) { _duration = d; }
 
     uint32_t getDuration() { return _duration; }
 
@@ -51,11 +49,9 @@ public:
         this->duration(duration);
         this->start();
     }
+    bool isRunning() { return _running; }
 
-    void stop()
-    {
-        _running = false;
-    }
+    void stop() { _running = false; }    
 
     bool update()
     {
@@ -70,12 +66,14 @@ public:
         }
         return false;
     }
-
-    bool isRunning() { return _running; }
-
+    
 private:
     uint32_t _start;
     uint32_t _duration;
     bool _running = false;
 
-} timer1(10), timer2(10), timer3(10);
+}; 
+
+#ifndef __ARM_ARCH_7EM__
+SimpleTimer timer1(10), timer2(10), timer3(10);
+#endif

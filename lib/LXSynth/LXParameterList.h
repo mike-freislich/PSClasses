@@ -3,7 +3,7 @@
 #include "LXParameter.h"
 #include "ParmKeys.h"
 
-#define PARM_BYTES 60
+#define PARM_BYTES 70
 
 using CallbackFuncPtr = void(*)(const char *);
 typedef std::vector<LXParameter *>LXParameterVector;

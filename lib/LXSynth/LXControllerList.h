@@ -5,7 +5,9 @@
 
 class LXControllerList : public CollectionLite<LXController, ContKeys>
 {
+public:
+    // const char *serialize()
+    // {           
+    // }
 
-};
-
-LXControllerList Controllers;
+} Controllers;

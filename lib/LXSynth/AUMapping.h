@@ -2,7 +2,6 @@
 
 #ifdef __ARM_ARCH_7EM__
 #include <Audio.h>
-#include "AudioStub.h"
 #include <Wire.h>
 #include <SPI.h>
 #include <SD.h>

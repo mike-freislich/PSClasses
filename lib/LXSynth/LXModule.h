@@ -17,7 +17,7 @@ public:
         _parameters.clear();
         for (auto pkey : parmKeys)
         {
-            printf("Module: %s -> Parameter : %s\n", this->typeName(), parmKey_cstr(pkey));
+            //printf("Module: %s -> Parameter : %s\n", this->typeName(), parmKey_cstr(pkey));
             _parameters.push_back(Parameters[pkey]);
         }
         afterAttachParameters();

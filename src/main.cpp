@@ -1,19 +1,17 @@
 #include "ArduinoStub.h"
-#include "AudioStub.h"
-#include "init.h"
+#include "LXSynth.h"
 
+LXSynth synth;
 
 void setup()
 {
-    initParameters();
-    initModules();
-    initControllers();
+    
+    
 }
 
 void loop()
 {
-    Controllers.update();
-    Modules.update();
+    synth.update();
 }
 
 void exiting()

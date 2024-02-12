@@ -1,7 +1,9 @@
 #pragma once
 #include <cstdio>
 #include "timing.h"
+
 #define FLASHMEM
+
 #define LOOPDURATION 5000
 #define REVIEWTIME 250
 

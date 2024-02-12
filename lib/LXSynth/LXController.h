@@ -29,22 +29,44 @@ public:
 
     // virtual void afterAttachParameters() {}
     virtual void update() override
-    {        
+    {
         if (checkDebounce())
             updateController();
     }
     virtual void updateController()
-    {        
+    {
         int v = readValue();
         for (auto p : _parameters)
             p->setValue(mapToParameterValue(p, v));
     }
 
-    LXController *debounceMs(uint32_t durationMs)
+    template <typename T>
+    T *setup(uint16_t pin, uint32_t debounceMS, int rangeMin, int rangeMax)
+    {
+        debounceMs(debounceMS);
+        setPin(pin);
+        setRange(rangeMin, rangeMax);
+        return static_cast<T *>(this);
+    }
+
+    FLASHMEM LXController *debounceMs(uint32_t durationMs)
     {
         _debounceTimer.duration(durationMs);
         return this;
     }
+
+    FLASHMEM void setPin(uint16_t pin) { _pin = pin; }
+
+    FLASHMEM void setRange(int min, int max)
+    {
+        _min = min;
+        _max = max;
+    }
+
+protected:
+    std::vector<LXParameter *> _parameters;
+    int _min = 0, _max = 1;
+    uint16_t _pin = 0;
 
     /**
      * @brief
@@ -52,17 +74,13 @@ public:
      * @return true
      * @return false
      */
-    bool checkDebounce() { return _debounceTimer.update(); }
+    FLASHMEM bool checkDebounce() { return _debounceTimer.update(); }
 
-protected:
-    std::vector<LXParameter *> _parameters;
-    int _min = 0, _max = 1;
-
-    float mapToParameterValue(LXParameter *p, int controllerValue)
+    FLASHMEM float mapToParameterValue(LXParameter *p, int controllerValue)
     {
         float pmin, pmax;
         p->getRange(pmin, pmax);
-        float v = map((float)controllerValue, (float)_min, (float)_max, pmin, pmax);        
+        float v = map((float)controllerValue, (float)_min, (float)_max, pmin, pmax);
         return v;
     }
 
@@ -76,53 +94,3 @@ private:
     SimpleTimer _debounceTimer;
 };
 
-class LXPotentiometer : public LXController
-{
-public:
-    LXPotentiometer(ContKeys key) : LXController(key)
-    {
-        debounceMs(5); // default pot debounce
-        _min = 10;
-        _max = 1010;
-    }
-    ItemType getType() override { return ItemType::TLXPotentiometer; }
-
-    // void updateController() override { LXController::updateController(); }
-
-private:
-    // int readValue() override { return LXController::readValue(); }
-};
-
-class LXButton : public LXController
-{
-public:
-    LXButton(ContKeys key) : LXController(key)\
-    {
-        debounceMs(30); // default button debounce
-        _min = 0;
-        _max = 1;
-    }
-    ItemType getType() override { return ItemType::TLXButton; }
-
-    // void updateController() override { LXController::updateController(); }
-
-private:
-    // int readValue() override { return LXController::readValue(); }
-};
-
-class LXRotary : public LXController
-{
-public:
-    LXRotary(ContKeys key) : LXController(key)
-    {
-        debounceMs(5); // default Rotary debounce
-        _min = -1;
-        _max = 1;
-    }
-    ItemType getType() override { return ItemType::TLXRotary; }
-
-    // void updateController() override { LXController::updateController(); }
-
-private:
-    // int readValue() override { return LXController::readValue(); }
-};
